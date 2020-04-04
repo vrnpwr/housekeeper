@@ -22,7 +22,7 @@ Route::get('/home', 'DashboardController@index')->name('index')->middleware('aut
 Route::resource('/property','PropertyController')->middleware('auth');
 Route::Post('/property/update', 'PropertyController@update_property')->middleware('auth');
 Route::delete('/property/{id}', 'PropertyController@destroy')->middleware('auth');
-Route::Post('/property/checklist/update', 'PropertyController@update_checklist')->middleware('auth');
+Route::Post('/property/update/checklist', 'PropertyController@update_checklist')->middleware('auth');
 /*###############Project###############*/
 Route::resource('/project','ProjectController')->middleware('auth');
 Route::get('/project/{id}/editproject','ProjectController@edit_project')->middleware('auth');

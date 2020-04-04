@@ -11,6 +11,84 @@
 	}
 
 	.mdtp__wrapper {bottom: 120px!important;}
+
+	/* ############The switch - the box around the slider############ */
+	.switch {
+		position: relative;
+		display: inline-block;
+		width: 60px;
+		height: 34px;
+		float:right;
+	}
+
+	/* Hide default HTML checkbox */
+	.switch input {display:none;}
+
+	/* The slider */
+	.slider {
+		position: absolute;
+		cursor: pointer;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: #ccc;
+		-webkit-transition: .4s;
+		transition: .4s;
+	}
+
+	.slider:before {
+		position: absolute;
+		content: "";
+		height: 26px;
+		width: 26px;
+		left: 4px;
+		bottom: 4px;
+		background-color: white;
+		-webkit-transition: .4s;
+		transition: .4s;
+	}
+
+	input.default:checked + .slider {
+		background-color: #444;
+	}
+	input.primary:checked + .slider {
+		background-color: #2196F3;
+	}
+	input.success:checked + .slider {
+		background-color: #8bc34a;
+	}
+	input.info:checked + .slider {
+		background-color: #3de0f5;
+	}
+	input.warning:checked + .slider {
+		background-color: #FFC107;
+	}
+	input.danger:checked + .slider {
+		background-color: #f44336;
+	}
+
+	input:focus + .slider {
+		box-shadow: 0 0 1px #2196F3;
+	}
+
+	input:checked + .slider:before {
+		-webkit-transform: translateX(26px);
+		-ms-transform: translateX(26px);
+		transform: translateX(26px);
+	}
+
+	/* Rounded sliders */
+	.slider.round {
+		border-radius: 34px;
+	}
+
+	.slider.round:before {
+		border-radius: 50%;
+	}
+	/* ############The switch - the box around the slider############ */
+
+
 </style>
 
 
@@ -113,6 +191,43 @@
 
 								<div class="tab-pane fade" id="checklist" role="tabpanel" aria-labelledby="custom-tabs-three-messages-tab">
 									<h2>Checklist</h2>
+
+									<div class="col-md-12">
+										<div class="card" style="margin:50px 0">
+											<!-- Default panel contents -->
+											@if(!$property->checklist_id)
+											<div class="card-body" class="alert-box">
+
+												<div class="alert alert-warning alert-dismissible">
+													<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+													<h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
+													You did not have any Checklist for this Property.
+												</div>
+
+											</div>
+											@endif
+											<div class="card-header">Checkbox to Round Switch</div>
+
+											<ul class="list-group list-group-flush">
+												@foreach($checklists as $key=>$value)
+												<li class="list-group-item">
+													{{ $value->title }}
+													<label class="switch ">
+														@if($value->id == $property->checklist_id && $property->checklist_id)
+														<input value="{{ $value->id }}" checked="" id ="checklist_id" name="checklist_id[]" type="radio" class="checklist-radio default">
+														@else
+														<input value="{{ $value->id }}"  id ="checklist_id" name="checklist_id[]" type="radio" class="checklist-radio default">
+														@endif
+														<span class="slider round"></span>
+													</label>
+												</li>												
+												@endforeach
+											</ul>
+										</div> 
+									</div>
+
+
+
 								</div>
 
 								<div class="tab-pane fade" id="cleaner" role="tabpanel" aria-labelledby="custom-tabs-three-settings-tab">
@@ -249,9 +364,6 @@
       					window.location.reload();
       					$(".print-error-msg").css('display','none');
       				})
-      			}else{
-      				console.log(data.error);
-      				printErrorMsg(data.error);
       			}
 
       		},
@@ -281,7 +393,63 @@
 
   });
 
-	/* Form Validation */
+	/* Below code save the checklist only one checklist will save for one property */
+	$('.checklist-radio').on('change',function(event) {
+		event.preventDefault();
+		var check = $(this).is(':checked');
+		if (check) {	
+			var user_id = $('#user_id').val();
+			var post_id = $('#post_id').val();
+			var checklist_id = this.value;
+			updateChecklist(post_id,user_id, checklist_id);
+		}
+	});
+
+	function updateChecklist(post_id,user_id, checklist_id){
+		var url='{{ url("property/update/checklist") }}';
+		$.ajax({
+			type: 'POST',
+			url: url,
+			headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+			data:{post_id,user_id, checklist_id},
+			success:function(data){
+				const Toast = Swal.mixin({
+					toast: true,
+					position: 'top-end',
+					showConfirmButton: false,
+					timer: 3000,
+					timerProgressBar: true,
+					onOpen: (toast) => {
+						toast.addEventListener('mouseenter', Swal.stopTimer)
+						toast.addEventListener('mouseleave', Swal.resumeTimer)
+					}
+				})
+
+				Toast.fire({
+					icon: 'success',
+					title: 'Checklist Updated successfully'
+				})
+
+				setTimeout(function() {
+					$(".alert").alert('close');
+				}, 2000);
+
+
+			},
+
+			error: function (jqXHR, textStatus, errorThrown) 
+			{  
+				swal({
+					title: "Something error",
+					text: "Check input fields!",
+					icon: "warning",
+					buttons: true,
+					dangerMode: true,
+				})
+			}
+
+		})
+	}
 
 	
 

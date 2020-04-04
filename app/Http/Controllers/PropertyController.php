@@ -36,18 +36,9 @@ class PropertyController extends Controller
 
     public function update_checklist(Request $request){
         /* Get last checklist id*/
-        if (isset($_POST['checklist_id'])) {
-            $array = $_POST['checklist_id'];
-            $count = count($array);
-            dd($count);
-            if ($count >= 1) {
-                $checklist = $array[$count-1];
-                dd($checklist);
-            }
-        }  else{
-            print_r("Nothig select");
-        }    
-
+        $data = Property::find($request->post_id);        
+        $data->checklist_id = $request->checklist_id;
+        $data->save();
     }
 
     /**
@@ -118,7 +109,8 @@ class PropertyController extends Controller
     public function edit(Property $property)
     {
         $user = Auth::user();
-        return view('admin.property.edit',compact('user','property'));
+        $checklists = CheckList::all();
+        return view('admin.property.edit',compact('user','property','checklists'));
     }
 
     /**
