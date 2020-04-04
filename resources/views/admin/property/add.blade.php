@@ -134,9 +134,9 @@
 										<li class="nav-item">
 											<a class="nav-link" id="calender-tab" data-toggle="pill" href="#calender" role="tab" aria-controls="calender" aria-selected="false">Calenders</a>
 										</li>
-										<li class="nav-item">
+										<!-- <li class="nav-item">
 											<a class="nav-link" id="checklist-tab" data-toggle="pill" href="#checklist" role="tab" aria-controls="checklist" aria-selected="false">Checklists</a>
-										</li>
+										</li> -->
 										<li class="nav-item">
 											<a class="nav-link" id="cleaner-tab" data-toggle="pill" href="#cleaner" role="tab" aria-controls="cleaner" aria-selected="false">Cleaners</a>
 										</li>
@@ -183,93 +183,94 @@
 
 											</div>
 										</div>
+										{{-- 
+											<div class="tab-pane fade" id="checklist" role="tabpanel" aria-labelledby="custom-tabs-three-messages-tab">
+												<h2>Checklist</h2>
 
-										<div class="tab-pane fade" id="checklist" role="tabpanel" aria-labelledby="custom-tabs-three-messages-tab">
-											<h2>Checklist</h2>
+												<div class="col-md-12">
+													<div class="card" style="margin:50px 0">
+														<!-- Default panel contents -->
+														<div class="card-header">Checkbox to Round Switch</div>
 
-											<div class="col-md-12">
-												<div class="card" style="margin:50px 0">
-													<!-- Default panel contents -->
-													<div class="card-header">Checkbox to Round Switch</div>
+														<ul class="list-group list-group-flush">
+															@foreach($checklists as $key=>$value)
+															<li class="list-group-item">
+																{{ $value->title }}
+																<label class="switch ">
+																	<input value="{{ $value->id }}" id ="checklist_id" name="checklist_id[]" type="radio" class="checklist-radio default">
+																	<span class="slider round"></span>
+																</label>
+															</li>												
+															@endforeach
+														</ul>
+													</div> 
+												</div>
 
-													<ul class="list-group list-group-flush">
-														@foreach($checklists as $key=>$value)
-														<li class="list-group-item">
-															{{ $value->title }}
-															<label class="switch ">
-																<input value="{{ $value->id }}" id ="checklist_id" name="checklist_id[]" type="checkbox" class="default">
-																<span class="slider round"></span>
-															</label>
-														</li>												
-														@endforeach
-													</ul>
-												</div> 
+
+
+											</div>
+
+											--}}
+											<div class="tab-pane fade" id="cleaner" role="tabpanel" aria-labelledby="custom-tabs-three-settings-tab">
+												<h2>Cleaners</h2>
 											</div>
 
 
+											<div class="tab-pane fade" id="checkin" role="tabpanel" aria-labelledby="custom-tabs-three-settings-tab">
 
-										</div>
+												<div class="row">
+													<div class="col-md-6">
+														<div class="form-group">
+															<label for="check_in">Check In / Check Out</label>
+															<input type="text" value="" name="check_in" id="check_in" class="form-control timepicker">
 
-										<div class="tab-pane fade" id="cleaner" role="tabpanel" aria-labelledby="custom-tabs-three-settings-tab">
-											<h2>Cleaners</h2>
-										</div>
-
-
-										<div class="tab-pane fade" id="checkin" role="tabpanel" aria-labelledby="custom-tabs-three-settings-tab">
-
-											<div class="row">
-												<div class="col-md-6">
-													<div class="form-group">
-														<label for="check_in">Check In / Check Out</label>
-														<input type="text" value="" name="check_in" id="check_in" class="form-control timepicker">
-
+														</div>
 													</div>
-												</div>
-												<div class="col-md-6">
-													<div class="form-group">
+													<div class="col-md-6">
+														<div class="form-group">
 
 
-														<label for="check_out">Check Out</label>
-														<input type="text" name="check_out" value="" id="check_out" class="form-control timepicker">
+															<label for="check_out">Check Out</label>
+															<input type="text" name="check_out" value="" id="check_out" class="form-control timepicker">
 
+														</div>
 													</div>
 												</div>
 											</div>
+
+
+											<div class="tab-pane fade" id="payments" role="tabpanel" aria-labelledby="custom-tabs-three-settings-tab">
+												<h2>Payments</h2>
+											</div>
+
 										</div>
-
-
-										<div class="tab-pane fade" id="payments" role="tabpanel" aria-labelledby="custom-tabs-three-settings-tab">
-											<h2>Payments</h2>
-										</div>
-
 									</div>
+									<!-- /.card -->
+
+									<!-- Error Messages -->
+									<div class="alert alert-danger print-error-msg" style="display:none">
+										<ul></ul>
+									</div>
+
 								</div>
-								<!-- /.card -->
+							</form>
+							<!-- ######################FORM AREA###################### -->
 
-								<!-- Error Messages -->
-								<div class="alert alert-danger print-error-msg" style="display:none">
-									<ul></ul>
-								</div>
-
-							</div>
-						</form>
-						<!-- ######################FORM AREA###################### -->
-
+						</div>
 					</div>
+
 				</div>
+
 
 			</div>
 
 
-		</div>
 
 
 
-
-
-	</div><!-- /.container-fluid -->
-</section>
-<!-- /.content -->
+		</div><!-- /.container-fluid -->
+	</section>
+	<!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
 
@@ -382,6 +383,14 @@
   });
 
 	/* Form Validation */
+
+	$('.checklist-radio').on('change',function(event) {
+		event.preventDefault();
+		var check = $(this).is(':checked');
+		if (check) {		
+
+		}
+	});
 
 
 
