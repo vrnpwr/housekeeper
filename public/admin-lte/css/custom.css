@@ -1,0 +1,260 @@
+.error{color:red;width:100%;float:left;}
+span.required, .verify_account{color:red;}
+.label_desc{float: left;width: 100%;}
+.confirm_email{    display: table;margin: 245px auto;padding: 50px;background: #fafafa;}
+.add_property{float:right;}
+.edit_image{display:none;}
+.color_property{width: 80px;width: 80px;float: left;height: 20px;position: absolute;right: 39px;top: 40px;}
+.img_div{position: relative;width: 112px;}
+.img_div .fa-times{position: absolute;right: 0;top: 4px;color: #f93737;font-size: 17px;cursor: pointer;}
+.add_new{position: absolute;top: 30px;}
+.remove.btn-danger{position: absolute;top: 30px;padding: 5px 7px;}
+.img_div1{position: relative;}
+.img_div1 .fa-times{position: absolute;right: 4px;color: #d22e2e;font-size: 14px;cursor: pointer;}
+.list_checklists{margin: 0;padding: 0;}
+.list_checklists li{list-style-type: none;border: 1px solid #ddd;padding: 10px; border-radius: 15px;margin-bottom: 15px;}
+.radio_switch{float:right;}
+
+
+.el-switch > input[type="checkbox"]:checked + .el-switch-style.before_css:before {
+    left: 50%;
+}
+
+/** Delete Confirmation **/
+
+.modal-confirm {		
+		color: #636363;
+		width: 400px;
+	}
+	.modal-confirm .modal-content {
+		padding: 20px;
+		border-radius: 5px;
+		border: none;
+        text-align: center;
+		font-size: 14px;
+	}
+	.modal-confirm .modal-header {
+		border-bottom: none;   
+        position: relative;
+	}
+	.modal-confirm h4 {
+		text-align: center;
+		font-size: 26px;
+		margin: 0 auto;
+	}
+	.modal-confirm .close {
+        position: absolute;
+		top: -5px;
+		right: -2px;
+	}
+	.modal-confirm .modal-body {
+		color: #999;
+	}
+	.modal-confirm .modal-footer {
+		border: none;
+		text-align: center;		
+		border-radius: 5px;
+		font-size: 13px;
+		padding: 10px 45px 25px;
+	}
+	.modal-confirm .modal-footer a {
+		color: #999;
+	}		
+	.modal-confirm .icon-box {
+		width: 80px;
+		height: 80px;
+		margin: 0 auto;
+		border-radius: 50%;
+		z-index: 9;
+		text-align: center;
+		border: 3px solid #f15e5e;
+	}
+	.modal-confirm .icon-box i {
+		color: #f15e5e;
+		font-size: 46px;
+		display: inline-block;
+		margin-top: 13px;
+	}
+    .modal-confirm .btn {
+        color: #fff;
+        border-radius: 4px;
+		background: #60c7c1;
+		text-decoration: none;
+		transition: all 0.4s;
+        line-height: normal;
+		min-width: 120px;
+        border: none;
+		min-height: 40px;
+		border-radius: 3px;
+		margin: 0 5px;
+		outline: none !important;
+    }
+	.modal-confirm .btn-info {
+        background: #c1c1c1;
+    }
+    .modal-confirm .btn-info:hover, .modal-confirm .btn-info:focus {
+        background: #a8a8a8;
+    }
+    .modal-confirm .btn-danger {
+        background: #f15e5e;
+    }
+    .modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+        background: #ee3535;
+    }
+	
+	.mdtp__wrapper {bottom: 120px!important;}
+
+	#same_day_cleaning_window_box{margin-top: 38px;}
+	.hidden{display:none;}
+	#property_default_checklist_box{margin-top: 38px;}
+	.date_error{margin-bottom: 10px;}
+	.project_list{list-style-type:none;padding-left: 0;}
+	.pull-right{float:right;}
+	.project_list li{margin-bottom: 30px;background-color: #fafafa;padding: 20px;}
+	/* .fc-day-grid-event{padding: 20px 7px 7px!important;} */
+	.start_date_popup{ font-size: 28px;margin-bottom: 20px;float: left;width: 100%;}
+	.property_name_popup{margin: 20px auto;float: left;width: 100%;font-size: 19px;text-decoration: underline;}
+	.fc-desc{width: 83px;padding: 0px 6px;background: #ddd;margin-bottom: 3px}
+	.edit_project{text-align: right;float: right;margin-top: 10px;}
+	.edit_image {display:none!important;}
+	
+	/** Processing Tab **/
+	
+	.process-step .btn:focus{outline:none}
+	.process{display:table;width:100%;position:relative}
+	.process-row{display:table-row}
+	.process-step button[disabled]{opacity:1 !important;filter: alpha(opacity=100) !important}
+	.process-row:before{top:40px;bottom:0;position:absolute;content:" ";width:100%;height:1px;background-color:#ccc;z-order:0}
+	.process-step{display:table-cell;text-align:center;position:relative}
+	.process-step p{margin-top:4px}
+	.btn-circle{width:80px;height:80px;text-align:center;font-size:12px;border-radius:50%}
+	#search_summary{width: 340px;background-color: #fafafa;padding: 14px;border-radius: 13px;padding-bottom: 50px;}
+	#search_summary li{border-bottom: 1px solid #ddd;line-height: 2.5;}
+	.bath-bed{width: 180px;float: right;}
+
+
+/*Hide all except first fieldset*/
+#msform fieldset:not(:first-of-type) {
+    display: none;
+}
+
+
+
+/*buttons*/
+#msform .action-button {
+    width: 100px;
+    background: #28a745;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+	float:right;
+}
+
+#msform .action-button:hover, #msform .action-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #28a745;
+}
+
+#msform .action-button-previous {
+    width: 100px;
+    background: #C5C5F1;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+	float:left;
+}
+
+#msform .action-button-previous:hover, #msform .action-button-previous:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #C5C5F1;
+}
+
+
+
+/*progressbar*/
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    /*CSS counters to number the steps*/
+    counter-reset: step;
+}
+
+#progressbar li {
+    list-style-type: none;
+    color: #000;
+    text-transform: uppercase;
+    font-size: 15px;
+    width: 24.33%;
+    float: left;
+    position: relative;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+#progressbar li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 24px;
+    height: 24px;
+    line-height: 22px;
+    display: block;
+    font-size: 12px;
+    color: #333;
+    background: #ffffff;
+    border-radius: 25px;
+    margin: 0 auto 10px auto;
+    border: 1px solid #343a40;
+}
+
+/*progressbar connectors*/
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: white;
+    position: absolute;
+    left: -50%;
+    top: 9px;
+    z-index: -1; /*put it behind the numbers*/
+}
+
+#progressbar li:first-child:after {
+    /*connector not needed before the first step*/
+    content: none;
+}
+
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+#progressbar li.active:before, #progressbar li.active:after {
+    background: #343a40;
+    color: white;
+}
+#msform fieldset{width: 100%;}
+#msform{min-height: 361px;}
+#progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: lightgray;
+    position: absolute;
+    left: 0;
+    top: 13px;
+    z-index: -1;
+}
+
+#progressbar li.active:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: lightgray;
+    position: absolute;
+    left: 0;
+    top: 13px;
+    z-index: -1;
+}
