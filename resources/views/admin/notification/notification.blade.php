@@ -109,7 +109,7 @@
 							@include('elements.notification_if')
 							@else
 
-							@include('elemets.notification_else')
+							@include('elements.notification_else')
 
 
 							@endif

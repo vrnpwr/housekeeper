@@ -38,6 +38,7 @@ class ProjectController extends Controller
         return !empty($value[0]);
       });
       $pendings = $pending;
+      
             // $pendings = array_filter($value);
       return view('admin.project.view',compact('user','pendings','projects'));
     }
@@ -141,7 +142,11 @@ class ProjectController extends Controller
     {
       $user = Auth::user();
       $selectedProperty = Property::find($project->property_id); 
+      // if (is_null($selectedProperty) {
+      //   return response()->json(["message" => "Property not found"], 404);
+      // }
       $selectedChecklist = CheckList::find($project->checklist_id);
+      
       $properties = Property::all();
       $checklists = CheckList::all();
       return view('admin.project.edit',compact('user','selectedProperty','project','properties','checklists','selectedChecklist'));

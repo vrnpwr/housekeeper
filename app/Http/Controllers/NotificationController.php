@@ -26,9 +26,6 @@ class NotificationController extends Controller
             $notifications = json_decode($notifications->notification);
         }
 
-
-
-
         /* Create a array for options */
         $options = array();
 
@@ -92,27 +89,27 @@ class NotificationController extends Controller
         foreach ($_POST['notification'] as $key => $value) {
 
             if(!isset($value['notification'])){
-             $_POST['notification'][$key]['notification'] = 0;
-         }
+               $_POST['notification'][$key]['notification'] = 0;
+           }
 
-         if(!isset($value['email'])){
-           $_POST['notification'][$key]['email'] = 0;
+           if(!isset($value['email'])){
+             $_POST['notification'][$key]['email'] = 0;
+         }
+         if(!isset($value['mobile'])){
+           $_POST['notification'][$key]['mobile'] = 0;
        }
-       if(!isset($value['mobile'])){
-         $_POST['notification'][$key]['mobile'] = 0;
+
+       if(!isset($value['sms'])){
+         $_POST['notification'][$key]['sms'] = 0;
      }
 
-     if(!isset($value['sms'])){
-       $_POST['notification'][$key]['sms'] = 0;
-   }
-
-}
+ }
 
 
 
-$user_id =Auth::user()->id;
-$check = DB::table('notifications')->where('user_id',$user_id)->get();
-if (!count($check) == 0 ) { 
+ $user_id =Auth::user()->id;
+ $check = DB::table('notifications')->where('user_id',$user_id)->get();
+ if (!count($check) == 0 ) { 
     $post_id = DB::table('notifications')->where('user_id',$user_id)->first();    
     $post_id = $post_id->id;
     $data = Notification::findOrFail($post_id);

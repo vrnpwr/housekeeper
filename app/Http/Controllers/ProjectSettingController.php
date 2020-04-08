@@ -19,7 +19,10 @@ class ProjectSettingController extends Controller
         $user = Auth::user();
         $user_id = Auth::user()->id;
         $projectSettings = DB::table('project_settings')->select('project_settings')->where('user_id', $user_id)->first();
-        $projectSettings = json_decode($projectSettings->project_settings);
+        if (!is_null($projectSettings)) {
+            $projectSettings = json_decode($projectSettings->project_settings);
+        }
+        
         $options = array();
 
         $options[0]['title'] = "Enable Direct Assign";
@@ -40,7 +43,7 @@ class ProjectSettingController extends Controller
         $options[3]['description'] = "Require cleaner to check each item off your checklist before completing the project.";
         $options[3]['key']= "checklists";
 
-
+        
         /* Create a array for options */
         return view('admin.project_setting.project_setting',compact('user','projectSettings','options'));
     }
