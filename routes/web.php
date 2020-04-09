@@ -58,7 +58,12 @@ Route::resource('/notification','NotificationController')->middleware('auth');
 /* ####################### PROJECT SETTINGS ####################### */
 Route::resource('/project-settings','ProjectSettingController')->middleware('auth');
 
+/*########################## Teams Route ########################*/
+/*Invite*/
+Route::resource('/invite','InviteController')->middleware('auth');
 
+/* Cleaner */
+Route::resource('/cleaner', 'CleanerController')->middleware('auth');
 
 /*################ TESTING ROUTES #################*/
 

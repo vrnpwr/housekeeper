@@ -111,13 +111,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ url('/mychecklists') }}" class="nav-link">
+                <a href="{{ url('/invite') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Invites</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ url('/mychecklists') }}" class="nav-link">
+                <a href="{{ url('#') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Cleaners</p>
                 </a>
