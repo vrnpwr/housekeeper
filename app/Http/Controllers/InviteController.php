@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Invite;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+
 class InviteController extends Controller
 {
     /**
@@ -15,8 +16,7 @@ class InviteController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return view('admin.team.invites.view',compact('user'));
-
+        return view('admin.team.invites.view', compact('user'));
     }
 
     /**
@@ -26,7 +26,6 @@ class InviteController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**

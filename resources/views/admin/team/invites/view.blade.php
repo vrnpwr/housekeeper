@@ -6,7 +6,7 @@
 @push('styles')
 
 <style type="text/css">
-	
+
 </style>
 
 
@@ -46,7 +46,28 @@
 					</div>
 					<!-- /.card-header -->
 					<div class="card-body">
-
+						<table id="example1" class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Role</th>
+									<th>Email</th>
+									<th>Invitation Code</th>
+									<th>Phone No</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Varun</td>
+									<td>fhdj</td>
+									<td>fsdf</td>
+									<td>dsfds</td>
+									<td>fdsf</td>
+									<td>dsfsd</td>
+								</tr>
+							</tbody>
+						</table>
 
 					</div>
 					<!-- /.card-body -->

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Cleaner;
+use App\Property;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class CleanerController extends Controller
 {
@@ -26,7 +28,8 @@ class CleanerController extends Controller
     public function create()
     {
         $user = Auth::user();
-        return view('admin.team.cleaner.add',compact('user'));
+        $properties = Property::all();
+        return view('admin.team.cleaner.add', compact('user', 'properties'));
     }
 
     /**

@@ -6,11 +6,13 @@
 @push('styles')
 
 <style type="text/css">
-	.add-property{
+	.add-property {
 		float: right;
 	}
 
-	.mdtp__wrapper {bottom: 120px!important;}
+	.mdtp__wrapper {
+		bottom: 120px !important;
+	}
 </style>
 
 
@@ -74,7 +76,9 @@
 									<div class="form-group">
 										<label>Property</label>
 										<div class="select2-purple">
-											<select id="property_id" class="select2" name="property_id[]" multiple="multiple" data-placeholder="Select Property" data-dropdown-css-class="select2-purple" style="width: 100%;">
+											<select id="property_id" class="select2" name="property_id[]" multiple="multiple"
+												data-placeholder="Select Property" data-dropdown-css-class="select2-purple"
+												style="width: 100%;">
 												@foreach($properties as $key=>$property)
 												<option value="{{ $property->id }}">{{ $property->property_name }}</option>
 												@endforeach
@@ -90,7 +94,7 @@
 									<label>Make Checklist Public</label>
 								</div>
 
-								<div class="col-2">								
+								<div class="col-2">
 									<button type="button" class="add_new btn btn-success mt-4"><i class="fas fa-plus"></i></button>
 								</div>
 
@@ -115,12 +119,13 @@
 
 									</div>
 									<div class="col-md-2">
-										<button type="button" class="remove-btn btn btn-danger mt-4"><i class="fas fa-trash-alt"></i></button>
+										<button type="button" class="remove-btn btn btn-danger mt-4"><i
+												class="fas fa-trash-alt"></i></button>
 
 									</div>
 
 								</div>
-								<div  id="container">
+								<div id="container">
 
 								</div>
 							</div>

@@ -10,7 +10,8 @@
 <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
 <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
 <script src="https://unpkg.com/filepond-plugin-image-crop/dist/filepond-plugin-image-crop.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js">
+</script>
 <script src="https://unpkg.com/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.js"></script>
 
 <!-- ####################################### FilePond Footer #################################### -->
@@ -156,5 +157,3 @@ PondManager.init();
 </script>
 
 @stack('script')
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkSvueCGWz_a316NvJf7oDC6VD-MGwkOs&libraries=places&callback=initAutocomplete"
-async defer></script>
