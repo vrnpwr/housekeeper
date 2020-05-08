@@ -18,7 +18,16 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+
 Route::prefix('/user')->group( function() {
     Route::post('/login','api\admin\LoginController@login');
-    Route::middleware('auth:api')->get('/all', 'api\admin\user\UserController@index');
+    Route::post('/register','api\admin\LoginController@register');
+
+    // Password reset
+
+    Route::post('create', 'api\admin\PasswordResetController@create');
+    Route::get('find/{token}', 'api\admin\PasswordResetController@find');
+    Route::post('reset', 'api\admin\PasswordResetController@reset');
+
+    // Route::get('/all', 'api\admin\user\LoginController@all')->middleware('auth:api');
 });
