@@ -25,9 +25,9 @@ Route::prefix('/user')->group( function() {
 
     // Password reset
 
-    Route::post('create', 'api\admin\PasswordResetController@create');
-    Route::get('find/{token}', 'api\admin\PasswordResetController@find');
-    Route::post('reset', 'api\admin\PasswordResetController@reset');
+    Route::post('reset_password_request', 'api\admin\PasswordResetController@create');
+    Route::get('find_reset_token/{token}', 'api\admin\PasswordResetController@find');
+    Route::post('reset_password', 'api\admin\PasswordResetController@reset');
 
     // Route::get('/all', 'api\admin\user\LoginController@all')->middleware('auth:api');
 });
