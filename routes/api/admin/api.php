@@ -20,14 +20,19 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::prefix('/user')->group( function() {
+
+    // Login And Register
     Route::post('/login','api\admin\LoginController@login');
     Route::post('/register','api\admin\LoginController@register');
 
     // Password reset
-
     Route::post('reset_password_request', 'api\admin\PasswordResetController@create');
     Route::get('find_reset_token/{token}', 'api\admin\PasswordResetController@find');
     Route::post('reset_password', 'api\admin\PasswordResetController@reset');
 
+    // Profile
+    Route::post('account_type' , 'api\admin\ProfileController@account_type')->middleware('auth:api');
+    Route::post('basic_info' , 'api\admin\ProfileController@basic_info')->middleware('auth:api');
+   
     // Route::get('/all', 'api\admin\user\LoginController@all')->middleware('auth:api');
 });
