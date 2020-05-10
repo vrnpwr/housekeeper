@@ -22,7 +22,7 @@ class LoginController extends Controller
             }
             
             $accessToken = Auth::user()->createToken('authToken')->accessToken;
-            return response(['user'=>Auth::user(), 'access_token' => $accessToken]);
+            return response(['user'=>Auth::user()->id, 'access_token' => $accessToken]);
         }
         
         // register
