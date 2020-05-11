@@ -35,6 +35,8 @@ Route::prefix('/user')->group( function() {
     Route::post('basic_info' , 'api\admin\ProfileController@basic_info')->middleware('auth:api');
     Route::post('address_info' , 'api\admin\ProfileController@address_info')->middleware('auth:api');
     Route::post('about_yourself' , 'api\admin\ProfileController@about_yourself')->middleware('auth:api');
+
+    // view cleaner 
    
     // Route::get('/all', 'api\admin\user\LoginController@all')->middleware('auth:api');
 });
