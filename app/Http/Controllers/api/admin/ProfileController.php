@@ -19,7 +19,7 @@ class ProfileController extends Controller
             if ($validator->fails()) { 
                 return response()->json([
                     'error'=>$validator->errors()->first(),
-                    'status'=>true
+                    'status'=>false
                 ], 401);            
             }
             $type = $request->type;
@@ -81,7 +81,7 @@ class ProfileController extends Controller
                 'address_line1' => 'required', 
                 'region' => 'required', 
                 'city' => 'required', 
-                'zipcode' => 'required|integer|max:12', 
+                'zipcode' => 'required|string|min:4|max:12', 
                 ]);
                 if ($validator->fails()) { 
                     return response()->json([
@@ -96,7 +96,7 @@ class ProfileController extends Controller
                     $user->address_line1 = $request->address_line1;
                     $user->address_line2 = $request->address_line2;
                     $user->city = $request->city;
-                    $user->zipcode = $request->zipcode;
+                    $user->zip_code = $request->zipcode;
                     $user->save();
                     return response()->json([
                         'message' => 'Address successfully updated',
