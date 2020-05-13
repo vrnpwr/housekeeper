@@ -17,7 +17,10 @@ class ProfileController extends Controller
             'type' => 'required', 
             ]);
             if ($validator->fails()) { 
-                return response()->json(['error'=>$validator->errors()], 401);            
+                return response()->json([
+                    'error'=>$validator->errors()->first(),
+                    'status'=>true
+                ], 401);            
             }
             $type = $request->type;
             $id = $request->user_id;
@@ -27,11 +30,13 @@ class ProfileController extends Controller
                 $user->type = $type;
                 $user->save();
                 return response()->json([
-                    'message' => 'Account type successfully updated to ' . $type
+                    'message' => 'Account type successfully updated to ' . $type,
+                    'status' => true
                 ], 200);
             }else{
                 return response()->json([
-                    'message','user id not found'
+                    'message' => 'user id not found',
+                    'status' => false
                 ],404);
             }
         }
@@ -46,7 +51,10 @@ class ProfileController extends Controller
                 'phone' => 'required|integer|unique:users', 
                 ]);
                 if ($validator->fails()) { 
-                    return response()->json(['error'=>$validator->errors()], 401);            
+                    return response()->json([
+                        'error'=> $validator->errors()->first(),
+                        'status'=> false
+                ], 401);            
                 }
                 $id = $request->user_id;
                 if(User::where('id',$id)->exists()){
@@ -56,7 +64,8 @@ class ProfileController extends Controller
                     $user->phone = $request->phone;
                     $user->save();
                     return response()->json([
-                        'message' => 'Account successfully updated'
+                        'message' => 'Account successfully updated',
+                        'status' => true
                     ], 200);
                 }else{
                     return response()->json([
@@ -75,7 +84,10 @@ class ProfileController extends Controller
                 'zipcode' => 'required|integer|max:12', 
                 ]);
                 if ($validator->fails()) { 
-                    return response()->json(['error'=>$validator->errors()], 401);
+                    return response()->json([
+                        'error'=>$validator->errors()->first(),
+                        'status'=>false
+                ], 401);
                 }
                 $id = $request->user_id;
                 $affected_row = false;
@@ -87,11 +99,13 @@ class ProfileController extends Controller
                     $user->zipcode = $request->zipcode;
                     $user->save();
                     return response()->json([
-                        'message' => 'Address successfully updated'
+                        'message' => 'Address successfully updated',
+                        'status' => true
                     ], 200);
                 }else{
                     return response()->json([
-                        'message','something went gone'
+                        'message' => 'something went gone',
+                        'status' => false
                     ],404);
                 }
         }
@@ -105,7 +119,10 @@ class ProfileController extends Controller
                 'about' => 'required', 
                 ]);
                 if ($validator->fails()) {
-                    return response()->json(['error'=>$validator->errors()], 401);
+                    return response()->json([
+                        'error'=>$validator->errors()->first(),
+                        'status'=>false
+                ], 401);
                 }
                 $id = $request->user_id;
                 if(User::where('id',$id)->exists()){
@@ -113,11 +130,13 @@ class ProfileController extends Controller
                     $user->about = $request->about;                    
                     $user->save();
                     return response()->json([
-                        'message' => 'About yorself successfully updated'
+                        'message' => 'About yorself successfully updated',
+                        'status' => true
                     ], 200);
                 }else{
                     return response()->json([
-                        'message','something went gone'
+                        'message'=>'something went gone',
+                        'status' => false
                     ],404);
                 }
         }
