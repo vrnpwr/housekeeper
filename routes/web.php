@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 // we have 3 middleware ['host','superadmin','cleaner']
 
 Route::get('/', function () { return redirect('/login'); });
@@ -19,35 +20,39 @@ Route::get('/', function () { return redirect('/login'); });
 Route::group(['middleware' => 'web'], function() {
 	
 	Auth::routes();
-	// Super admin group
+
+		// After login check which type of user login
+
+		Route::get('/check', function(){
+			$user = \Auth::user();
+			if (isset($user) && $user->type == 'SuperAdmin') {
+				return redirect('admin/dashboard');
+			} 
+			elseif(isset($user) && $user->type == 'host') {
+				return redirect()->route('home');
+			}
+			elseif(isset($user) && $user->type == 'cleaner') {
+				return redirect('cleaner/dashboard');
+			}
+			else{
+				return Route::get('/usertypenotfound', function(){
+					return abort(404);
+				});
+			}
+		});
+
+		
+	// Super admin group routes
 	Route::group(['middleware' => ['superadmin'] , 'prefix' => 'admin'], function () {		
 		Route::resource('/dashboard' , 'admin\DashboardController');		
 	});
-	// Cleaner group
+
+	// Cleaner group routes
 	Route::group(['middleware' => ['cleaner'] , 'prefix' => 'cleaner'], function () {		
 		Route::resource('/dashboard' , 'cleaner\DashboardController');		
 	});
 
-	// After login check which type of user login
-
-	Route::get('/check', function(){
-		$user = \Auth::user();
-		if (isset($user) && $user->type == 'SuperAdmin') {
-			return redirect('admin/dashboard');
-		} 
-		elseif(isset($user) && $user->type == 'host') {
-			return redirect()->route('home');
-		}
-		elseif(isset($user) && $user->type == 'cleaner') {
-			return redirect('cleaner/dashboard');
-		}
-		else{
-			return Route::get('/usertypenotfound', function(){
-				dd("Hello");
-			});
-		}
-	});
-	
+	// Host group routes
 	Route::group(['middleware' => ['host'] ], function () {
 			/*##############Property##############*/
 			Route::get('/home', 'DashboardController@index')->name('home');
@@ -59,24 +64,20 @@ Route::group(['middleware' => 'web'], function() {
 			Route::resource('/project','ProjectController');
 			Route::get('/project/{id}/editproject','ProjectController@edit_project');
 			Route::Post('/project/update', 'ProjectController@update_project');
-			Route::delete('/project/{id}', 'ProjectController@destroy');
-			
+			Route::delete('/project/{id}', 'ProjectController@destroy');			
 			/*###############Schedule###############*/
 			Route::resource('/schedule','ScheduleController');
 			// Route::Post('/project/update', 'ScheduleController@update_project');
 			Route::delete('/project/{id}', 'ScheduleController@destroy');
 			Route::get('showcalendar','ScheduleController@show_calendar');
-			Route::post('viewcalendar','ScheduleController@get_calendar_detail');
-			
+			Route::post('viewcalendar','ScheduleController@get_calendar_detail');			
 			/* ##############CheckList##############*/
 			Route::resource('/mychecklists','CheckListController');
 			Route::Post('/mychecklists/update', 'CheckListController@update_checklist');
-			Route::delete('/mychecklists/{id}', 'CheckListController@destroy');
-			
+			Route::delete('/mychecklists/{id}', 'CheckListController@destroy');			
 			//Filepond Image
 			Route::get('/filepond/uploadImage','FilePondController@uploadImage');
-			Route::delete('/filepond/deleteImage','FilePondController@deleteImage');
-			
+			Route::delete('/filepond/deleteImage','FilePondController@deleteImage');			
 			
 			/*########################## PROFILE ########################*/
 			

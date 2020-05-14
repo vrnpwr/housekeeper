@@ -7,7 +7,7 @@
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
-				<h1 class="m-0 text-dark">Dashboard</h1>
+				<h1 class="m-0 text-dark">{{ $title }}</h1>
 			</div><!-- /.col -->
 			<div class="col-sm-6">
 				<ol class="breadcrumb float-sm-right">
@@ -29,37 +29,39 @@
 				<!-- small box -->
 				<div class="small-box bg-info">
 					<div class="inner">
-						<h3>Properties <small >{{ $properiesCount }}</small> </h3>
-
+						<h3>Properties <small>{{ $properiesCount }}</small> </h3>
 					</div>
 					<div class="icon">
 						<i class="ion ion-bag"></i>
 					</div>
-					<a href="{{ url('/property') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+					<a href="{{ url('/property') }}" class="small-box-footer">More info <i
+							class="fas fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
 			<!-- Checklist -->
 			<div class="col-lg-3 col-6">
 				<div class="small-box bg-success">
 					<div class="inner">
-						<h3>Checklists <small >{{ $checklistCount }}</small> </h3>
+						<h3>Checklists <small>{{ $checklistCount }}</small> </h3>
 					</div>
 					<div class="icon">
 						<i class="ion ion-bag"></i>
 					</div>
-					<a href="{{ url('/mychecklists') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+					<a href="{{ url('/mychecklists') }}" class="small-box-footer">More info <i
+							class="fas fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
 			<!-- Property -->
 			<div class="col-lg-3 col-6">
 				<div class="small-box bg-warning">
 					<div class="inner">
-						<h3>Project <small >{{ $projectCount }}</small> </h3>
+						<h3>Project <small>{{ $projectCount }}</small> </h3>
 					</div>
 					<div class="icon">
 						<i class="ion ion-bag"></i>
 					</div>
-					<a href="{{ url('/project') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+					<a href="{{ url('/project') }}" class="small-box-footer">More info <i
+							class="fas fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
 

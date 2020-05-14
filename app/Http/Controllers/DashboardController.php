@@ -21,7 +21,7 @@ class DashboardController extends Controller
         $properiesCount = Property::count();
         $checklistCount = CheckList::count();
         $projectCount = Project::count();
-        $title = 'Dashboard';
+        $title = 'Host Dashboard';
         return view('admin.index',compact('user','title','properiesCount','checklistCount','projectCount'));
     }
 
