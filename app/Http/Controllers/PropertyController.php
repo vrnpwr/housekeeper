@@ -16,7 +16,7 @@ class PropertyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {        
         $user = Auth::user();
         $properties =Property::all();
         return view('admin.property.view',compact('user','properties'));
@@ -31,7 +31,8 @@ class PropertyController extends Controller
     {
         $user = Auth::user();
         $checklists = CheckList::all();
-        return view('admin.property.add',compact('user','checklists'));
+        $propertyTypes = Property::propertyType();
+        return view('admin.property.add',compact('user','checklists','propertyTypes'));
     }
 
     public function update_checklist(Request $request){

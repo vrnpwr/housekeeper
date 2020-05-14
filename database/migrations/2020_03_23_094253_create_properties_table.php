@@ -25,19 +25,20 @@ class CreatePropertiesTable extends Migration
             $table->string('country')->nullable();
             $table->string('zipcode')->nullable();
             $table->string('currency')->nullable();
+            $table->string('property_type')->nullable();
             $table->string('property_color')->nullable();
             $table->string('bedrooms')->nullable();
             $table->string('bathrooms')->nullable();
             $table->string('unit_of_measurement')->nullable();
             $table->string('size')->nullable();
-            $table->string('property_description')->nullable();
+            $table->longText('property_description')->nullable();
             $table->string('property_image')->nullable();
             $table->string('checklist_id')->nullable();
             $table->string('check_in')->nullable();
             $table->string('check_out')->nullable();
             $table->string('status')->nullable();
-            $table->string('bid')->nullable();
-            $table->string('active')->nullable();
+            // $table->string('bid')->nullable();
+            // $table->string('active')->nullable();
             $table->timestamps();
         });
     }

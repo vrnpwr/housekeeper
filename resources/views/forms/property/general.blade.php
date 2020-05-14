@@ -10,12 +10,9 @@
 					</div>
 				</div>
 				<div class="col-md-6">
-					<label  for="property_address">Street Address <span class="required">*</span></label>
-					<input type="text" name="property_address"  
-					id="autocomplete"
-					placeholder="Enter your address"
-					onFocus="geolocate()"
-					class="form-control property_address">
+					<label for="property_address">Street Address <span class="required">*</span></label>
+					<input type="text" name="property_address" id="autocomplete" placeholder="Enter your address"
+						onFocus="geolocate()" class="form-control property_address">
 
 				</div>
 			</div>
@@ -32,7 +29,7 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="city">City <span class="required">*</span></label>
-						<input type="text" name="city" value="" required="" id="locality" class="city form-control" >
+						<input type="text" name="city" value="" required="" id="locality" class="city form-control">
 					</div>
 				</div>
 				<div class="col-md-6">
@@ -53,7 +50,7 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label for="zipcode">Zip Code</label>
-						<input type="text" name="zipcode" value="" id="postal_code"  class="zipcode form-control" />
+						<input type="text" name="zipcode" value="" id="postal_code" class="zipcode form-control" />
 					</div>
 				</div>
 			</div>
@@ -75,23 +72,36 @@
 
 
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<div class="form-group">
 						<label for="currency">Currency <span class="required">*</span></label>
 						<select id="currency" name="currency" class="form-control custom-select">
-							<option value="inr" >INR (Indian Rupee)</option>
-							<option value="euro" >EUR (EURO)</option>
-
+							<option value="inr">INR (Indian Rupee)</option>
+							<option value="euro">EUR (EURO)</option>
 						</select>
-
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-4">
 					<div class="form-group">
 						<label for="property_color">Property Color</label>
 						<div class="">
-							<input type="text"  name="property_color" id="colorpicker-full"  class="color_picker form-control example custom-select">
-
+							<input type="text" name="property_color" id="colorpicker-full"
+								class="color_picker form-control example custom-select">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label for="property_color">Propert Type</label>
+						<div class="">
+							<select name="property_type" class="form-control" id="property_type">
+								<option disabled selected>Select property type</option>
+								@if(isset($propertyTypes ))
+								@foreach ($propertyTypes as $type)
+								<option value='{{ $type }}'>{{ $type }}</option>
+								@endforeach
+								@endif
+							</select>
 						</div>
 					</div>
 				</div>
@@ -116,8 +126,8 @@
 					<div class="form-group">
 						<label for="unit_of_measurement">Unit of Measurement</label>
 						<select id="unit_of_measurement" name="unit_of_measurement" class="form-control custom-select">
-							<option value="square_feet" >Square Feet</option>
-							<option value="square_meter"  >Square Meter</option>
+							<option value="square_feet">Square Feet</option>
+							<option value="square_meter">Square Meter</option>
 						</select>
 					</div>
 				</div>
@@ -138,9 +148,9 @@
 						<textarea name="property_description" id="property_description" class="form-control" rows="4"></textarea>
 					</div>
 				</div>
-				<div class="col-6">				
+				<div class="col-6">
 					<label>Property Image</label>
-					<input type="file" name="image">
+					<input type="file" name="image" multiple>
 					<input type="hidden" name="image1" id="image_0" value="">
 				</div>
 			</div>
@@ -152,18 +162,18 @@
 
 	<div class="row">
 		<div class="col-12">
-			<button class="btn btn-success float-right" id="property-btn">Submit</button>			
+			<button class="btn btn-success float-right" id="property-btn">Submit</button>
 		</div>
 	</div>
 
-	
+
 </div>
 <!-- /.row -->
 
 <!-- Google API functions -->
 @push('script')
 <script>
-// This sample uses the Autocomplete widget to help the user select a
+	// This sample uses the Autocomplete widget to help the user select a
 // place, then it retrieves the address components associated with that
 // place, and then it populates the form fields with those details.
 // This sample requires the Places library. Include the libraries=places
