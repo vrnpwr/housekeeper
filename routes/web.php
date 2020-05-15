@@ -49,7 +49,19 @@ Route::group(['middleware' => 'web'], function() {
 
 	// Cleaner group routes
 	Route::group(['middleware' => ['cleaner'] , 'prefix' => 'cleaner'], function () {		
-		Route::resource('/dashboard' , 'cleaner\DashboardController');		
+		Route::resource('/dashboard' , 'cleaner\DashboardController');
+		Route::resource('/job' , 'cleaner\CleanerJobController');
+		
+		/*########################## PROFILE ########################*/			
+		Route::resource('/profile','ProfileController');
+		Route::post('/profile/checkOldPassword','ProfileController@checkOldPassword');
+		Route::post('/profile/deleteImage','ProfileController@deleteImage');
+		
+		/*########################## Notification ########################*/
+		Route::resource('/notification','NotificationController');
+		
+		/* ####################### PROJECT SETTINGS ####################### */
+		Route::resource('/project-settings','ProjectSettingController');
 	});
 
 	// Host group routes
@@ -79,11 +91,10 @@ Route::group(['middleware' => 'web'], function() {
 			Route::get('/filepond/uploadImage','FilePondController@uploadImage');
 			Route::delete('/filepond/deleteImage','FilePondController@deleteImage');			
 			
-			/*########################## PROFILE ########################*/
-			
+			/*########################## PROFILE ########################*/			
 			Route::resource('/profile','ProfileController');
-			Route::post('/profile/checkOldPassword','ProfileController@checkOldPassword')->middleware();
-			Route::post('/profile/deleteImage','ProfileController@deleteImage')->middleware();
+			Route::post('/profile/checkOldPassword','ProfileController@checkOldPassword');
+			Route::post('/profile/deleteImage','ProfileController@deleteImage');
 			
 			/*########################## Notification ########################*/
 			Route::resource('/notification','NotificationController');

@@ -138,6 +138,7 @@
             <i class="fas fa-angle-left right"></i>
           </p>
         </a>
+
         <ul class="nav nav-treeview">
           <li class="nav-item">
             <a href="{{ url('/profile') }}" class="nav-link">
@@ -145,7 +146,6 @@
               <p>Profile</p>
             </a>
           </li>
-
           <li class="nav-item">
             <a href="{{ url('/notification') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
@@ -159,22 +159,52 @@
               <p>Projects</p>
             </a>
           </li>
+        </ul>
 
-          {{--  
-            <li class="nav-item">
-                  <a href="{{ url('/popularchecklists') }}" class="nav-link">
-          <i class="far fa-circle nav-icon"></i>
-          <p>Popular CheckLists</p>
-          </a>
-      </li>
-      --}}
-
-      </ul>
       </li>
       <!--  ##############SETTING TREE############## -->
 
       @endif
 
+      {{-- All uder this condition will display for cleaner --}}
+      @if(Auth::user()->type == 'cleaner')
+
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-cog"></i>
+          <p>
+            Setting
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="{{ url('cleaner/profile') }}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Profile</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('cleaner/notification') }}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Notification</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ url('cleaner/project-settings') }}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Projects</p>
+            </a>
+          </li>
+        </ul>
+
+      </li>
+
+      @endif
+
+      {{-- Logout will display for all types of users --}}
       <li class="nav-item">
         <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
               document.getElementById('logout-form').submit();">

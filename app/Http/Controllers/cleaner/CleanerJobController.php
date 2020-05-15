@@ -4,12 +4,8 @@ namespace App\Http\Controllers\cleaner;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Property;
-use App\Project;
-use App\CheckList;
 
-class DashboardController extends Controller
+class CleanerJobController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +14,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();        
-        $title = 'Cleaner Dashboard';
-        return view('cleaner.index',compact('user','title'));
+        //
     }
 
     /**
