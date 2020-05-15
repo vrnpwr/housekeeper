@@ -38,6 +38,7 @@ Route::prefix('/user')->group( function() {
 
     // Property
     Route::resource('property', 'api\admin\PropertyController')->middleware('auth:api');
+    Route::post('property/imageUpload', 'api\admin\PropertyController@imageUpload');
     // view cleaner 
    
     // Route::get('/all', 'api\admin\user\LoginController@all')->middleware('auth:api');

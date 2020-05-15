@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
+
 
 class FilePondController extends Controller
 {
@@ -15,6 +17,7 @@ class FilePondController extends Controller
 		// Create variable for each element in array
 		extract($data);
 		// Upload
+		
 		if (!empty($file)) {
 			$fileExt = $file->getClientOriginalExtension();
 			/*Image Upload*/
@@ -30,6 +33,7 @@ class FilePondController extends Controller
 
 	public function uploadImage(Request $request)
 	{
+		
 
 		if ($_SERVER['HTTP_HOST'] == '127.0.0.1:8000') {
 			$imagePath = '/images/';
@@ -38,12 +42,20 @@ class FilePondController extends Controller
 		}
 
 
+		if($request->base64){
+			$image = str_replace('data:image/png;base64,', '', $request->base64);
+			$image = str_replace(' ', '+', $image);
+			$fileName = str_random(5) . '.png';
+			$path = public_path($imagePath);
+			Storage::disk('public_driver')->put($fileName, base64_decode($image));
+			return $fileName;
 
-		if ($request->file('image')) {
+	}
+		else{
 			$image = $request->file('image');
+			echo $this->uploadFile(['file' => $image, 'path' => $imagePath]);
 		}
-		// $action = $request->input('action');
-		echo $this->uploadFile(['file' => $image, 'path' => $imagePath]);
+
 	}
 
 	/* This Function is delete the upload file from disk while uploading */

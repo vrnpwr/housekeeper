@@ -16,7 +16,7 @@ class HostMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->type == 'host' || Auth::user()->type == 'SuperAdmin')
+        if(!is_null(Auth::user()->type) && Auth::user()->type == 'host' || !is_null(Auth::user()->type) && Auth::user()->type == 'SuperAdmin')
             return $next($request);
         return redirect('/');
     }
