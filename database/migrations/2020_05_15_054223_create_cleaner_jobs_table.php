@@ -15,6 +15,9 @@ class CreateCleanerJobsTable extends Migration
     {
         Schema::create('cleaner_jobs', function (Blueprint $table) {
             $table->id();
+            $table->integer('property_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +29,6 @@ class CreateCleanerJobsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cleaner_jobs');
+        Schema::dropIfExists('cleaner_jobs');        
     }
 }

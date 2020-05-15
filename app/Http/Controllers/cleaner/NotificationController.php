@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\cleaner;
 
+use App\Http\Controllers\Controller;
+
 use App\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -63,7 +65,6 @@ class NotificationController extends Controller
         $options[10]['name'] = "remind";
 
         /* Create a array for options */
-
         return view('cleaner.notification.notification',compact('user','options','notifications'));
     }
 

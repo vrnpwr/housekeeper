@@ -225,10 +225,10 @@
 
 		$.ajax({
 			type: 'POST',
-			url: '{{ action('NotificationController@store') }}',
+			url: '{{ url('cleaner/notification') }}',
 			headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
 			data: $('form').serialize(),
-			success:function(data){				
+			success:function(data){		
 				Swal.fire({
 					position: 'top-end',
 					icon: 'success',

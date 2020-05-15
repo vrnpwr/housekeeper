@@ -6,7 +6,7 @@
 @push('styles')
 
 <style type="text/css">
-	.add-property{
+	.add-property {
 		float: right;
 	}
 </style>
@@ -49,14 +49,14 @@
 					</div>
 					<!-- /.card-header -->
 					<div class="card-body">
-						<table id="example1" class="table table-bordered table-striped" >
+						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
 									<th>Sr. No.</th>
 									<th>Property Name</th>
 									<th>Property Address</th>
 									<th>Action</th>
-									
+
 								</tr>
 							</thead>
 							<tbody>
@@ -69,52 +69,52 @@
 										<!-- Edit -->
 										<a href="{{ url('/property/'.$property->id.'/edit') }}" class="btn btn-success">
 											<i class="fa fa-edit" aria-hidden="true"></i>
-										</a>  
+										</a>
 										<!-- Delete -->
-										<a href="#" class="btn btn-danger delete mr-3" data-id="{{$property->id}}" >
+										<a href="#" class="btn btn-danger delete mr-3" data-id="{{$property->id}}">
 											<i class="fa fa-trash" aria-hidden="true"></i>
 										</a>
 										<!-- <button class="btn btn-primary"><i class="fas fa-edit"></i></button>
 											<button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button> -->
-										</td>
-									</tr>
-									@endforeach
+									</td>
+								</tr>
+								@endforeach
 
-								</tbody>
-								<tfoot>
-									<tr>
-										<th>Sr. No.</th>
-										<th>Property Name</th>
-										<th>Property Address</th>
-										<th>Action</th>
-										
-									</tr>
-								</tfoot>
-							</table>
-						</div>
-						<!-- /.card-body -->
+							</tbody>
+							<tfoot>
+								<tr>
+									<th>Sr. No.</th>
+									<th>Property Name</th>
+									<th>Property Address</th>
+									<th>Action</th>
+
+								</tr>
+							</tfoot>
+						</table>
 					</div>
+					<!-- /.card-body -->
 				</div>
 			</div>
-			<!-- /.row -->
-			<!-- Main row -->
-			<div class="row">
-				<!-- Left col -->
+		</div>
+		<!-- /.row -->
+		<!-- Main row -->
+		<div class="row">
+			<!-- Left col -->
 
 
-				<!-- right col -->
-			</div>
-			<!-- /.row (main row) -->
-		</div><!-- /.container-fluid -->
-	</section>
-	<!-- /.content -->
+			<!-- right col -->
+		</div>
+		<!-- /.row (main row) -->
+	</div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
 
 
 @push('script')
 <script type="text/javascript">
-	            // Delete Function 
+	// Delete Function 
 	            setInterval(function(){
 
 	            	$(".delete").on("click",function(e){
@@ -152,7 +152,7 @@
 	            						})
 	            						.then(() => {
 	            							$('div.flash-message').html(data);
-	            							window.location.reload();
+	            							// window.location.reload();
 	            						})
 
 	            					},          
@@ -173,7 +173,7 @@
 	            	});
 
 	            },1000);
-	        </script>
-	        @endpush
+</script>
+@endpush
 
-	        @endsection
+@endsection

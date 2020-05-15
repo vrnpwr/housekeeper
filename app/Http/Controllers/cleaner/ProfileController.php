@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\cleaner;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
 use App\User;
 use File;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller
 {
-    /**
+        /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -144,5 +145,4 @@ public function deleteImage(Request $request){
     $data->save();
 
 }
-
 }

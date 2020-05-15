@@ -47,21 +47,19 @@ Route::group(['middleware' => 'web'], function() {
 		Route::resource('/dashboard' , 'admin\DashboardController');		
 	});
 
-	// Cleaner group routes
-	Route::group(['middleware' => ['cleaner'] , 'prefix' => 'cleaner'], function () {		
+		// Cleaner group routes
+		Route::group(['middleware' => ['cleaner'] , 'prefix' => 'cleaner'], function () {		
 		Route::resource('/dashboard' , 'cleaner\DashboardController');
 		Route::resource('/job' , 'cleaner\CleanerJobController');
-		
+
 		/*########################## PROFILE ########################*/			
-		Route::resource('/profile','ProfileController');
-		Route::post('/profile/checkOldPassword','ProfileController@checkOldPassword');
-		Route::post('/profile/deleteImage','ProfileController@deleteImage');
+		Route::resource('/profile','cleaner\ProfileController');
+		Route::post('/profile/checkOldPassword','cleaner\ProfileController@checkOldPassword');
+		Route::post('/profile/deleteImage','cleaner\ProfileController@deleteImage');
 		
 		/*########################## Notification ########################*/
-		Route::resource('/notification','NotificationController');
-		
-		/* ####################### PROJECT SETTINGS ####################### */
-		Route::resource('/project-settings','ProjectSettingController');
+		Route::resource('/notification','cleaner\NotificationController');
+
 	});
 
 	// Host group routes

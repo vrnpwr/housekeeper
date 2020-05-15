@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Property;
-use App\CheckList;
+use App\{Property,User,CheckList,CleanerJob};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
-
+use DB;
 class PropertyController extends Controller
 {
     /**
@@ -31,8 +30,9 @@ class PropertyController extends Controller
     {
         $user = Auth::user();
         $checklists = CheckList::all();
+        $cleaners = User::where('type','cleaner')->get();
         $propertyTypes = Property::propertyType();
-        return view('admin.property.add',compact('user','checklists','propertyTypes'));
+        return view('admin.property.add',compact('user','checklists','propertyTypes' , 'cleaners'));
     }
 
     public function update_checklist(Request $request){
@@ -50,9 +50,6 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-
-
-
         $validator = Validator::make($request->all(), [
             'property_name' => 'required',
             'property_address' => 'required',
@@ -82,6 +79,15 @@ class PropertyController extends Controller
             $data->check_in = $request->input('check_in');
             $data->check_out = $request->input('check_out');
             $data->save();
+
+            // $inserted_property_id = response()->json(array('success' => true, 'last_insert_id' => $data->id), 200);
+            $cleaners_id = $request->cleaner_ids ? $request->cleaner_ids : null;
+            if(!is_null($cleaners_id)){
+                $data = [];
+                foreach($cleaners_id as $key=>$cleaner){
+                    CleanerJob::insert(['property_id' =>  DB::getPdo()->lastInsertId() , 'user_id' => $cleaner]);
+                }
+            }
         }else{
             return response()->json(['error'=>$validator->errors()->all()]);
         }
@@ -135,7 +141,7 @@ class PropertyController extends Controller
     public function destroy(Property $property)
     {
         $data = Property::find($property->id);
-        $data->delete();      
+        $data->delete();    
     }
 
     public function update_property(Request $request)

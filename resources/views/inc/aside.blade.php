@@ -16,7 +16,7 @@
         <img src="{{ asset('admin-lte/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">{{ $user->name }}</a>
+        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
       </div>
     </div>
 
@@ -169,6 +169,26 @@
       {{-- All uder this condition will display for cleaner --}}
       @if(Auth::user()->type == 'cleaner')
 
+      {{-- Myjobs --}}
+      <li class="nav-item has-treeview">
+        <a href="{{ url('cleaner/job') }}" class="nav-link">
+          <i class="nav-icon fa fa-recycle" aria-hidden="true"></i>
+          <p>
+            My Jobs
+          </p>
+        </a>
+
+        {{-- Schedule --}}
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-calendar-check    "></i>
+          <p>
+            Schedule
+          </p>
+        </a>
+      </li>
+
+      {{-- Settings --}}
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-cog"></i>
@@ -177,28 +197,22 @@
             <i class="fas fa-angle-left right"></i>
           </p>
         </a>
+      </li>
 
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="{{ url('cleaner/profile') }}" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Profile</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('cleaner/notification') }}" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Notification</p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="{{ url('cleaner/project-settings') }}" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Projects</p>
-            </a>
-          </li>
-        </ul>
+      <ul class="nav nav-treeview">
+        <li class="nav-item">
+          <a href="{{ url('cleaner/profile') }}" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Profile</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url('cleaner/notification') }}" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>Notification</p>
+          </a>
+        </li>
+      </ul>
 
       </li>
 

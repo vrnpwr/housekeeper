@@ -10,4 +10,9 @@ class Property extends Model
         $types = ['Home', 'Office', 'Flat'];
         return $types;
     }
+
+    public function cleanerjobs()
+    {
+        return $this->hasMany('App\CleanerJob');
+    }
 }

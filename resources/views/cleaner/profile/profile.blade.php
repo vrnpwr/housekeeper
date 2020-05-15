@@ -77,11 +77,7 @@
 									<input type="text" class="form-control last-name" value="{{ $user->last_name }}" id="last-name"
 										name="last-name">
 								</div>
-								<div class="form-group">
-									<label>Business Name</label>
-									<input type="text" class="form-control business-name" value="{{ $user->business_name }}"
-										id="business-name" name="business-name">
-								</div>
+
 
 							</div>
 
@@ -332,7 +328,7 @@
 		event.preventDefault();
 		var name = $('#first-name').val();
 		var last_name = $('#last-name').val();
-		var business_name = $('#business-name').val();
+		// var business_name = $('#business-name').val();
 		var image = $('#image_0').val();
 		var email = $('#email').val();
 		var phone = $('#phone').val();
@@ -362,7 +358,8 @@
 
 		$.ajax({
 			type: 'POST',
-			url: '{{ action('ProfileController@store') }}',
+			// url: '{{ action('cleaner\ProfileController@store') }}',
+			url: '{{ url("cleaner/profile") }}',
 			headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
 			data:{name, last_name, business_name,image, email, phone, language, time_format, first_day, password},
 			success:function(data){

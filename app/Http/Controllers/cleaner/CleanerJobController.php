@@ -14,7 +14,7 @@ class CleanerJobController extends Controller
      */
     public function index()
     {
-        //
+        return view('cleaner.job.jobs');
     }
 
     /**

@@ -200,87 +200,72 @@
 
 											</div>
 										</div>
-										{{-- 
-											<div class="tab-pane fade" id="checklist" role="tabpanel" aria-labelledby="custom-tabs-three-messages-tab">
-												<h2>Checklist</h2>
 
-												<div class="col-md-12">
-													<div class="card" style="margin:50px 0">
-														<!-- Default panel contents -->
-														<div class="card-header">Checkbox to Round Switch</div>
+										<div class="tab-pane fade" role="tabpanel" id="cleaner"
+											aria-labelledby="custom-tabs-three-settings-tab">
+											{{-- Select  --}}
 
-														<ul class="list-group list-group-flush">
-															@foreach($checklists as $key=>$value)
-															<li class="list-group-item">
-																{{ $value->title }}
-										<label class="switch ">
-											<input value="{{ $value->id }}" id="checklist_id" name="checklist_id[]" type="radio"
-												class="checklist-radio default">
-											<span class="slider round"></span>
-										</label>
-										</li>
-										@endforeach
-										</ul>
+											<div class="select2-purple">
+												<select id="cleaners_id" class="select2" name="cleaner[]" multiple="multiple"
+													data-placeholder="Select Cleaners" data-dropdown-css-class="select2-purple"
+													style="width: 100%;">
+													@foreach($cleaners as $key=>$cleaner)
+													<option value="{{ $cleaner->id }}">{{ $cleaner->name }}</option>
+													@endforeach
+												</select>
+
+											</div>
+										</div>
+
+										<div class="tab-pane fade" id="checkin" role="tabpanel"
+											aria-labelledby="custom-tabs-three-settings-tab">
+
+											<div class="row">
+												<div class="col-md-6">
+													<div class="form-group">
+														<label for="check_in">Check In / Check Out</label>
+														<input type="text" value="" name="check_in" id="check_in" class="form-control timepicker">
+
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group">
+
+
+														<label for="check_out">Check Out</label>
+														<input type="text" name="check_out" value="" id="check_out" class="form-control timepicker">
+
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="tab-pane fade" id="payments" role="tabpanel"
+											aria-labelledby="custom-tabs-three-settings-tab">
+											<h2>Payments</h2>
+										</div>
+
 									</div>
 								</div>
+								<!-- /.card -->
 
-
-
-							</div>
-
-							--}}
-							<div class="tab-pane fade" id="cleaner" role="tabpanel" aria-labelledby="custom-tabs-three-settings-tab">
-								<h2>Cleaners</h2>
-							</div>
-
-
-							<div class="tab-pane fade" id="checkin" role="tabpanel" aria-labelledby="custom-tabs-three-settings-tab">
-
-								<div class="row">
-									<div class="col-md-6">
-										<div class="form-group">
-											<label for="check_in">Check In / Check Out</label>
-											<input type="text" value="" name="check_in" id="check_in" class="form-control timepicker">
-
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="form-group">
-
-
-											<label for="check_out">Check Out</label>
-											<input type="text" name="check_out" value="" id="check_out" class="form-control timepicker">
-
-										</div>
-									</div>
+								<!-- Error Messages -->
+								<div class="alert alert-danger print-error-msg" style="display:none">
+									<ul></ul>
 								</div>
-							</div>
 
-
-							<div class="tab-pane fade" id="payments" role="tabpanel" aria-labelledby="custom-tabs-three-settings-tab">
-								<h2>Payments</h2>
 							</div>
+						</form>
+						<!-- ######################FORM AREA###################### -->
 
 					</div>
 				</div>
-				<!-- /.card -->
-
-				<!-- Error Messages -->
-				<div class="alert alert-danger print-error-msg" style="display:none">
-					<ul></ul>
-				</div>
 
 			</div>
-			</form>
-			<!-- ######################FORM AREA###################### -->
+
 
 		</div>
-	</div>
-
-	</div>
-
-
-	</div>
 
 
 
@@ -297,6 +282,14 @@
 
 <script>
 	$(document).ready(function($) {
+
+		//Initialize Select2 Elements
+		$('.select2').select2();
+		
+		//Initialize Select2 Elements
+		$('.select2bs4').select2({
+			theme: 'bootstrap4'
+		});
 		/*Color Picker*/
 		$('.example').bcp();
 		$('.example').on('pcb.refresh', function (e) {
@@ -304,7 +297,7 @@
 			var propertyColor = color.value;
 			propertyColor = propertyColor ? propertyColor : "";
 			$('#colorpicker-full').val(propertyColor);
-
+			
 			if (color.value) {
 				$(this).css({
 					backgroundColor: color.value,
@@ -314,104 +307,104 @@
 			}
 		});
 		// timepicker
-      $('.timepicker').mdtimepicker(); //Initializes the time picker
-
-      $('#property-btn').on('click',function(event) {
-      	event.preventDefault();
-      // sweet alert
-      var user_id = $('#user_id').val();
-      var property_name = $('#property_name').val();
-      var property_address = $('.property_address').val();
-      var city = $('.city').val();
-      var state = $('.state').val();
-      var country = $('.country').val();
-      var zipcode = $('.zipcode').val();
-      var unit = $('#unit').val();
-      var access_code = $('#access_code').val();
-      var currency = $('#currency').val();
-      var colorpicker_full = $('#colorpicker-full').val();
-      var bedrooms = $('#bedrooms').val();
-      var bathrooms = $('#bathrooms').val();
-      var unit_of_measurement = $('#unit_of_measurement').val();
-      var size = $('#size').val();
-      var property_description = $('#property_description').val();
-      var property_image = $('#image_0').val();
-      var checklist_id = $('#checklist_id').val();
-      var check_in = $('#check_in').val();
-      var check_out = $('#check_out').val();
-
-
-      insertProperty(user_id, property_name, property_address, unit, access_code, city, state, country, zipcode, currency, colorpicker_full, bedrooms, bathrooms, unit_of_measurement, size, property_description, property_image, checklist_id, check_in, check_out);
-
-  });
-      /* Insert Property Data*/
-      function insertProperty(user_id, property_name, property_address, unit, access_code, city, state, country, zipcode, currency, colorpicker_full, bedrooms, bathrooms, unit_of_measurement, size, property_description, property_image, checklist_id, check_in, check_out){
-
-      	$.ajax({
-      		type: 'POST',
-      		url: '{{ action('PropertyController@store') }}',
-      		headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-      		data:{user_id, property_name, property_address, unit, access_code, city, state, country, zipcode, currency, colorpicker_full, bedrooms, bathrooms, unit_of_measurement, size, property_description, property_image, checklist_id, check_in, check_out},
-      		success:function(data){
-
-      			if($.isEmptyObject(data.error)){
-      				Swal.fire({
-      					position: 'top-end',
-      					icon: 'success',
-      					title: 'Your work has been saved',
-      					showConfirmButton: false,
-      					timer: 1500
-      				})
-      				.then(() => {
-      					window.location.reload();
-      					// $('#form').trigger("reset");
-      					// $(".print-error-msg").css('display','none');
-      				})
-
-      			}else{
-      				console.log(data.error);
-      				printErrorMsg(data.error);
-      			}
-
-      		},
-
-      		error: function (jqXHR, textStatus, errorThrown) 
-      		{  
-      			swal({
-      				title: "Something error",
-      				text: "Check input fields!",
-      				icon: "warning",
-      				buttons: true,
-      				dangerMode: true,
-      			})
-      		}
-
-      	})
-      }
-
-      function printErrorMsg (msg) {
-      	$(".print-error-msg").find("ul").html('');
-      	$(".print-error-msg").css('display','block');
-      	$.each( msg, function( key, value ) {
-      		$(".print-error-msg").find("ul").append('<li>'+value+'</li>');
-      	});
-      }
-
-
-  });
-
+		$('.timepicker').mdtimepicker(); //Initializes the time picker
+		
+		$('#property-btn').on('click',function(event) {
+			event.preventDefault();
+			// sweet alert
+			var user_id = $('#user_id').val();
+			var property_name = $('#property_name').val();
+			var property_address = $('.property_address').val();
+			var city = $('.city').val();
+			var state = $('.state').val();
+			var country = $('.country').val();
+			var zipcode = $('.zipcode').val();
+			var unit = $('#unit').val();
+			var access_code = $('#access_code').val();
+			var currency = $('#currency').val();
+			var colorpicker_full = $('#colorpicker-full').val();
+			var bedrooms = $('#bedrooms').val();
+			var bathrooms = $('#bathrooms').val();
+			var unit_of_measurement = $('#unit_of_measurement').val();
+			var size = $('#size').val();
+			var property_description = $('#property_description').val();
+			var property_image = $('#image_0').val();
+			var checklist_id = $('#checklist_id').val();
+			var check_in = $('#check_in').val();
+			var cleaner_ids = $('#cleaners_id').val();
+			var check_out = $('#check_out').val();
+			
+			
+			insertProperty(user_id, property_name, property_address, unit, access_code, city, state, country, zipcode, currency, colorpicker_full, bedrooms, bathrooms, unit_of_measurement, size, property_description, property_image, checklist_id, check_in, check_out ,cleaner_ids);
+			
+		});
+		/* Insert Property Data*/
+		function insertProperty(user_id, property_name, property_address, unit, access_code, city, state, country, zipcode, currency, colorpicker_full, bedrooms, bathrooms, unit_of_measurement, size, property_description, property_image, checklist_id, check_in, check_out ,cleaner_ids){
+			
+			$.ajax({
+				type: 'POST',
+				url: '{{ action('PropertyController@store') }}',
+				headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+				data:{user_id, property_name, property_address, unit, access_code, city, state, country, zipcode, currency, colorpicker_full, bedrooms, bathrooms, unit_of_measurement, size, property_description, property_image, checklist_id, check_in, check_out ,cleaner_ids},
+				success:function(data){					
+					if($.isEmptyObject(data.error)){
+						Swal.fire({
+							position: 'top-end',
+							icon: 'success',
+							title: 'Your work has been saved',
+							showConfirmButton: false,
+							timer: 1500
+						})
+						.then(() => {
+							window.location.reload();
+							// $('#form').trigger("reset");
+							// $(".print-error-msg").css('display','none');
+						})
+						
+					}else{
+						console.log(data.error);
+						printErrorMsg(data.error);
+					}
+					
+				},
+				
+				error: function (jqXHR, textStatus, errorThrown) 
+				{  
+					swal({
+						title: "Something error",
+						text: "Check input fields!",
+						icon: "warning",
+						buttons: true,
+						dangerMode: true,
+					})
+				}
+				
+			})
+		}
+		
+		function printErrorMsg (msg) {
+			$(".print-error-msg").find("ul").html('');
+			$(".print-error-msg").css('display','block');
+			$.each( msg, function( key, value ) {
+				$(".print-error-msg").find("ul").append('<li>'+value+'</li>');
+			});
+		}
+		
+		
+	});
+	
 	/* Form Validation */
-
+	
 	$('.checklist-radio').on('change',function(event) {
 		event.preventDefault();
 		var check = $(this).is(':checked');
 		if (check) {		
-
+			
 		}
 	});
-
-
-
+	
+	
+	
 </script>
 <script
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkSvueCGWz_a316NvJf7oDC6VD-MGwkOs&libraries=places&callback=initAutocomplete"
