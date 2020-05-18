@@ -71,48 +71,45 @@
     // call sweet alert from livewire component
     window.livewire.on('success', message => {
       Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: `${message}`,
-      showConfirmButton: false,
-      timer: 1500
+        position: 'top-end',
+        icon: 'success',
+        title: `${message}`,
+        showConfirmButton: false,
+        timer: 1500
+      })
     })
-    })
-
+    
     window.livewire.on('error', message => {
       Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: `${message}`,
-    })
-  });
-    
+        icon: 'error',
+        title: 'Oops...',
+        text: `${message}`,
+      })
+    });
+    // invoke select 2
     $('.properties').select2();
+    // pass selected property Ids in livewire component
     $('.properties').on('change', function (e) {
       var data = $('.properties').select2("val");
       $('#prop_ids').val(data);
       window.livewire.emit('add_array',data)
-      console.log(data);
     });
-
+    
+    // change details according to method
+    $("#invitation-type").on('change' , function() {
+      $('#dynamic-container').html("");
+      var val = $(this).val();
+      if(val == 'email')
+      {
+        $('#dynamic-container').append(`<label for="">Email</label> <input type="email" name="type" id="details" class="form-control" placeholder="Enter type">`);
+      }
+      else{
+        $('#dynamic-container').append(`<label for="">Phone</label> <input type="number" name="type" id="details" class="form-control" placeholder="Enter Phone Number">`);
+      }
+    });
+    
+    
   });
-
-  $(document).ready(function($) {
-
-      $("#invitation-type").on('change' , function() {
-        $('#dynamic-container').html("");
-        var val = $(this).val();
-        if(val == 'email')
-        {
-          $('#dynamic-container').append(`<label for="">Email</label> <input type="email" name="type" id="details" class="form-control" placeholder="Enter type">`);
-        }
-        else{
-          $('#dynamic-container').append(`<label for="">Phone</label> <input type="number" name="type" id="details" class="form-control" placeholder="Enter Phone Number">`);
-        }
-      });
-      
-      
-    });
 </script>
 @endpush
 
