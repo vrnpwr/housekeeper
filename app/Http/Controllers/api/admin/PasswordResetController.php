@@ -31,7 +31,7 @@ class PasswordResetController extends Controller
                 ['email' => $user->email],
                 [
                     'email' => $user->email,
-                    'token' => rand ( 10000 , 99999 )
+                    'token' => rand ( 100000 , 999999 )
                     ]
                 );
                 if ($user && $passwordReset)
@@ -50,9 +50,9 @@ class PasswordResetController extends Controller
                 * @return [string] message
                 * @return [json] passwordReset object
                 */
-                public function find($token)
+                public function find(Request $request)
                 {
-                    $passwordReset = PasswordReset::where('token', $token)
+                    $passwordReset = PasswordReset::where('token', $request->token)
                     ->first();
                     if (!$passwordReset)
                     return response()->json([

@@ -27,9 +27,9 @@ class CleanerController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $properties = Property::all();
-        return view('admin.team.cleaner.add', compact('user', 'properties'));
+        // $user = Auth::user();
+        // $properties = Property::all();
+        // return view('admin.team.cleaner.add', compact('user', 'properties'));
     }
 
     /**

@@ -27,7 +27,7 @@ Route::prefix('/user')->group( function() {
 
     // Password reset
     Route::post('reset_password_request', 'api\admin\PasswordResetController@create');
-    Route::get('find_reset_token/{token}', 'api\admin\PasswordResetController@find');
+    Route::post('find_reset_token', 'api\admin\PasswordResetController@find');
     Route::post('reset_password', 'api\admin\PasswordResetController@reset');
 
     // Profile
@@ -37,8 +37,10 @@ Route::prefix('/user')->group( function() {
     Route::post('about_yourself' , 'api\admin\ProfileController@about_yourself')->middleware('auth:api');
 
     // Property
+    Route::get('property_types', 'api\admin\PropertyController@property_types')->middleware('auth:api');
+    Route::post('property_sub_types', 'api\admin\PropertyController@property_sub_types')->middleware('auth:api');
     Route::resource('property', 'api\admin\PropertyController')->middleware('auth:api');
-    Route::post('property/imageUpload', 'api\admin\PropertyController@imageUpload');
+    Route::post('property/imageUpload', 'api\admin\PropertyController@imageUpload')->middleware('auth:api');
     // view cleaner 
    
     // Route::get('/all', 'api\admin\user\LoginController@all')->middleware('auth:api');

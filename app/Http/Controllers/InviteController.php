@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Invite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Property;
 class InviteController extends Controller
 {
     /**
@@ -14,9 +14,8 @@ class InviteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $user = Auth::user();
-        return view('admin.team.invites.view', compact('user'));
+    {       
+        return view('admin.team.invites.view');
     }
 
     /**
@@ -26,6 +25,11 @@ class InviteController extends Controller
      */
     public function create()
     {
+        if(Property::where(['user_id' => Auth::user()->id ])->exists())
+        {
+            $properties = Property::where(['user_id' => Auth::user()->id ])->get();
+            return view('admin.team.invites.create' , compact('properties') );
+        }
     }
 
     /**
@@ -36,7 +40,32 @@ class InviteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $str = $request->data;
+        // parse_str($str);
+        $params = array();
+        $array = $this->unserializeForm($str);
+        $str = implode(',' , $array);
+        serialize($str);       
+        unserialize( $str );
+       
+        
+    }
+
+    // Unserialize function
+
+    private function unserializeForm($str) {
+        $returndata = array();
+        $strArray = explode("&", $str);
+        $i = 0;
+        foreach ($strArray as $key=>$item) {
+            if(!$key == 0)
+            {
+                $array = explode("=", $item);
+                $returndata[$array[0]] = $array[1];
+            }
+        }
+    
+        return $returndata;
     }
 
     /**

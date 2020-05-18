@@ -5,11 +5,12 @@ namespace App\Http\Controllers\api\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FilePondController;
 use Illuminate\Http\Request;
-use App\{User, Property};
+use App\{User, Property , PropertyType , PropertySubTypes};
 use DB;
 use Validator;
 use Auth;
 
+use Illuminate\Support\Facades\Storage;
 class PropertyController extends Controller
 {
     /**
@@ -17,9 +18,35 @@ class PropertyController extends Controller
     *
     * @return \Illuminate\Http\Response
     */
+    
+    // Fetch all Properties_types
+    public function property_types()
+    {
+        return response()->json(['data' => PropertyType::all() , 'status' => true]);
+    }
+    
+    // Fetch poserty sub typer by property type ID
+    public function property_sub_types(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required', 
+            ]);
+            if ($validator->fails()) { 
+                return response()->json([
+                    'error'=>$validator->errors()->first(),
+                    'status'=>false
+            ], 401);
+            }
+            if(PropertySubTypes::where('property_type_id' , $request->id)->exists()){
+                return response()->json(['data' => PropertySubTypes::where('property_type_id' , $request->id)->get() , 'status' => true]);
+            }
+    }
+
     public function index()
-    {       
-        return response()->json(['data' => Property::where('user_id' , Auth::user()->id )->get() , 'status' =>true ]);
+    {
+        if(Property::where('user_id' , Auth::user()->id )->exists() ){
+            return response()->json(['data' => Property::where('user_id' , Auth::user()->id )->get() , 'status' =>true ]);
+        }
     }
     
     /**
@@ -43,9 +70,10 @@ class PropertyController extends Controller
         $validator = Validator::make($request->all(), $this->validationRules($request));
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()->first() , 'status' => false ]);
-        } 
-        
+        }        
         $data = new Property;
+        $data->property_type = $request->property_type; //Id
+        $data->property_sub_types = $request->property_sub_types; //array
         $data->user_id = $request->user_id;
         $data->property_name = $request->property_name;
         $data->property_address = $request->property_address;
@@ -53,23 +81,45 @@ class PropertyController extends Controller
         $data->state = $request->state;
         $data->country = $request->country;
         $data->zipcode = $request->zipcode;
-        $data->bathrooms = $request->bathrooms;
-        $data->bedrooms = $request->bedrooms;
-        $data->size = $request->size;
+        // $data->bathrooms = $request->bathrooms;
+        // $data->bedrooms = $request->bedrooms;
+        // $data->size = $request->size;
         $data->property_description = $request->property_description;
+        if(!empty($request->base64) ){
+            $imageNames = $this->imageUpload($request);
+        }
+        if(!$imageNames == false){
+            $data->property_image = json_encode($imageNames);
+        }
         $data->save();
         return response()->json(['message' => 'Property added successfully' , 'status' => true]);
     }
     
     // image Uploading
     
-    public function imageUpload(Request $request){
+    private function imageUpload(Request $request){    
+        if(!empty($request->base64)) {
+            $images = $request->base64;
+            
+            $fileNames = [];
+            $images = json_decode($images);            
+            foreach($images as $key=>$image){
+                $image = str_replace('data:image/png;base64,', '', $image);
+                $image = str_replace(' ', '+', $image);
+                $fileName = str_random(5) . '.png';
+                array_push($fileNames , $fileName);
+                Storage::disk('public_driver')->put($fileName, base64_decode($image));
+            }
+            return $fileName;
+    
+            // $filepond = new FilePondController();
+            // $data = $filepond->uploadImage($request);
 
-        
-        $filepond = new FilePondController();
-        $data = $filepond->uploadImage($request);
-        return response()->json($data);
-        
+            // return response()->json(['file' => $data,'status'=> true]);        
+        }else{
+            return false;
+            // return response()->json(['file' => null,'status'=> false]);        
+        }
     }
     
     /**
@@ -80,7 +130,12 @@ class PropertyController extends Controller
     */
     public function show($id)
     {
-        return response()->json(['data' => Property::find($id)->first() , 'status' =>true ]);
+        if(Property::find($id)->exists()){
+            return response()->json(['data' => Property::find($id)->first() , 'status' =>true ]);
+        }
+        else{
+            return response()->json(['message' => 'no data found' , 'status' =>false ]);
+        }
     }
     
     /**
@@ -91,7 +146,12 @@ class PropertyController extends Controller
     */
     public function edit($id)
     {
-        return response()->json(['data' => Property::find($id)->first() , 'status' =>true ]);
+        if(Property::find($id)->exists()){
+            return response()->json(['data' => Property::find($id)->first() , 'status' =>true ]);
+        }
+        else{
+            return response()->json(['message' => 'no data found' , 'status' =>false ]);
+        }
     }
     
     /**
@@ -111,15 +171,17 @@ class PropertyController extends Controller
             $id = ($id) ? $id : null;
             if($id){
                 $data = Property::findOrFail($id);
+                $data->property_type = $request->property_type; //Id
+                $data->property_sub_types = $request->property_sub_types; //array
                 $data->property_name = $request->property_name;
                 $data->property_address = $request->property_address;
                 $data->city = $request->city;
                 $data->state = $request->state;
                 $data->country = $request->country;
                 $data->zipcode = $request->zipcode;
-                $data->bathrooms = $request->bathrooms;
-                $data->bedrooms = $request->bedrooms;
-                $data->size = $request->size;
+                // $data->bathrooms = $request->bathrooms;
+                // $data->bedrooms = $request->bedrooms;
+                // $data->size = $request->size;
                 $data->property_description = $request->property_description;
                 $data->save();
                 return response()->json(['message' => 'Property updated successfully' , 'status' => true]);
@@ -147,10 +209,15 @@ class PropertyController extends Controller
         $id = $request->id;
         $validationRules = [
             'property_name' => 'required|unique:properties,property_name' .$id,
+            'property_type' => 'required',
+            'property_address' => 'required', 
             'city' => 'required|min:2|max:20', 
             'state' => 'required|min:2|max:20', 
             'country' => 'required|min:2|max:20', 
-            'zipcode' => 'required|min:4|max:12'
+            'zipcode' => 'required|min:4|max:12',
+            'property_type' => 'required',
+            'property_sub_types' => 'required',
+            'base64' => 'required'
         ];   
         
         return $validationRules;

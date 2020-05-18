@@ -57,7 +57,6 @@ class FilePondController extends Controller
 		}
 
 	}
-
 	/* This Function is delete the upload file from disk while uploading */
 
 	public function deleteImage(Request $request)

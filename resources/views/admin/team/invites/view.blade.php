@@ -41,7 +41,7 @@
 				<div class="card">
 					<div class="card-header">
 						<div class="add-property">
-							<a href="{{ url('/cleaner/create') }}" class="btn btn-primary float-right">Invite cleaner</a>
+							<a href="{{ url('/invite/create') }}" class="btn btn-primary float-right">Invite cleaner</a>
 						</div>
 					</div>
 					<!-- /.card-header -->
