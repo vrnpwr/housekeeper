@@ -39,78 +39,90 @@
     <div class="row">
       <div class="col-12">
         <div class="card">
-          <div class="card-header">
+          {{-- <div class="card-header">
             <div class="add-property">
               <a href="{{ url('/cleaner/create') }}" class="btn btn-primary float-right">Invite cleaner</a>
-            </div>
-          </div>
-          <!-- /.card-header -->
-          <div class="card-body">
-            <div class="">
-              <form id="invite-form" type="post">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="select2-purple">
-                      <select id="property_ids" class="select2" name="property[]" multiple="multiple"
-                        data-placeholder="Select Cleaners" data-dropdown-css-class="select2-purple"
-                        style="width: 100%;">
-                        @foreach($properties as $key=>$property)
-                        <option value="{{ $property->id }}">{{ $property->property_name }}</option>
-                        @endforeach
-                      </select>
-                    </div>
-                  </div>
+        </div>
+      </div> --}}
+      <!-- /.card-header -->
+      <div class="card-body">
+        <div class="">
+          <form id="invite-form" type="post">
+            <div class="row">
+              <div class="col-12">
 
-                  {{-- / col-12 --}}
-                  @php
-                  $dynamicName = "Phone Number";
-                  @endphp
-                  <div class="col-4">
-                    <div class="form-group">
-                      <label for="invitation-type">Method</label>
-                      <select id="invitation-type" class="custom-select" name="invitation-type">
-                        <option selected disabled>Select type</option>
-                        <option value="email">Email</option>
-                        <option value="phone">Phone</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-4">
-                    <div class="form-group">
-                      <label for="">Name</label>
-                      <input type="text" name="name" id="cleaner-name" class="form-control"
-                        placeholder="Enter Cleaner Name">
-                    </div>
-                  </div>
+                <div class="select2-purple">
+                  <label for="properties_id">Select the properties you want to share with this cleaner.</label>
+                  <select id="property_ids" class="select2 @error('property_ids') is-invalid @enderror"
+                    name="property[]" multiple="multiple" data-placeholder="Select Cleaners"
+                    data-dropdown-css-class="select2-purple" style="width: 100%;">
+                    @foreach($properties as $key=>$property)
+                    <option value="{{ $property->id }}">{{ $property->property_name }}</option>
+                    @endforeach
+                  </select>
+                  @error('property_ids')
+                  <div class="alert alert-danger">{{ $message }}</div>
+                  @enderror
+                </div>
+              </div>
 
-                  <div class="col-4">
-                    <div class="form-group">
-                      <div id="dynamic-container">
-                        <label for="">Email</label>
-                        <input type="email" name="email" id="type" class="form-control" placeholder="Enter Email">
-                      </div>
-                    </div>
-                  </div>
-                  {{-- Submit Button --}}
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-primary ml-1">Submit</button>
+              {{-- / col-12 --}}
+              @php
+              $dynamicName = "Phone Number";
+              @endphp
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="invitation_type">Method</label>
+                  <select id="invitation_type" class="custom-select" name="invitation-type">
+                    <option selected disabled>Select type</option>
+                    <option value="email">Email</option>
+                    <option value="phone">Phone</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="">Name</label>
+                  <input type="text" name="name" id="cleaner_name" class="form-control"
+                    placeholder="Enter Cleaner Name">
+                </div>
+              </div>
+
+              <div class="col-4">
+                <div class="form-group">
+                  <div id="dynamic-container">
+                    <label for="">Email</label>
+                    <input type="email" name="email" id="type" class="form-control" placeholder="Enter Email">
                   </div>
                 </div>
-              </form>
-            </div>
+              </div>
 
-          </div>
-          <!-- /.card-body -->
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="my-input">Invitation Message</label>
+                  <input id="invitation_message" class="form-control" type="text" name="Invitation-message">
+                </div>
+              </div>
+              {{-- Submit Button --}}
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary ml-1">Submit</button>
+              </div>
+            </div>
+          </form>
         </div>
+
       </div>
+      <!-- /.card-body -->
     </div>
-    <!-- /.row -->
-    <!-- Main row -->
-    <div class="row">
-      <!-- Left col -->
-      <!-- right col -->
-    </div>
-    <!-- /.row (main row) -->
+  </div>
+  </div>
+  <!-- /.row -->
+  <!-- Main row -->
+  <div class="row">
+    <!-- Left col -->
+    <!-- right col -->
+  </div>
+  <!-- /.row (main row) -->
   </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->
@@ -138,9 +150,10 @@
       e.preventDefault();
       var formData = {
             property_ids: $('#property_ids').val(),
-            invitation_type: $('#invitation-type').val(),
-            cleaner_name: $('#cleaner-name').val(),
+            invitation_type: $('#invitation_type').val(),
+            cleaner_name: $('#cleaner_name').val(),
             details: $('#details').val(),
+            invitation_message : $('#invitation_message').val()
         };
 
       $.ajaxSetup({

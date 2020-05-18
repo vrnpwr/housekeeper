@@ -9,6 +9,7 @@ use App\{User, Property , PropertyType , PropertySubTypes};
 use DB;
 use Validator;
 use Auth;
+use Config;
 
 use Illuminate\Support\Facades\Storage;
 class PropertyController extends Controller
@@ -44,8 +45,11 @@ class PropertyController extends Controller
 
     public function index()
     {
+        
         if(Property::where('user_id' , Auth::user()->id )->exists() ){
-            return response()->json(['data' => Property::where('user_id' , Auth::user()->id )->get() , 'status' =>true ]);
+            return response()->json(['data' => Property::where('user_id' , Auth::user()->id )->get() , 'status' =>true , 'count' => Property::where('user_id' , Auth::user()->id )->count() ,'image_url' => Config::get('app.url').'images/' ]);
+        }else{
+            return response()->json(['message' => 'Properties not found' ,  'status' => false]);
         }
     }
     
@@ -74,7 +78,7 @@ class PropertyController extends Controller
         $data = new Property;
         $data->property_type = $request->property_type; //Id
         $data->property_sub_types = $request->property_sub_types; //array
-        $data->user_id = $request->user_id;
+        $data->user_id = Auth::user()->id;
         $data->property_name = $request->property_name;
         $data->property_address = $request->property_address;
         $data->city = $request->city;

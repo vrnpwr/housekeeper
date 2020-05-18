@@ -6,6 +6,7 @@ use App\Invite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Property;
+use Illuminate\Support\Facades\Validator;
 class InviteController extends Controller
 {
     /**
@@ -40,14 +41,21 @@ class InviteController extends Controller
      */
     public function store(Request $request)
     {
-        $str = $request->data;
-        // parse_str($str);
-        $params = array();
-        $array = $this->unserializeForm($str);
-        $str = implode(',' , $array);
-        serialize($str);       
-        unserialize( $str );
-       
+
+        $validator = Validator::make($request->all(), [
+            'property_ids' => 'required',
+            'invitation_type' => 'required',
+            'cleaner_name' => 'required',
+            'details' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('invite/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        dd($request->all());      
         
     }
 
