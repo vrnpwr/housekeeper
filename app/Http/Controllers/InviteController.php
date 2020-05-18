@@ -15,8 +15,13 @@ class InviteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {       
-        return view('admin.team.invites.view');
+    {  
+        $invites = Invite::all();     
+        foreach($invites as $key=>$value){
+            $ids = json_decode($value->property_ids);
+            $invites[$key]->property_id = $ids;
+        }
+        return view('admin.team.invites.view' , compact('invites'));
     }
 
     /**
@@ -104,6 +109,8 @@ class InviteController extends Controller
      */
     public function destroy(Invite $invite)
     {
-        //
+        $data = Invite::find($invite->id);
+        $data->delete();
+        return true;
     }
 }

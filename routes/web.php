@@ -103,6 +103,7 @@ Route::group(['middleware' => 'web'], function() {
 			/*########################## Teams Route ########################*/
 			/*Invite*/
 			Route::resource('/invite','InviteController');
+			Route::delete('/invite/{id}','InviteController@destroy');
 			
 			/* Cleaner */
 			Route::resource('/cleaner', 'CleanerController');

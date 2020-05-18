@@ -19,7 +19,8 @@ class CreateInvitesTable extends Migration
             $table->string('invitation_type');
             $table->string('cleaner_name');
             $table->string('details');
-            $table->string('invitation_message');            
+            $table->string('invitation_message')->nullable();            
+            $table->string('invitation_code');            
             $table->timestamps();
         });
     }

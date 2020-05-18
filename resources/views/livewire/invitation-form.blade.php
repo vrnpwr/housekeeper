@@ -4,7 +4,6 @@
             <div class="row">
                 {{-- Formlive wire testing --}}
                 <div class="col-12">
-
                     <div class="" wire:ignore class="w-full select2-purple">
                         <label>Select the properties you want to share with this cleaner.</label>
                         <select class="properties" multiple="multiple" data-placeholder="Select Cleaners"
@@ -13,7 +12,6 @@
                             <option value="{{ $property->id }}">{{ $property->property_name }}</option>
                             @endforeach
                         </select>
-                        {{-- <input type="text" name="prop_ids[]" id="prop_ids" wire:model="prop_ids"> --}}
                         @error('property_ids')
                         <span class="text-sm text-danger error">{{ $message }}</span>
                         @enderror

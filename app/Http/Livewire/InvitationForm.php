@@ -16,6 +16,8 @@ class InvitationForm extends Component
     public $invitation_message;
     public $properties;
     public $prop_ids;
+    public $invitation_code;
+
 
     protected $listeners = ['add_array'];
 
@@ -38,16 +40,18 @@ class InvitationForm extends Component
     public function submit()
     {
         $validator = $this->validate([
-            // 'property_ids' => 'required|array|min:1',
+            'prop_ids' => 'required|array|min:1',
             'invitation_type' => 'required',
             'cleaner_name' => 'required',
             'details' => 'required',
         ]);
+            $invitation_code = mt_rand(100000, 999999);
             $data = new  Invite;
             $data->property_ids = json_encode($this->prop_ids);
             $data->invitation_type = $this->invitation_type;
             $data->cleaner_name = $this->cleaner_name;
             $data->details = $this->details;
+            $data->invitation_code = $invitation_code;
             $data->invitation_message = $this->invitation_message;
             $data->save();
             if($data->invitation_type)
