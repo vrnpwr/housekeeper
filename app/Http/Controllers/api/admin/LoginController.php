@@ -24,7 +24,7 @@ class LoginController extends Controller
             }
             
             $accessToken = Auth::user()->createToken('authToken')->accessToken;
-            return response(['user_id'=>Auth::user()->id, 'access_token' => $accessToken , 'status' => true]);
+            return response(['user_id'=>Auth::user()->id ,'type' =>Auth::user()->type ,  'access_token' => $accessToken , 'status' => true]);
         }
         
         // register
