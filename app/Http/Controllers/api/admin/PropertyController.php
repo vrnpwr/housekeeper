@@ -88,9 +88,9 @@ class PropertyController extends Controller
         if(!empty($request->base64) ){
             $imageNames = $this->imageUpload($request);
         }
-        if(!$imageNames == false){
-            $data->property_image = json_encode($imageNames);
-        }
+        // return response()->json($imageNames);
+        $data->property_image = json_encode($imageNames);
+        
         $data->save();
         return response()->json(['message' => 'Property added successfully' , 'status' => true]);
     }
@@ -98,24 +98,21 @@ class PropertyController extends Controller
     // image Uploading
     
     private function imageUpload(Request $request){    
+		
         if(!empty($request->base64)) {
             $images = $request->base64;
-            
+            // return response()->json(gettype($images));
             $fileNames = [];
-            $images = json_decode($images);            
+            $images = json_decode($images);
             foreach($images as $key=>$image){
-                $image = str_replace('data:image/png;base64,', '', $image);
+                $image = str_replace('data:image/png;base64,', '', $image->uri);
                 $image = str_replace(' ', '+', $image);
                 $fileName = str_random(5) . '.png';
                 array_push($fileNames , $fileName);
                 Storage::disk('public_driver')->put($fileName, base64_decode($image));
             }
-            return $fileName;
-    
-            // $filepond = new FilePondController();
-            // $data = $filepond->uploadImage($request);
+            return $fileNames;
 
-            // return response()->json(['file' => $data,'status'=> true]);        
         }else{
             return false;
             // return response()->json(['file' => null,'status'=> false]);        
