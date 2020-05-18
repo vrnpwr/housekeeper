@@ -86,6 +86,14 @@
         text: `${message}`,
       })
     });
+
+    // It will refresh screen after form submit
+    window.livewire.on('reload' , function(){
+      setTimeout(function(){
+                    window.location.reload();
+      },1500);
+    });
+    
     // invoke select 2
     $('.properties').select2();
     // pass selected property Ids in livewire component

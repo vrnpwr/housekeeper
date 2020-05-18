@@ -86,7 +86,8 @@ class InviteController extends Controller
      */
     public function edit(Invite $invite)
     {
-        //
+        $properties = Property::all();
+        return view('admin.team.invites.edit' , compact('invite','properties') );
     }
 
     /**

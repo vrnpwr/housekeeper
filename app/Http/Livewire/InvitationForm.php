@@ -17,6 +17,7 @@ class InvitationForm extends Component
     public $properties;
     public $prop_ids;
     public $invitation_code;
+    public $invite;
 
 
     protected $listeners = ['add_array'];
@@ -45,6 +46,7 @@ class InvitationForm extends Component
             'cleaner_name' => 'required',
             'details' => 'required',
         ]);
+            // Generate  
             $invitation_code = mt_rand(100000, 999999);
             $data = new  Invite;
             $data->property_ids = json_encode($this->prop_ids);
@@ -57,7 +59,8 @@ class InvitationForm extends Component
             if($data->invitation_type)
             {
                 $this->emit('success', "Invitation send successfully!");
-                $this->reset('property_ids', 'invitation_type', 'cleaner_name', 'details','invitation_message');
+                $this->emit('reload');                
+                // $this->reset('property_ids', 'invitation_type', 'cleaner_name', 'details','invitation_message');
             }
             else{
                 $this->emit('error', "Invitation send successfully!");
