@@ -43,15 +43,24 @@ class PropertyController extends Controller
             }
     }
 
-    public function index()
-    {
-        
-        if(Property::where('user_id' , Auth::user()->id )->exists() ){
-            return response()->json(['data' => Property::where('user_id' , Auth::user()->id )->get() , 'status' =>true , 'count' => Property::where('user_id' , Auth::user()->id )->count() ,'image_url' => Config::get('app.url').'images/' ]);
-        }else{
-            return response()->json(['message' => 'Properties not found' ,  'status' => false]);
+        public function index()
+        {            
+            if(Property::where('user_id' , Auth::user()->id )->exists() ){
+                $properties = Property::where('user_id' , Auth::user()->id )->get();
+                foreach($properties as $key=>$property){
+                    $properties[$key]->property_image = json_decode($property->property_image);
+                    $properties[$key]->property_sub_types = json_decode($property->property_sub_types);
+                }
+                return response()->json([
+                    'data' => $properties , 
+                    'status' =>true , 
+                    'count' => Property::where('user_id' , Auth::user()->id )->count() ,
+                    'image_url' => Config::get('app.url').'images/' 
+                    ]);
+            }else{
+                return response()->json(['message' => 'Properties not found' ,  'status' => false]);
+            }
         }
-    }
     
     /**
     * Show the form for creating a new resource.
@@ -85,9 +94,6 @@ class PropertyController extends Controller
         $data->state = $request->state;
         $data->country = $request->country;
         $data->zipcode = $request->zipcode;
-        // $data->bathrooms = $request->bathrooms;
-        // $data->bedrooms = $request->bedrooms;
-        // $data->size = $request->size;
         $data->property_description = $request->property_description;
         if(!empty($request->base64) ){
             $imageNames = $this->imageUpload($request);
@@ -131,14 +137,37 @@ class PropertyController extends Controller
     */
     public function show($id)
     {
-        if(Property::find($id)->exists()){
-            return response()->json(['data' => Property::find($id)->first() , 'status' =>true ]);
+        
+        // if(Property::find($id)->exists()){
+        //     return response()->json(['data' => Property::find($id)->first() , 'status' =>true ]);
+        // }
+        // else{
+        //     return response()->json(['message' => 'no data found' , 'status' =>false ]);
+        // }
+    }
+    
+    
+     public function view_properties(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json(['message' => $validator->errors()->first() , 'status' => false ]);
+            } 
+        $id = $request->id;   
+        if(Property::where(['user_id' => Auth::user()->id , 'id' => $id])->exists() ){
+            $properties = Property::where( ['user_id' => Auth::user()->id , 'id' => $id] )->get();
+            foreach($properties as $key=>$property){
+                $properties[$key]->property_image = json_decode($property->property_image);
+                $properties[$key]->property_sub_types = json_decode($property->property_sub_types);
+            }
+            return response()->json(['data' => $properties , 'id' => $id, 'status' =>true ]);
         }
         else{
             return response()->json(['message' => 'no data found' , 'status' =>false ]);
         }
     }
-    
     /**
     * Show the form for editing the specified resource.
     *
@@ -162,33 +191,55 @@ class PropertyController extends Controller
     * @param  int  $id
     * @return \Illuminate\Http\Response
     */
+    
     public function update(Request $request, $id)
+    {
+        // $validator = Validator::make($request->all(), $this->validationRules($request));
+        // if ($validator->fails()) {
+        //     return response()->json(['message' => $validator->errors()->first() , 'status' => false ]);
+        // } 
+        // else {
+        //     $id = ($id) ? $id : null;
+        //     if($id){
+        //         $data = Property::findOrFail($id);
+        //         $data->property_type = $request->property_type; //Id
+        //         $data->property_sub_types = $request->property_sub_types; //array
+        //         $data->property_name = $request->property_name;
+        //         $data->property_address = $request->property_address;
+        //         $data->city = $request->city;
+        //         $data->state = $request->state;
+        //         $data->country = $request->country;
+        //         $data->zipcode = $request->zipcode;
+        //         $data->property_description = $request->property_description;
+        //         $data->save();
+        //         return response()->json(['message' => 'Property updated successfully' , 'status' => true]);
+        //     }
+            
+        // }
+    }
+
+    public function update_property(Request $request)
     {
         $validator = Validator::make($request->all(), $this->validationRules($request));
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()->first() , 'status' => false ]);
         } 
-        else {
-            $id = ($id) ? $id : null;
-            if($id){
-                $data = Property::findOrFail($id);
-                $data->property_type = $request->property_type; //Id
-                $data->property_sub_types = $request->property_sub_types; //array
-                $data->property_name = $request->property_name;
-                $data->property_address = $request->property_address;
-                $data->city = $request->city;
-                $data->state = $request->state;
-                $data->country = $request->country;
-                $data->zipcode = $request->zipcode;
-                // $data->bathrooms = $request->bathrooms;
-                // $data->bedrooms = $request->bedrooms;
-                // $data->size = $request->size;
-                $data->property_description = $request->property_description;
-                $data->save();
-                return response()->json(['message' => 'Property updated successfully' , 'status' => true]);
-            }
-            
+        $id = ($request->id) ? $id : null;
+        if($id){
+            $data = Property::findOrFail($id);
+            $data->property_type = $request->property_type; //Id
+            $data->property_sub_types = $request->property_sub_types; //array
+            $data->property_name = $request->property_name;
+            $data->property_address = $request->property_address;
+            $data->city = $request->city;
+            $data->state = $request->state;
+            $data->country = $request->country;
+            $data->zipcode = $request->zipcode;
+            $data->property_description = $request->property_description;
+            $data->save();
+            return response()->json(['message' => 'Property updated successfully' , 'status' => true]);
         }
+            
     }
     
     /**
@@ -200,8 +251,21 @@ class PropertyController extends Controller
     
     public function destroy($id)
     {
-        $data = Property::find($id);
+        // $data = Property::find($id);
+        // $data->delete();
+    }
+    
+    // Delete Properties 
+    public function delete_property(Request $request)
+    {
+        $data = Property::findOrFail($request->id);
         $data->delete();
+        if($data->id){
+            return response()->json(['status' => true , 'message' => 'property deleted successfully']);
+        }else
+        {
+            return response()->json(['status' , false , 'message' => 'property not deleted']);
+        }
     }
     
     //Contains the form validation rules.

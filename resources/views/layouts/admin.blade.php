@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,12 +10,13 @@
 
   <title>{{ config('app.name', 'Laravel') }}</title>
   @include('inc.header_files')
-
+  @livewireStyles
 </head>
+
 <body class="hold-transition sidebar-mini layout-fixed">
   <div id="app" class="wrapper">
 
-    
+
     <!-- #################### Navbar ##################### -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
       <!-- Left navbar links -->
@@ -30,7 +32,7 @@
             <i class="fas fa-th-large"></i>
           </a>
         </li>
-        
+
       </ul>
     </nav>
     <!-- #################### Navbar ##################### -->
@@ -43,28 +45,30 @@
     <div class="content-wrapper">
 
       <main class="">
-       @yield('content')
-     </main>
+        @yield('content')
+      </main>
 
-     <footer class="main-footer">
-      <strong>Copyright &copy; 2020 <a href="#">HouseKeeper</a>.</strong>
-      All rights reserved.
+      <footer class="main-footer">
+        <strong>Copyright &copy; 2020 <a href="#">HouseKeeper</a>.</strong>
+        All rights reserved.
 
-    </footer>
+      </footer>
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-      <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
+      <!-- Control Sidebar -->
+      <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+      </aside>
+      <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+
   </div>
-  <!-- ./wrapper -->
 
-</div>
+  <!-- ##################FOOTERFILES################## -->
+  @include('inc.footer_files')
+  <!-- ##################FOOTERFILES################## -->
 
-<!-- ##################FOOTERFILES################## -->
-@include('inc.footer_files')
-<!-- ##################FOOTERFILES################## -->
-
+  @livewireScripts
 </body>
+
 </html>

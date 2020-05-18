@@ -42,39 +42,25 @@ class InviteController extends Controller
     public function store(Request $request)
     {
 
-        $validator = Validator::make($request->all(), [
-            'property_ids' => 'required',
-            'invitation_type' => 'required',
-            'cleaner_name' => 'required',
-            'details' => 'required',
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'property_ids' => 'required',
+        //     'invitation_type' => 'required',
+        //     'cleaner_name' => 'required',
+        //     'details' => 'required',
+        // ]);
 
-        if ($validator->fails()) {
-            return redirect('invite/create')
-                        ->withErrors($validator)
-                        ->withInput();
-        }
+        // if ($validator->fails()) {
+        //     return redirect('invite/create')
+        //                 ->withErrors($validator)
+        //                 ->withInput();
+        // }
 
-        dd($request->all());      
+        // dd($request->all());      
         
     }
 
     // Unserialize function
 
-    private function unserializeForm($str) {
-        $returndata = array();
-        $strArray = explode("&", $str);
-        $i = 0;
-        foreach ($strArray as $key=>$item) {
-            if(!$key == 0)
-            {
-                $array = explode("=", $item);
-                $returndata[$array[0]] = $array[1];
-            }
-        }
-    
-        return $returndata;
-    }
 
     /**
      * Display the specified resource.

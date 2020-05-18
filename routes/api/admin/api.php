@@ -38,10 +38,12 @@ Route::prefix('/user')->group( function() {
 
     // Property
     Route::get('property_types', 'api\admin\PropertyController@property_types')->middleware('auth:api');
+    Route::post('view_properties', 'api\admin\PropertyController@view_properties')->middleware('auth:api');
     Route::post('property_sub_types', 'api\admin\PropertyController@property_sub_types')->middleware('auth:api');
     Route::resource('property', 'api\admin\PropertyController')->middleware('auth:api');
     Route::post('property/imageUpload', 'api\admin\PropertyController@imageUpload')->middleware('auth:api');
-    // view cleaner 
-   
+    Route::post('update_property', 'api\admin\PropertyController@update_property')->middleware('auth:api');
+    Route::post('delete_property' , 'api\admin\PropertyController@delete_property')->middleware('auth:api');
+    // view cleaner    
     // Route::get('/all', 'api\admin\user\LoginController@all')->middleware('auth:api');
 });

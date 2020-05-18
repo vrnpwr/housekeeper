@@ -15,6 +15,11 @@ class CreateInvitesTable extends Migration
     {
         Schema::create('invites', function (Blueprint $table) {
             $table->id();
+            $table->string('property_ids')->nullable();
+            $table->string('invitation_type');
+            $table->string('cleaner_name');
+            $table->string('details');
+            $table->string('invitation_message');            
             $table->timestamps();
         });
     }
