@@ -161,6 +161,7 @@ class PropertyController extends Controller
             foreach($properties as $key=>$property){
                 $properties[$key]->property_image = json_decode($property->property_image);
                 $properties[$key]->property_sub_types = json_decode($property->property_sub_types);
+                $properties[$key]->property_type_name = ($property->property_type->type) ? $property->property_type->type : null;
             }
             return response()->json(['data' => $properties , 'id' => $id, 'status' =>true ]);
         }

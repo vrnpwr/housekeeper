@@ -9,13 +9,13 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>{{ config('app.name', 'Laravel') }}</title>
+
   @include('inc.header_files')
   @livewireStyles
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
   <div id="app" class="wrapper">
-
 
     <!-- #################### Navbar ##################### -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -43,8 +43,8 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-
       <main class="">
+        @include('sweetalert::alert')
         @yield('content')
       </main>
 

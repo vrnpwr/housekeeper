@@ -49548,12 +49548,16 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js"); // ...
+
+__webpack_require__(/*! sweetalert */ "./node_modules/sweetalert/dist/sweetalert.min.js"); // ...
+
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
  * code may be modified to fit the specific needs of your application.
  */
+
 
 try {
   window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
@@ -49583,9 +49587,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
-// ...
-
-__webpack_require__(/*! sweetalert */ "./node_modules/sweetalert/dist/sweetalert.min.js"); // ...
 
 /***/ }),
 
@@ -49676,8 +49677,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Varun\Desktop\projects\housekeeping\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Varun\Desktop\projects\housekeeping\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Varun\Desktop\projects\housekeeper\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Varun\Desktop\projects\housekeeper\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

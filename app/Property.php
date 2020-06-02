@@ -15,4 +15,5 @@ class Property extends Model
     {
         return $this->hasMany('App\CleanerJob');
     }
+
 }

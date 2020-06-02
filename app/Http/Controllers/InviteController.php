@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Property;
 use Illuminate\Support\Facades\Validator;
+// use UxWeb\SweetAlert\SweetAlert;
+Use Alert;
+use Redirect;
+// use App\Providers\SweetAlertServiceProvider;
 class InviteController extends Controller
 {
     /**
@@ -31,6 +35,7 @@ class InviteController extends Controller
      */
     public function create()
     {
+        Alert::info('Info Title', 'Info Message');
         if(Property::where(['user_id' => Auth::user()->id ])->exists())
         {
             $properties = Property::where(['user_id' => Auth::user()->id ])->get();
@@ -46,21 +51,30 @@ class InviteController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'property_ids' => 'required',
+            'invitation_type' => 'required',
+            'cleaner_name' => 'required',
+            'cleaner_email' => 'required',
+        ]);
 
-        // $validator = Validator::make($request->all(), [
-        //     'property_ids' => 'required',
-        //     'invitation_type' => 'required',
-        //     'cleaner_name' => 'required',
-        //     'details' => 'required',
-        // ]);
+        if ($validator->fails()) {
+            return redirect('invite/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
-        // if ($validator->fails()) {
-        //     return redirect('invite/create')
-        //                 ->withErrors($validator)
-        //                 ->withInput();
-        // }
-
-        // dd($request->all());      
+        // Store data to database if data valids
+        $invite = new Invite;
+        $invite->property_ids = $request->property_ids;
+        $invite->invitation_type = $request->invitation_type;
+        $invite->cleaner_name = $request->cleaner_name;
+        $invite->cleaner_email = $request->cleaner_email;
+        $invite->invitation_message = $request->invitation_message;
+        $invite->invitation_code = mt_rand(100000, 999999);
+        $invite->save();
+        // alert()->basic('Basic Message', 'Mandatory Title')->autoclose(3500);
+        return redirect('invite')->withSuccess('Task Created Successfully!');
         
     }
 
