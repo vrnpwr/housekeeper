@@ -5,12 +5,17 @@
 
 @push('styles')
 
-<style type="text/css">
+<style type="text">
 
 </style>
 
 
 @endpush
+<style>
+  .has-error {
+    border: 1.5px solid tomato !important;
+  }
+</style>
 
 
 <!-- Content Header (Page header) -->
@@ -59,8 +64,8 @@
               <div class="col-12">
                 <div class="select2-purple">
                   <label>Select the properties you want to share with this cleaner.</label>
-                  <select class="properties" name="property_ids" multiple="multiple" data-placeholder="Select Cleaners"
-                    style="width: 100%;">
+                  <select class="properties{{ $errors->has('property_ids') ? ' has-error' : ''}}" name="property_ids"
+                    multiple="multiple" placeholder="Select Cleaners" style="width: 100%;">
                     @foreach($properties as $key=>$property)
                     <option value="{{ $property->id }}">{{ $property->property_name }}</option>
                     @endforeach
@@ -78,8 +83,9 @@
               <div class="col-4">
                 <div class="form-group">
                   <label for="invitation_type">Method</label>
-                  <select class="custom-select" name="invitation_type">
-                    <option selected>Select type</option>
+                  <select class="custom-select{{ $errors->has('invitation_type') ? ' has-error' : ''}}"
+                    name="invitation_type">
+                    <option selected value="">Select type</option>
                     <option value="email">Email</option>
                     <option value="phone">Phone</option>
                   </select>
@@ -91,7 +97,8 @@
               <div class="col-4">
                 <div class="form-group">
                   <label for="">Name</label>
-                  <input type="text" name="cleaner_name" class="form-control" placeholder="Enter Cleaner Name">
+                  <input type="text" name="cleaner_name" placeholder="Enter Cleaner Name"
+                    class="form-control{{ $errors->has('cleaner_name') ? ' has-error' : ''}}">
                   @error('cleaner_name')
                   <span class="text-sm text-danger error">{{ $message }}</span>
                   @enderror
@@ -102,8 +109,9 @@
                 <div class="form-group">
                   <div id="dynamic-container">
                     <label for="">Email</label>
-                    <input type="email" name="cleaner_email" class="form-control" placeholder="Enter Email">
-                    @error('cleaner_email')
+                    <input type="email" name="details" placeholder="Enter Email"
+                      class="form-control{{ $errors->has('details') ? ' has-error' : ''}}">
+                    @error('details')
                     <span class="text-sm text-danger error">{{ $message }}</span>
                     @enderror
                   </div>
@@ -113,7 +121,11 @@
               <div class="col-12">
                 <div class="form-group">
                   <label for="my-input">Invitation Message</label>
-                  <input class="form-control" type="text" name="invitation_message">
+                  <input class="form-control{{ $errors->has('invitation_message') ? ' has-error' : ''}}" type="text"
+                    name="invitation_message">
+                  @error('invitation_message')
+                  <span class="text-sm text-danger error">{{ $message }}</span>
+                  @enderror
                 </div>
               </div>
               {{-- Submit Button --}}
@@ -173,6 +185,9 @@
     //   },1500);
     // });
 
+    // Add has-error class to Select 2 with javascript
+     
+
     // invoke select 2
     $('.properties').select2();
     // pass selected property Ids in livewire component
@@ -183,7 +198,7 @@
     });
     
     // change details according to method
-    $("#invitation-type").on('change' , function() {
+    $("#invitation_type").on('change' , function() {
       $('#dynamic-container').html("");
       var val = $(this).val();
       if(val == 'email')

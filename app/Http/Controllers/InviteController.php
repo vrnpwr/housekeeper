@@ -55,7 +55,8 @@ class InviteController extends Controller
             'property_ids' => 'required',
             'invitation_type' => 'required',
             'cleaner_name' => 'required',
-            'cleaner_email' => 'required',
+            'details' => 'required',
+            'invitation_message' => 'required|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -63,18 +64,25 @@ class InviteController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-
+        // Send email to cleaner
+         $details = [
+                'title' => 'Title',
+                'body' => 'Body'
+            ];
+           
+            \Mail::to('your_receiver_email@gmail.com')->send(new \App\Mail\Invites($details));
+           
+            // dd("Email is Sent.");
         // Store data to database if data valids
         $invite = new Invite;
         $invite->property_ids = $request->property_ids;
         $invite->invitation_type = $request->invitation_type;
         $invite->cleaner_name = $request->cleaner_name;
-        $invite->cleaner_email = $request->cleaner_email;
+        $invite->details = $request->details;
         $invite->invitation_message = $request->invitation_message;
         $invite->invitation_code = mt_rand(100000, 999999);
         $invite->save();
-        // alert()->basic('Basic Message', 'Mandatory Title')->autoclose(3500);
-        return redirect('invite')->withSuccess('Task Created Successfully!');
+        return redirect('invite')->withSuccess('Invite Sent Successfully!');
         
     }
 
