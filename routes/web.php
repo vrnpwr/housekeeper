@@ -71,10 +71,10 @@ Route::group(['middleware' => 'web'], function() {
 			Route::delete('/property/{id}', 'PropertyController@destroy');
 			Route::Post('/property/update/checklist', 'PropertyController@update_checklist');
 			/*###############Project###############*/
-			// Route::resource('/project','ProjectController');
-			// Route::get('/project/{id}/editproject','ProjectController@edit_project');
-			// Route::Post('/project/update', 'ProjectController@update_project');
-			// Route::delete('/project/{id}', 'ProjectController@destroy');			
+			Route::resource('/project','ProjectController');
+			Route::get('/project/{id}/editproject','ProjectController@edit_project');
+			Route::Post('/project/update', 'ProjectController@update_project');
+			Route::delete('/project/{id}', 'ProjectController@destroy');			
 			/*###############Schedule###############*/
 			Route::resource('/schedule','ScheduleController');
 			// Route::Post('/project/update', 'ScheduleController@update_project');
