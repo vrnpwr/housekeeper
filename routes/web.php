@@ -71,10 +71,10 @@ Route::group(['middleware' => 'web'], function() {
 			Route::delete('/property/{id}', 'PropertyController@destroy');
 			Route::Post('/property/update/checklist', 'PropertyController@update_checklist');
 			/*###############Project###############*/
-			Route::resource('/project','ProjectController');
-			Route::get('/project/{id}/editproject','ProjectController@edit_project');
-			Route::Post('/project/update', 'ProjectController@update_project');
-			Route::delete('/project/{id}', 'ProjectController@destroy');			
+			// Route::resource('/project','ProjectController');
+			// Route::get('/project/{id}/editproject','ProjectController@edit_project');
+			// Route::Post('/project/update', 'ProjectController@update_project');
+			// Route::delete('/project/{id}', 'ProjectController@destroy');			
 			/*###############Schedule###############*/
 			Route::resource('/schedule','ScheduleController');
 			// Route::Post('/project/update', 'ScheduleController@update_project');
@@ -82,9 +82,9 @@ Route::group(['middleware' => 'web'], function() {
 			Route::get('showcalendar','ScheduleController@show_calendar');
 			Route::post('viewcalendar','ScheduleController@get_calendar_detail');			
 			/* ##############CheckList##############*/
-			Route::resource('/mychecklists','CheckListController');
-			Route::Post('/mychecklists/update', 'CheckListController@update_checklist');
-			Route::delete('/mychecklists/{id}', 'CheckListController@destroy');			
+			// Route::resource('/mychecklists','CheckListController');
+			// Route::Post('/mychecklists/update', 'CheckListController@update_checklist');
+			// Route::delete('/mychecklists/{id}', 'CheckListController@destroy');			
 			//Filepond Image
 			Route::get('/filepond/uploadImage','FilePondController@uploadImage');
 			Route::delete('/filepond/deleteImage','FilePondController@deleteImage');			

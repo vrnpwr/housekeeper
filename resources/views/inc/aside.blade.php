@@ -73,7 +73,7 @@
         <!--  ##############SCHEDULE TREE############## -->
 
         <!--  ##############CHECKLISTS TREE############## -->
-        <li class="nav-item has-treeview">
+        {{-- <li class="nav-item has-treeview">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-edit"></i>
             <p>
@@ -84,152 +84,152 @@
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="{{ url('/mychecklists') }}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>My CheckLists</p>
-              </a>
-            </li>
+        <i class="far fa-circle nav-icon"></i>
+        <p>My CheckLists</p>
+        </a>
+        </li> --}}
 
-            {{--  <li class="nav-item">
+        {{--  <li class="nav-item">
                 <a href="{{ url('/popularchecklists') }}" class="nav-link">
-            <i class="far fa-circle nav-icon"></i>
-            <p>Popular CheckLists</p>
-            </a>
+        <i class="far fa-circle nav-icon"></i>
+        <p>Popular CheckLists</p>
+        </a>
         </li>
         --}}
 
 
-      </ul>
-      </li>
-      <!--  ############## CHECKLISTS TREE ############## -->
+        {{-- </ul>
+      </li> --}}
+        <!--  ############## CHECKLISTS TREE ############## -->
 
-      <!-- ################# My Teams ################# -->
-      <li class="nav-item has-treeview">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-users"></i>
-          <p>
-            My Team
-            <i class="fas fa-angle-left right"></i>
-          </p>
-        </a>
+        <!-- ################# My Teams ################# -->
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-users"></i>
+            <p>
+              My Team
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ url('/invite') }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Invites</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('#') }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Cleaners</p>
+              </a>
+            </li>
+
+          </ul>
+        </li>
+        <!-- ################# My Teams ################# -->
+
+        <!--  ############## SETTING TREE ############## -->
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-cog"></i>
+            <p>
+              Setting
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ url('/profile') }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Profile</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url('/notification') }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Notification</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a href="{{ url('/project-settings') }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Projects</p>
+              </a>
+            </li>
+          </ul>
+
+        </li>
+        <!--  ##############SETTING TREE############## -->
+
+        @endif
+
+        {{-- All uder this condition will display for cleaner --}}
+        @if(Auth::user()->type == 'cleaner')
+
+        {{-- Myjobs --}}
+        <li class="nav-item has-treeview">
+          <a href="{{ url('cleaner/job') }}" class="nav-link">
+            <i class="nav-icon fa fa-recycle" aria-hidden="true"></i>
+            <p>
+              My Jobs
+            </p>
+          </a>
+
+          {{-- Schedule --}}
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-calendar-check    "></i>
+            <p>
+              Schedule
+            </p>
+          </a>
+        </li>
+
+        {{-- Settings --}}
+        <li class="nav-item has-treeview">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-cog"></i>
+            <p>
+              Setting
+              <i class="fas fa-angle-left right"></i>
+            </p>
+          </a>
+        </li>
+
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="{{ url('/invite') }}" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Invites</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ url('#') }}" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Cleaners</p>
-            </a>
-          </li>
-
-        </ul>
-      </li>
-      <!-- ################# My Teams ################# -->
-
-      <!--  ############## SETTING TREE ############## -->
-      <li class="nav-item has-treeview">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-cog"></i>
-          <p>
-            Setting
-            <i class="fas fa-angle-left right"></i>
-          </p>
-        </a>
-
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="{{ url('/profile') }}" class="nav-link">
+            <a href="{{ url('cleaner/profile') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Profile</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ url('/notification') }}" class="nav-link">
+            <a href="{{ url('cleaner/notification') }}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Notification</p>
             </a>
           </li>
-
-          <li class="nav-item">
-            <a href="{{ url('/project-settings') }}" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Projects</p>
-            </a>
-          </li>
         </ul>
 
-      </li>
-      <!--  ##############SETTING TREE############## -->
-
-      @endif
-
-      {{-- All uder this condition will display for cleaner --}}
-      @if(Auth::user()->type == 'cleaner')
-
-      {{-- Myjobs --}}
-      <li class="nav-item has-treeview">
-        <a href="{{ url('cleaner/job') }}" class="nav-link">
-          <i class="nav-icon fa fa-recycle" aria-hidden="true"></i>
-          <p>
-            My Jobs
-          </p>
-        </a>
-
-        {{-- Schedule --}}
-      <li class="nav-item has-treeview">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-calendar-check    "></i>
-          <p>
-            Schedule
-          </p>
-        </a>
-      </li>
-
-      {{-- Settings --}}
-      <li class="nav-item has-treeview">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-cog"></i>
-          <p>
-            Setting
-            <i class="fas fa-angle-left right"></i>
-          </p>
-        </a>
-      </li>
-
-      <ul class="nav nav-treeview">
-        <li class="nav-item">
-          <a href="{{ url('cleaner/profile') }}" class="nav-link">
-            <i class="far fa-circle nav-icon"></i>
-            <p>Profile</p>
-          </a>
         </li>
+
+        @endif
+
+        {{-- Logout will display for all types of users --}}
         <li class="nav-item">
-          <a href="{{ url('cleaner/notification') }}" class="nav-link">
-            <i class="far fa-circle nav-icon"></i>
-            <p>Notification</p>
-          </a>
-        </li>
-      </ul>
-
-      </li>
-
-      @endif
-
-      {{-- Logout will display for all types of users --}}
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+          <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
               document.getElementById('logout-form').submit();">
-          <i class="nav-icon fas fa-sign-out-alt"></i>
-          <p>{{ __('Logout') }}</p>
-        </a>
+            <i class="nav-icon fas fa-sign-out-alt"></i>
+            <p>{{ __('Logout') }}</p>
+          </a>
 
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-          @csrf
-        </form>
-      </li>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+          </form>
+        </li>
 
 
 
