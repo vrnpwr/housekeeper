@@ -17,7 +17,7 @@ class PropertyController extends Controller
     public function index()
     {        
         $user = Auth::user();
-        $properties =Property::all();
+        $properties =Property::where('user_id', Auth::user()->id)->get();
         return view('admin.property.view',compact('user','properties'));
     }
 
@@ -29,7 +29,7 @@ class PropertyController extends Controller
     public function create()
     {
         $user = Auth::user();
-        $checklists = CheckList::all();
+        $checklists = CheckList::where('user_id', Auth::user()->id)->get();
         $cleaners = User::where('type','cleaner')->get();
         $propertyTypes = Property::propertyType();
         return view('admin.property.add',compact('user','checklists','propertyTypes' , 'cleaners'));
