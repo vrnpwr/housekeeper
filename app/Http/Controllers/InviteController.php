@@ -35,11 +35,14 @@ class InviteController extends Controller
      */
     public function create()
     {
-        Alert::info('Info Title', 'Info Message');
+
         if(Property::where(['user_id' => Auth::user()->id ])->exists())
         {
             $properties = Property::where(['user_id' => Auth::user()->id ])->get();
             return view('admin.team.invites.create' , compact('properties') );
+        }
+        else{  
+            return redirect('/invite')->with('info', 'Sorry did not find any property please add property first!');            
         }
     }
 
@@ -65,16 +68,17 @@ class InviteController extends Controller
                         ->withInput();
         }
         // Send email to cleaner
+        if($request->invitation_type == "email"){
          $details = [
                 'title' => 'Title',
                 'body' => 'Body'
-            ];
-           
-            \Mail::to('your_receiver_email@gmail.com')->send(new \App\Mail\Invites($details));
-           
+            ];           
+            \Mail::to($request->details)->send(new \App\Mail\Invites($details));
+        }
             // dd("Email is Sent.");
         // Store data to database if data valids
         $invite = new Invite;
+        $invite->user_id = Auth::user()->id;
         $invite->property_ids = $request->property_ids;
         $invite->invitation_type = $request->invitation_type;
         $invite->cleaner_name = $request->cleaner_name;

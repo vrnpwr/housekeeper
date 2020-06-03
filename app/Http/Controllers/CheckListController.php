@@ -18,7 +18,7 @@ class CheckListController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $checklists = CheckList::all();
+        $checklists = CheckList::where('user_id', Auth::user()->id)->get();
         return view('admin.checklist.view', compact('user', 'checklists'));
     }
 
@@ -30,7 +30,7 @@ class CheckListController extends Controller
     public function create()
     {
         $user = Auth::user();
-        $properties = Property::all();
+        $properties = Property::where('user_id', Auth::user()->id)->get();
         return view('admin.checklist.add', compact('user', 'properties'));
     }
 
