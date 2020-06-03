@@ -18,9 +18,9 @@ class DashboardController extends Controller
     {
 
         $user = Auth::user();
-        $properiesCount = Property::count();
-        $checklistCount = CheckList::count();
-        $projectCount = Project::count();
+        $properiesCount = Property::where('user_id',Auth()->user()->id)->count();
+        $checklistCount = CheckList::where('user_id',Auth()->user()->id)->count();
+        $projectCount = Project::where('user_id',Auth()->user()->id)->count();
         $title = 'Host Dashboard';
         return view('admin.index',compact('user','title','properiesCount','checklistCount','projectCount'));
     }
