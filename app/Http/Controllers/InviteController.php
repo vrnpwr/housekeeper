@@ -69,10 +69,11 @@ class InviteController extends Controller
         }
         // Send email to cleaner
         if($request->invitation_type == "email"){
+          
          $details = [
                 'title' => 'Title',
                 'body' => 'Body'
-            ];           
+            ];          
             \Mail::to($request->details)->send(new \App\Mail\Invites($details));
         }
             // dd("Email is Sent.");

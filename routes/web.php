@@ -127,6 +127,15 @@ Route::group(['middleware' => 'web'], function() {
 			Route::get('testfilepond',function(){
 				return view('filepond');
 			});
+
+			Route::get('testmail',function() {
+				$details = [
+					'title' => "This is Tiltle",
+					'body' => "This is body"
+				];
+				\Mail::to('vrnpwr001@gmail.com')->send(new App\Mail\TestMail($details));
+				dd("Mail sent");
+			});
 		
 		// Dashboard
 		// Route::get('/home', 'DashboardController@index')->name('index');

@@ -6,9 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Auth;
 
-class Invites extends Mailable
+class TestMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $details;
@@ -29,10 +28,6 @@ class Invites extends Mailable
      */
     public function build()
     {
-        Mail::to('vrnpwr001@gmail.com')->send(new SendMailable('varun'));   
-            return 'Email sent Successfully';
-
-        return $this->from(Auth::user()->email)
-        ->view('admin.team.invites.mail');
+        return $this->subject('mail from varun')->view('emails.testmail');
     }
 }
