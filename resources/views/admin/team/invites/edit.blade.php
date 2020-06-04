@@ -32,18 +32,19 @@
       <div class="col-12">
         <div class="card">
           <div class="">
-            <form wire:submit.prevent="edit">
+            <form method="post" action="{{ route('invite.update', $invite->id) }}">
+              @method('PATCH')
+              @csrf
               <div class="row">
-                {{-- Formlive wire testing --}}
                 <div class="col-12">
-                  <div class="" wire:ignore class="w-full select2-purple">
+                  <div class="select2-purple">
                     <label>Select the properties you want to share with this cleaner.</label>
-                    <select class="properties" multiple="multiple" data-placeholder="Select Cleaners"
-                      style="width: 100%;">
-                      @foreach($properties as $key=>$pro)
-                      <option @if($invite->id == $pro->id) value="{{ $pro->id }}" selected @else
-                        value="{{ $pro->id }}" @endif
-                        >{{ $pro->property_name }}</option>
+                    <select name="property_ids" class="properties {{ $errors->has('property_ids') ? ' has-error' : ''}}"
+                      multiple="multiple" data-placeholder="Select Cleaners" style="width: 100%;">
+                      @foreach($properties as $key=>$property)
+                      <option value="{{ $property->id }}" @if(in_array($property->id ,
+                        json_decode($invite->property_ids)) ) selected="selected" @endif >{{ $property->property_name }}
+                      </option>
                       @endforeach
                     </select>
                     @error('property_ids')
@@ -59,10 +60,13 @@
                 <div class="col-4">
                   <div class="form-group">
                     <label for="invitation_type">Method</label>
-                    <select wire:model="invitation_type" class="custom-select" name="invitation-type">
-                      <option selected>Select type</option>
-                      <option value="email">Email</option>
-                      <option value="phone">Phone</option>
+                    <select name="invitation_type{{ $errors->has('invitation_type') ? ' has-error' : ''}}"
+                      class="custom-select" name="invitation-type">
+                      <option>Select type</option>
+                      <option value="email" @if($invite->invitation_type == "email") selected="selected" @endif >Email
+                      </option>
+                      <option value="phone" @if($invite->invitation_type == "phone") selected="selected" @endif>Phone
+                      </option>
 
                     </select>
                     @error('invitation_type')
@@ -73,7 +77,8 @@
                 <div class="col-4">
                   <div class="form-group">
                     <label for="">Name</label>
-                    <input wire:model="cleaner_name" type="text" name="name" class="form-control"
+                    <input name="cleaner_name" type="text" name="name" value="{{ $cleaner }}"
+                      class="form-control{{ $errors->has('cleaner_name') ? ' has-error' : ''}}"
                       placeholder="Enter Cleaner Name">
                     @error('cleaner_name')
                     <span class="text-sm text-danger error">{{ $message }}</span>
@@ -85,7 +90,8 @@
                   <div class="form-group">
                     <div id="dynamic-container">
                       <label for="">Email</label>
-                      <input type="email" wire:model="details" class="form-control" placeholder="Enter Email">
+                      <input type="email" name="details" placeholder="Enter Email"
+                        class="form-control{{ $errors->has('details') ? ' has-error' : ''}}">
                       @error('details')
                       <span class="text-sm text-danger error">{{ $message }}</span>
                       @enderror
@@ -96,7 +102,8 @@
                 <div class="col-12">
                   <div class="form-group">
                     <label for="my-input">Invitation Message</label>
-                    <input class="form-control" type="text" wire:model="invitation_message">
+                    <input class="form-control{{ $errors->has('invitation_message') ? ' has-error' : ''}}" type="text"
+                      name="invitation_message">
                   </div>
                 </div>
                 {{-- Submit Button --}}
@@ -125,7 +132,9 @@
 
 @push('script')
 <script>
-
+  $(document).ready(function () {
+    $('.properties').select2();
+  });
 </script>
 @endpush
 

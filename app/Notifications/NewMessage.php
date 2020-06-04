@@ -40,9 +40,12 @@ class NewMessage extends Notification
      */
     public function toMail($notifiable)
     {
-        // dd($this->details);
-        return (new MailMessage)                    
-                    ->line('You have recived invitation from Host.')
+        $cleaner_name = $this->details['cleaner_name'];
+        $host_name = $this->details['host_name'];
+        return (new MailMessage)                 
+                    ->line('Hello '. $host_name)
+                    ->line('Requested by:  '. $cleaner_name)
+                    ->line('You have recieved invitation from Host.')
                     ->action('See all details', url('/'))
                     ->line('Thank you for using our application!');
     }

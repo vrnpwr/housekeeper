@@ -191,11 +191,11 @@
     // invoke select 2
     $('.properties').select2();
     // pass selected property Ids in livewire component
-    $('.properties').on('change', function (e) {
-      var data = $('.properties').select2("val");
-      $('#prop_ids').val(data);
-      window.livewire.emit('add_array',data)
-    });
+    // $('.properties').on('change', function (e) {
+    //   var data = $('.properties').select2("val");
+    //   $('#prop_ids').val(data);
+    //   window.livewire.emit('add_array',data)
+    // });
     
     // change details according to method
     $("#invitation_type").on('change' , function() {

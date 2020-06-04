@@ -49,27 +49,37 @@
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th>Name</th>
+									<th>Cleaner Name</th>
+									<th>Properties</th>
 									<th>Email / Phone</th>
-									<th>Invitation Code</th>
-									<th>Action</th>
+									<th>Invitation Message</th>
 								</tr>
 							</thead>
 							<tbody>
 								@foreach ($invites as $key=>$invite)
 								<tr>
 									<td>{{$invite->cleaner_name}}</td>
-									<td>{{$invite->details}}</td>
-									<td>{{$invite->invitation_code}}</td>
+									{{-- need to reflect properties details --}}
+									@php
+									$property_ids = json_decode($invite->property_ids);
+									@endphp
 									<td>
-										<!-- Edit -->
-										<a href="{{ url('/invite/'.$invite->id.'/edit') }}" class="btn btn-success">
-											<i class="fa fa-edit" aria-hidden="true"></i>
-										</a>
-										<!-- Delete -->
-										<a href="#" class="btn btn-danger delete mr-invite3" data-id="{{$invite->id}}">
-											<i class="fa fa-trash" aria-hidden="true"></i>
-										</a></td>
+										@foreach($properties as $key=>$property)
+										@if(in_array($property->id , $property_ids))<p>{{ $property->property_name }}</p>@endif
+										@endforeach
+									</td>
+									<td>{{$invite->details}}</td>
+									<td>{{$invite->invitation_message}}</td>
+									{{-- <td> --}}
+									<!-- Edit -->
+									{{-- <a href="{{ url('/invite/'.$invite->id.'/edit') }}" class="btn btn-success">
+									<i class="fa fa-edit" aria-hidden="true"></i>
+									</a> --}}
+									<!-- Delete -->
+									{{-- <a href="#" class="btn btn-danger delete mr-invite3" data-id="{{$invite->id}}">
+									<i class="fa fa-trash" aria-hidden="true"></i>
+									</a> --}}
+									{{-- </td> --}}
 								</tr>
 								@endforeach
 							</tbody>

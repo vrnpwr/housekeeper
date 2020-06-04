@@ -28,7 +28,8 @@ class InviteController extends Controller
             $ids = json_decode($value->property_ids);
             $invites[$key]->property_id = $ids;
         }
-        return view('admin.team.invites.view' , compact('invites'));
+        $properties = Property::all();
+        return view('admin.team.invites.view' , compact('invites','properties'));
     }
 
     /**
@@ -72,17 +73,16 @@ class InviteController extends Controller
         }
         // Send email to cleaner
         if($request->invitation_type == "email"){          
-         $details = [
-                'title' => 'This is invitation mail from Host',
-                'body' => $request->invitation_message
-            ];
             // \Mail::to($request->details)->send(new \App\Mail\Invites($details));
+
             // This function will help you to fetch all deatls about selected properties
-            $details['property_details'] = $this->getPropertyDetails($request);
+            // $details['property_details'] = $this->getPropertyDetails($request);
             $details['app_name'] = config('app.name');
             $details['cleaner_name'] = $request->cleaner_name;
-            $details['invitation_message'] = $request->invitation_message;         
-            Notification::route('mail', $request->email)->notify(new NewMessage($details));
+            $details['invitation_message'] = $request->invitation_message;
+            $details['host_name'] = Auth::user()->name;
+            // dd($request);
+            Notification::route('mail', $request->details)->notify(new NewMessage($details));
         }
         // Store data to database if data valids
         $invite = new Invite;
@@ -96,10 +96,11 @@ class InviteController extends Controller
         $invite->save();
         return redirect('invite')->withSuccess('Invite Sent Successfully!');        
     }
-
-    public function getPropertyDetails(Request $request){
-        // Property_ids have array so we use arrayin
-        $data = Property::whereIn('id',$request->property_ids)->select('property_name','property_address','city','state','country','zipcode')->get();        
+    // *this function recieved propert_ids array and return property object
+    public function getPropertyDetails($request){
+        // Property_ids have array so we use arrayin        
+        $data = Property::whereIn('id',$request)
+        ->select('property_name','property_address','city','state','country','zipcode')->get();        
         return $data;
     }
 
@@ -126,7 +127,9 @@ class InviteController extends Controller
     public function edit(Invite $invite)
     {
         $properties = Property::all();
-        return view('admin.team.invites.edit' , compact('invite','properties') );
+        $property_ids = json_decode($invite->property_ids);
+        $property_details  = $this->getPropertyDetails($property_ids);
+        return view('admin.team.invites.edit' , compact('invite','properties','property_details') );
     }
 
     /**
@@ -138,7 +141,17 @@ class InviteController extends Controller
      */
     public function update(Request $request, Invite $invite)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'property_ids' => 'required',
+            'invitation_type' => 'required',
+            'cleaner_name' => 'required',
+            'details' => 'required',
+            'invitation_message' => 'required|max:255',
+        ]);
+        // If validation failed        
+        if ($validator->fails()) {
+            return redirect('invite/create')->withErrors($validator)->withInput();
+        }
     }
 
     /**
