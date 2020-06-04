@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Auth;
+use Notification;
 
 class Invites extends Mailable
 {
@@ -27,12 +28,21 @@ class Invites extends Mailable
      *
      * @return $this
      */
+
     public function build()
     {
-        Mail::to('vrnpwr001@gmail.com')->send(new SendMailable('varun'));   
-            return 'Email sent Successfully';
-
-        return $this->from(Auth::user()->email)
-        ->view('admin.team.invites.mail');
+        return $this->subject('Invitation Mail')
+        ->line('Thank you for using our application!')
+        ->view('emails.testmail');
     }
+
+    // public function build()
+    // {
+    //     Mail::to('vrnpwr001@gmail.com')
+    //     ->subject('Invitation Mail')
+    //     ->send(new SendMailable('varun'));   
+    //      return 'Email sent Successfully';
+
+    //     // return $this->from(Auth::user()->email)->view('admin.team.invites.mail');
+    // }
 }

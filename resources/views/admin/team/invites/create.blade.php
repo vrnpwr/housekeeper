@@ -64,7 +64,7 @@
               <div class="col-12">
                 <div class="select2-purple">
                   <label>Select the properties you want to share with this cleaner.</label>
-                  <select class="properties{{ $errors->has('property_ids') ? ' has-error' : ''}}" name="property_ids"
+                  <select class="properties{{ $errors->has('property_ids') ? ' has-error' : ''}}" name="property_ids[]"
                     multiple="multiple" placeholder="Select Cleaners" style="width: 100%;">
                     @foreach($properties as $key=>$property)
                     <option value="{{ $property->id }}">{{ $property->property_name }}</option>

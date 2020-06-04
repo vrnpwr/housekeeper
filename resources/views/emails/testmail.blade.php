@@ -8,7 +8,9 @@
 </head>
 
 <body>
-  <h1>{{ $details['title'] }}</h1>
+  <img src="{{ asset('images/logo.png')}}" alt="{{config('app.name') }}">
+  <h1>{{ config('app.name') }}</h1>
+  <h4>{{ $details['title'] }}</h4>
   <p>{{ $details['body'] }}</p>
   <p>Thanks!</p>
 </body>

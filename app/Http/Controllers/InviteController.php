@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Validator;
 // use UxWeb\SweetAlert\SweetAlert;
 Use Alert;
 use Redirect;
+// *For Email
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\NewMessage;
 // use App\Providers\SweetAlertServiceProvider;
 class InviteController extends Controller
 {
@@ -68,27 +71,36 @@ class InviteController extends Controller
                         ->withInput();
         }
         // Send email to cleaner
-        if($request->invitation_type == "email"){
-          
+        if($request->invitation_type == "email"){          
          $details = [
-                'title' => 'Title',
-                'body' => 'Body'
-            ];          
-            \Mail::to($request->details)->send(new \App\Mail\Invites($details));
+                'title' => 'This is invitation mail from Host',
+                'body' => $request->invitation_message
+            ];
+            // \Mail::to($request->details)->send(new \App\Mail\Invites($details));
+            // This function will help you to fetch all deatls about selected properties
+            $details['property_details'] = $this->getPropertyDetails($request);
+            $details['app_name'] = config('app.name');
+            $details['cleaner_name'] = $request->cleaner_name;
+            $details['invitation_message'] = $request->invitation_message;         
+            Notification::route('mail', $request->email)->notify(new NewMessage($details));
         }
-            // dd("Email is Sent.");
         // Store data to database if data valids
         $invite = new Invite;
         $invite->user_id = Auth::user()->id;
-        $invite->property_ids = $request->property_ids;
+        $invite->property_ids = json_encode($request->property_ids);
         $invite->invitation_type = $request->invitation_type;
         $invite->cleaner_name = $request->cleaner_name;
         $invite->details = $request->details;
         $invite->invitation_message = $request->invitation_message;
         $invite->invitation_code = mt_rand(100000, 999999);
         $invite->save();
-        return redirect('invite')->withSuccess('Invite Sent Successfully!');
-        
+        return redirect('invite')->withSuccess('Invite Sent Successfully!');        
+    }
+
+    public function getPropertyDetails(Request $request){
+        // Property_ids have array so we use arrayin
+        $data = Property::whereIn('id',$request->property_ids)->select('property_name','property_address','city','state','country','zipcode')->get();        
+        return $data;
     }
 
     // Unserialize function

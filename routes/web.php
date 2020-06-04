@@ -13,6 +13,11 @@ use RealRashid\SweetAlert\Facades\Alert;
 |
 */
 
+// *using toMail method
+
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\NewMessage;
+
 // we have 3 middleware ['host','superadmin','cleaner']
 
 Route::get('/', function () { return redirect('/login'); });
@@ -123,7 +128,7 @@ Route::group(['middleware' => 'web'], function() {
 			Route::post('fullcalendar/update','FullCalendarController@update');
 			Route::post('fullcalendar/delete','FullCalendarController@destroy');		
 			
-			
+			// Testing Routes ##################################################
 			Route::get('testfilepond',function(){
 				return view('filepond');
 			});
@@ -136,6 +141,13 @@ Route::group(['middleware' => 'web'], function() {
 				\Mail::to('vrnpwr001@gmail.com')->send(new App\Mail\TestMail($details));
 				dd("Mail sent");
 			});
+
+			// To mail method Route testing
+			Route::get('/toMail', function (){
+				$details['app_name'] = "HouseKeeper";
+				Notification::route('mail', 'vrnpwr001@gmail.com')->notify(new NewMessage($details));
+				return 'Sent';
+		});
 		
 		// Dashboard
 		// Route::get('/home', 'DashboardController@index')->name('index');
