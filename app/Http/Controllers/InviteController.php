@@ -12,7 +12,7 @@ Use Alert;
 use Redirect;
 // *For Email
 use Illuminate\Support\Facades\Notification;
-use App\Notifications\NewMessage;
+use App\Notifications\InviteCleaner;
 // use App\Providers\SweetAlertServiceProvider;
 class InviteController extends Controller
 {
@@ -73,16 +73,18 @@ class InviteController extends Controller
         }
         // Send email to cleaner
         if($request->invitation_type == "email"){          
-            // \Mail::to($request->details)->send(new \App\Mail\Invites($details));
-
+            // *\Mail::to($request->details)->send(new \App\Mail\Invites($details));
             // This function will help you to fetch all deatls about selected properties
-            // $details['property_details'] = $this->getPropertyDetails($request);
+            $details['property_details'] = $this->getPropertyDetails($request);
+            // dd($details['property_details']);
             $details['app_name'] = config('app.name');
             $details['cleaner_name'] = $request->cleaner_name;
             $details['invitation_message'] = $request->invitation_message;
             $details['host_name'] = Auth::user()->name;
             // dd($request);
-            Notification::route('mail', $request->details)->notify(new NewMessage($details));
+            return (new InviteCleaner($details))
+                ->toMail($request->details);
+            // *Notification::route('mail', $request->details)->notify(new InviteCleaner($details));
         }
         // Store data to database if data valids
         $invite = new Invite;

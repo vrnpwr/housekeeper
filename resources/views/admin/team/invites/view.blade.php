@@ -18,7 +18,7 @@
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6 mt-5">
-				<h1 class="m-0 text-dark"><i class="fas fa-home mr-3"></i>Pending Invitations</h1>
+				<h1 class="m-0 text-dark"><i class="fas fa-home mr-3"></i>Invitations</h1>
 			</div>
 			<div class="col-sm-6">
 				<ol class="breadcrumb float-sm-right">
@@ -53,6 +53,7 @@
 									<th>Properties</th>
 									<th>Email / Phone</th>
 									<th>Invitation Message</th>
+									<th>Status</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -70,6 +71,10 @@
 									</td>
 									<td>{{$invite->details}}</td>
 									<td>{{$invite->invitation_message}}</td>
+									@php
+									$status = ($invite->status == 0) ? 'pending' : 'accepted';
+									@endphp
+									<td>{{ $status }}</td>
 									{{-- <td> --}}
 									<!-- Edit -->
 									{{-- <a href="{{ url('/invite/'.$invite->id.'/edit') }}" class="btn btn-success">
