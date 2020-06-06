@@ -55,14 +55,15 @@ class InviteCleaner extends Notification
         $property_count = count($this->details['property_details']);
         // dd($property_details);
         return (new MailMessage)  
-                    // ->line(foreach($property_details as $key=>$value){echo $value})
                     // *->mailer('postmark')
                     // *->salutation('salu')
                     ->subject($property_count.' new Property Available!')
                     ->greeting('Hello! '. $cleaner_name)
-                    ->line('Property Name: '.$this->details['property_one']->property_name)
-                    ->line('Property Name: '.$this->details['property_two']->property_name)
+                    ->line('You have '.$property_count.' new Property Available!')
                     ->line('Requested by:  '. $cleaner_name)
+                    ->line('Property: '.$this->details['property_one']->property_name)
+                    ->line('Location: '.$this->details['property_one']->property_address)
+                    
                     // ->line('You have recieved invitation from Host.')
                     ->action('See all details', url('/'))
                     ->line('Thank you for using our application!');
