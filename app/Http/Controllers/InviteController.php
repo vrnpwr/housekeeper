@@ -23,7 +23,7 @@ class InviteController extends Controller
      */
     public function index()
     {  
-        $invites = Invite::all();     
+        $invites = Invite::where('user_id',Auth::user()->id)->get(); 
         foreach($invites as $key=>$value){
             $ids = json_decode($value->property_ids);
             $invites[$key]->property_id = $ids;
@@ -49,7 +49,6 @@ class InviteController extends Controller
             return redirect('/invite')->with('info', 'Sorry did not find any property please add property first!');            
         }
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -57,15 +56,14 @@ class InviteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'property_ids' => 'required',
-            'invitation_type' => 'required',
-            'cleaner_name' => 'required',
-            'details' => 'required',
-            'invitation_message' => 'required|max:255',
-        ]);
-
+    {        
+        $data = $request->all();
+        // ServerSide Email Validation        
+        $email = $data['details'];
+        $user_id = Auth::user()->id;
+        $result = Invite::where(['user_id' => $user_id , 'details'=> $email])->exists();
+        if(!$result){
+        $validator = Validator::make($data, $this->validationRules($request), $this->messages());
         if ($validator->fails()) {
             return redirect('invite/create')
                         ->withErrors($validator)
@@ -82,9 +80,9 @@ class InviteController extends Controller
             $details['invitation_message'] = $request->invitation_message;
             $details['host_name'] = Auth::user()->name;
             // dd($request);
-            return (new InviteCleaner($details))
-                ->toMail($request->details);
-            // *Notification::route('mail', $request->details)->notify(new InviteCleaner($details));
+            // return (new InviteCleaner($details))
+            //     ->toMail($request->details);
+            Notification::route('mail', $request->details)->notify(new InviteCleaner($details));
         }
         // Store data to database if data valids
         $invite = new Invite;
@@ -96,8 +94,13 @@ class InviteController extends Controller
         $invite->invitation_message = $request->invitation_message;
         $invite->invitation_code = mt_rand(100000, 999999);
         $invite->save();
-        return redirect('invite')->withSuccess('Invite Sent Successfully!');        
+        return redirect('invite')->withSuccess('Invite Sent Successfully!');
+    }else{
+        // Email Already Exists        
+        return redirect('invite')->with('info','You alredy Connect to this Email Address!');
+    }     
     }
+
     // *this function recieved propert_ids array and return property object
     public function getPropertyDetails($request){
         // Property_ids have array so we use arrayin        
@@ -107,6 +110,16 @@ class InviteController extends Controller
     }
 
     // Unserialize function
+
+    private function messages()
+    {
+        $messages = [
+            'details.required' => 'Email Id is required.',
+            'details.unique' => 'You Already Connected to this email Address.',     
+        ];
+
+        return $messages;
+    }   
 
 
     /**
@@ -154,6 +167,23 @@ class InviteController extends Controller
         if ($validator->fails()) {
             return redirect('invite/create')->withErrors($validator)->withInput();
         }
+    }
+
+    //Contains the form validation rules.
+    private function validationRules(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        $validationRules = [
+            'property_ids' => 'required',
+            'invitation_type' => 'required',
+            'cleaner_name' => 'required',
+            // 'client_id' => 'unique:Client table,client_id,'.$id
+            // 'jercy_number' => 'required|numeric|max:255|unique:players,jercy_number,' . $id . ',id,team_id,' . $team_id,
+            'details' => 'required|email',
+            'invitation_message' => 'required|max:255',
+        ];
+        // dd($validationRules);
+        return $validationRules;
     }
 
     /**
