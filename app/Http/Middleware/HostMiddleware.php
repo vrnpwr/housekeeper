@@ -7,6 +7,7 @@ use Auth;
 
 class HostMiddleware
 {
+    
     /**
      * Handle an incoming request.
      *
@@ -16,8 +17,14 @@ class HostMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(!is_null(Auth::user()->type) && Auth::user()->type == 'host' || !is_null(Auth::user()->type) && Auth::user()->type == 'SuperAdmin')
+        if(!Auth::user() == null){       
+        if(!is_null(Auth::user()->type) && Auth::user()->type == 'host' || !is_null(Auth::user()->type) && Auth::user()->type == 'SuperAdmin'){
             return $next($request);
-        return redirect('/');
+        }
+    }else{
+            return redirect('/');
+        }
+            
+        
     }
 }
