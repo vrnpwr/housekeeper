@@ -109,6 +109,7 @@ Route::group(['middleware' => 'web'], function() {
 			/*Invite*/
 			Route::resource('/invite','InviteController');
 			Route::delete('/invite/{id}','InviteController@destroy');
+			Route::get('/invite/resent/{id}','InviteController@resent');
 			
 			/* Cleaner */
 			Route::resource('/cleaner', 'CleanerController');

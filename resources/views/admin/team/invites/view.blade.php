@@ -54,6 +54,7 @@
 									<th>Email / Phone</th>
 									<th>Invitation Message</th>
 									<th>Status</th>
+									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -75,16 +76,23 @@
 									$status = ($invite->status == 0) ? 'pending' : 'accepted';
 									@endphp
 									<td>{{ $status }}</td>
-									{{-- <td> --}}
-									<!-- Edit -->
-									{{-- <a href="{{ url('/invite/'.$invite->id.'/edit') }}" class="btn btn-success">
-									<i class="fa fa-edit" aria-hidden="true"></i>
-									</a> --}}
-									<!-- Delete -->
-									{{-- <a href="#" class="btn btn-danger delete mr-invite3" data-id="{{$invite->id}}">
-									<i class="fa fa-trash" aria-hidden="true"></i>
-									</a> --}}
-									{{-- </td> --}}
+									<td>
+										<!-- Edit -->
+										{{-- <a href="{{ url('/invite/'.$invite->id.'/edit') }}" class="btn btn-success">
+										<i class="fa fa-edit" aria-hidden="true"></i>
+										</a> --}}
+										{{-- Send Again --}}
+										{{-- {{ url('/invite/'.$invite->id.'/edit') }} --}}
+										<a href="#" data-id="{{$invite->id}}" class="btn btn-default resend">
+											<i class="fas fa-sync-alt"></i>
+										</a>
+										<p style="font-size: 0.5em; font-weight:600" class="d-inline">Send Again</p>
+										<!-- Delete -->
+										<a href="#" class="btn btn-default delete mr-invite3" data-id="{{$invite->id}}">
+											<i class="fa fa-trash" aria-hidden="true"></i>
+										</a>
+										<p style="font-size: 0.5em; font-weight:600" class="d-inline">Cancel Invitation</p>
+									</td>
 								</tr>
 								@endforeach
 							</tbody>
@@ -125,7 +133,7 @@ $(".delete").on("click",function(e){
 		showCancelButton: true,
 		confirmButtonColor: '#3085d6',
 		cancelButtonColor: '#d33',
-		confirmButtonText: 'Yes, delete it!'
+		confirmButtonText: 'Yes, Remove it!'
 	}).then((result) => {
 		if (result.value) {
 			var id = $(this).data("id");
@@ -167,6 +175,58 @@ $(".delete").on("click",function(e){
 		}
 	})
 	
+});
+
+$(".resend").on("click" , function(e){
+	e.preventDefault();    
+	Swal.fire({
+		title: 'Are you sure?',
+		text: "Resent Invitation to Cleaner!",
+		icon: 'info',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'Yes, Resent!'
+	}).then((result) => {
+		if (result.value) {
+			var id = $(this).data("id");
+			console.log("Resent Id is "+ id);
+			var token = $("meta[name='csrf-token']").attr("content");
+			$.ajax(
+			{
+				url: "invite/resent/"+id,
+				type: 'get',
+				data: {
+					"id": id,
+					"_token": token,
+				},
+				success:function(data){
+					Swal.fire({
+						position: 'top-end',
+						icon: 'success',
+						title: 'Successfully Sent Email To cleaner',
+						showConfirmButton: false,
+						timer: 1500
+					})
+					.then(() => {
+						$('div.flash-message').html(data);
+						// window.location.reload();
+					})
+
+				},          
+				error: function (jqXHR, textStatus, errorThrown) 
+				{  
+					swal.fire({
+						title: "Something error",
+						text: "Check input fields!",
+						icon: "warning",
+						buttons: true,
+						dangerMode: true,
+					})
+				}
+			});
+		}
+	})
 });
 
 },1000);

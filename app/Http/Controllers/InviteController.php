@@ -39,13 +39,12 @@ class InviteController extends Controller
      */
     public function create()
     {
-
         if(Property::where(['user_id' => Auth::user()->id ])->exists())
         {
             $properties = Property::where(['user_id' => Auth::user()->id ])->get();
             return view('admin.team.invites.create' , compact('properties') );
         }
-        else{  
+        else{
             return redirect('/invite')->with('info', 'Sorry did not find any property please add property first!');            
         }
     }
@@ -167,6 +166,24 @@ class InviteController extends Controller
         if ($validator->fails()) {
             return redirect('invite/create')->withErrors($validator)->withInput();
         }
+    }
+    // Resent Notifications
+
+    public function resent($id){
+        $request = Invite::where(['id' => $id])->first();
+        $type = $request->invitation_type;
+        if($type == "email"){
+        $details['property_details'] = $this->getPropertyDetails($request);
+        $details['app_name'] = config('app.name');
+        $details['cleaner_name'] = $request->cleaner_name;
+        $details['invitation_message'] = $request->invitation_message;
+        $details['host_name'] = Auth::user()->name;        
+        Notification::route('mail', $request->details)->notify(new InviteCleaner($details));
+        return redirect('invite')->withSuccess('Invite Sent Successfully!');
+        }else{
+        // Phone Invitation Sent here
+        }
+        
     }
 
     //Contains the form validation rules.
