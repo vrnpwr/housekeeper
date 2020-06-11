@@ -16,8 +16,9 @@ class CleanerMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->type == 'cleaner' || Auth::user()->type == 'SuperAdmin')
+        if(Auth::check() && Auth::user()->type == 'cleaner' || Auth::check() && Auth::user()->type == 'SuperAdmin')
         return $next($request);
-        return redirect('/');
+        abort(403);
+        // return redirect('/');
     }
 }

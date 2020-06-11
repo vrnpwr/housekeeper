@@ -343,25 +343,23 @@
 		/* This Condition check new password match the confirm password*/
 		if (old_password && new_password && confirm_password ) {
 			var password = confirm_password;
-			updateProfile(name, last_name, business_name,image, email, phone, language, time_format, first_day, new_password, confirm_password,password );			
-			
+			updateProfile(name, last_name,image, email, phone, language, time_format, first_day, new_password, confirm_password,password );			
 		}else{
 			var password;
-			updateProfile(name, last_name, business_name,image, email, phone, language, time_format, first_day, new_password=null, confirm_password = null, password=null );			
+			updateProfile(name, last_name,image, email, phone, language, time_format, first_day, new_password=null, confirm_password = null, password=null );			
 		}
 
 	});
 
 
 	/* Insert Property Data*/
-	function updateProfile(name, last_name, business_name,image, email, phone, language, time_format, first_day, password ){
-
+	function updateProfile(name, last_name,image, email, phone, language, time_format, first_day, password ){
 		$.ajax({
 			type: 'POST',
 			// url: '{{ action('cleaner\ProfileController@store') }}',
 			url: '{{ url("cleaner/profile") }}',
 			headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-			data:{name, last_name, business_name,image, email, phone, language, time_format, first_day, password},
+			data:{name, last_name,image, email, phone, language, time_format, first_day, password},
 			success:function(data){
 				if($.isEmptyObject(data.error)){
 

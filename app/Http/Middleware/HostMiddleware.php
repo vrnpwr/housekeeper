@@ -22,7 +22,8 @@ class HostMiddleware
             return $next($request);
         }
     }else{
-            return redirect('/');
+        abort(403);
+            // return redirect('/');
         }
             
         

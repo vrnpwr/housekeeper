@@ -4,13 +4,11 @@ namespace App\Http\Controllers\cleaner;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use App\User;
 use File;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
 class ProfileController extends Controller
 {
         /**
@@ -112,18 +110,15 @@ class ProfileController extends Controller
     }
 
     private function checkOldPassword(Request $request) {
-
         /* Custom Code */
-
         // $this->validate($request, [
         //     'pass'     => 'required',
         // ]);
-
         $data = $request->all();
         $user = User::find(auth()->user()->id);
         if(!Hash::check($data['password'], $user->password)){
          return false;
-     }else{
+        }else{
         return true;
        // write code to update password
     }

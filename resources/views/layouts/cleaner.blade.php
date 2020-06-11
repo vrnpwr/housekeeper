@@ -9,7 +9,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>{{ config('app.name', 'Laravel') }}</title>
-  @include('inc.header_files')
+  @include('inc.cleaner.header_files')
 
 </head>
 
@@ -38,7 +38,7 @@
     <!-- #################### Navbar ##################### -->
 
     <!-- ######################ASIDE###################### -->
-    @include('inc.aside')
+    @include('inc.cleaner.aside')
     <!-- ######################ASIDE###################### -->
 
     <!-- Content Wrapper. Contains page content -->
@@ -65,7 +65,7 @@
   </div>
 
   <!-- ##################FOOTERFILES################## -->
-  @include('inc.footer_files')
+  @include('inc.cleaner.footer_files')
   <!-- ##################FOOTERFILES################## -->
 
 </body>

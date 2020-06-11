@@ -22,12 +22,9 @@ use App\Notifications\NewMessage;
 
 Route::get('/', function () { return redirect('/login'); });
 
-Route::group(['middleware' => 'web'], function() {
-	
+Route::group(['middleware' => 'web'], function() {	
 	Auth::routes();
-
 		// After login check which type of user login
-
 		Route::get('/check', function(){
 			$user = \Auth::user();
 			if (isset($user) && $user->type == 'SuperAdmin') {
@@ -45,11 +42,13 @@ Route::group(['middleware' => 'web'], function() {
 				});
 			}
 		});
-
 		
 	// Super admin group routes
 	Route::group(['middleware' => ['superadmin'] , 'prefix' => 'admin'], function () {		
 		Route::resource('/dashboard' , 'admin\DashboardController');		
+		// ######################### FilePond ############################
+		Route::get('/filepond/uploadImage','FilePondController@uploadImage');
+		Route::delete('/filepond/deleteImage','FilePondController@deleteImage');			
 	});
 
 		// Cleaner group routes
@@ -64,13 +63,16 @@ Route::group(['middleware' => 'web'], function() {
 		
 		/*########################## Notification ########################*/
 		Route::resource('/notification','cleaner\NotificationController');
+			// ######################### FilePond ############################
+			Route::get('/filepond/uploadImage','FilePondController@uploadImage');
+			Route::delete('/filepond/deleteImage','FilePondController@deleteImage');			
 
 	});
 
 	// Host group routes
 	Route::group(['middleware' => ['host'] ], function () {
 			/*##############Property##############*/
-			Route::get('/home', 'DashboardController@index')->name('home');
+			Route::get('/dashboard', 'DashboardController@index')->name('home');
 			Route::resource('/property','PropertyController');
 			Route::Post('/property/update', 'PropertyController@update_property');
 			Route::delete('/property/{id}', 'PropertyController@destroy');

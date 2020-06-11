@@ -60,8 +60,8 @@ FilePond.registerPlugin(
       imageCropAspectRatio: '1:1',
       // upload to this server end point
       server:{
-        process:'{{ url("/filepond/uploadImage?_method=get") }}',
-        revert: '/filepond/deleteImage?_method=DELETE&_token=<?php echo csrf_token(); ?>'
+        process:'{{ url("/cleaner/filepond/uploadImage?_method=get") }}',
+        revert: '/cleaner/filepond/deleteImage?_method=DELETE&_token=<?php echo csrf_token(); ?>'
       }
 
     });
