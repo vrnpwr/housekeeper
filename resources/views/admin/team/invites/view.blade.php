@@ -123,7 +123,7 @@
 <script>
 	// Delete Function 
 	setInterval(function(){
-
+// Remove Invitation
 $(".delete").on("click",function(e){
 	e.preventDefault();    
 	Swal.fire({
@@ -176,7 +176,7 @@ $(".delete").on("click",function(e){
 	})
 	
 });
-
+// Resent Code
 $(".resend").on("click" , function(e){
 	e.preventDefault();    
 	Swal.fire({
@@ -204,7 +204,7 @@ $(".resend").on("click" , function(e){
 					Swal.fire({
 						position: 'top-end',
 						icon: 'success',
-						title: 'Successfully Sent Email To cleaner',
+						title: 'Invitation Successfully resent to Cleaner',
 						showConfirmButton: false,
 						timer: 1500
 					})

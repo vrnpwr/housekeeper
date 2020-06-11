@@ -179,7 +179,8 @@ class InviteController extends Controller
         $details['invitation_message'] = $request->invitation_message;
         $details['host_name'] = Auth::user()->name;        
         Notification::route('mail', $request->details)->notify(new InviteCleaner($details));
-        return redirect('invite')->withSuccess('Invite Sent Successfully!');
+        // return redirect('invite')->withSuccess('Invite  Resent Successfully!');
+        return true;
         }else{
         // Phone Invitation Sent here
         }
