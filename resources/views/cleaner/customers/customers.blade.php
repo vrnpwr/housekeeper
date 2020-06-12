@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 @push('styles')
 
 <style type="text/css">
@@ -37,13 +36,13 @@
     <div class="row mb-2">
       <div class="col-sm-6">
         <h1 class="m-0 text-dark">
-          <h3>Reviews</h3>
+          <h3>Current Customers</h3>
         </h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item active">Reviews </li>
+          <li class="breadcrumb-item active">Current Customers </li>
         </ol>
       </div><!-- /.col -->
     </div><!-- /.row -->
@@ -56,16 +55,7 @@
 <section class="content">
   <div class="container-fluid">
     <!-- Small boxes (Stat box) -->
-    {{-- <i class="fas fa-star"></i> --}}
-    <div class="jumbotron">
-      <h1 class="display-6">My Reviews!</h1>
-      <div class="text-center mt-5 mb-2">
-        <h4 class="text-center">0</h4>
-        @for($i = 0; $i < 5; $i++) <i class="far fa-star text-center" style="font-size: 2em;"></i>
-          @endfor
-      </div>
-      <p class="lead text-center">You haven't been reviewed yet.</p>
-    </div>
+
   </div>
   <!-- /.container-fluid -->
 </section>

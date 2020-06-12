@@ -61,13 +61,16 @@ Route::group(['middleware' => 'web'], function() {
 		Route::post('/profile/checkOldPassword','cleaner\ProfileController@checkOldPassword');
 		Route::post('/profile/deleteImage','cleaner\ProfileController@deleteImage');
 		
-		/*########################## Notification ########################*/
-		Route::resource('/notification','cleaner\NotificationController');
+			/*########################## Notification ########################*/
+			Route::resource('/notification','cleaner\NotificationController');
 			// ######################### FilePond ############################
 			Route::get('/filepond/uploadImage','FilePondController@uploadImage');
 			Route::delete('/filepond/deleteImage','FilePondController@deleteImage');	
 			// ###################### Reviews ################################
 			Route::resource('/reviews','cleaner\ReviewsController');
+			
+			// ##################### Customers ###############################
+			Route::resource('/customers','cleaner\customersController');
 
 	});
 

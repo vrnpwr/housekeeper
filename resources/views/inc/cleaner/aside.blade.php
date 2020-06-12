@@ -63,7 +63,15 @@
               </p>
             </a>
           </li>
-
+          {{-- Curent Customers --}}
+          <li class="nav-item has-treeview">
+            <a href="{{ url('cleaner/customers') }}" class="nav-link">
+              <i class="nav-icon fa fa-envelope" aria-hidden="true"></i>
+              <p>
+                My Customers
+              </p>
+            </a>
+          </li>
           {{-- Settings --}}
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">

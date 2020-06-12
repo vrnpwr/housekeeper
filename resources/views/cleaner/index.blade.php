@@ -25,7 +25,7 @@
   <div class="container-fluid">
     <!-- Small boxes (Stat box) -->
     <div class="row">
-      <div class="col-lg-3 col-6">
+      {{-- <div class="col-lg-3 col-6">
         <!-- small box -->
         <div class="small-box bg-info">
           <div class="inner">
@@ -36,7 +36,22 @@
           </div>
           <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
+      </div> --}}
+
+      {{-- Check User submit it Important details if not then show message to complete Profile --}}
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-info">
+          <div class="inner">
+            <h3><small>Complete your profile</small> </h3>
+          </div>
+          <div class="icon">
+            <i class="ion ion-bag"></i>
+          </div>
+          <a href="" class="small-box-footer btn btn-default">Fill Form </a>
+        </div>
       </div>
+
 
 
 
