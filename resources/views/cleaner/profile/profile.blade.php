@@ -62,7 +62,6 @@
 		<div class="row">
 			<div class="col-12">
 				<div class="card card-primary">
-
 					<div class="card-body">
 						<h5 class="font-weight-bold form-heading">Personal Info</h5>
 						<div class="row">
@@ -106,9 +105,7 @@
 
 						</div><!-- Row -->
 						<div class="row">
-
 							<div class="col-4">
-
 								<div class="form-group">
 									<label>Email <span class="required">*</span></label>
 									<input type="email" value="{{ $user->email }}" class="form-control" id="email" name="email">
@@ -116,13 +113,27 @@
 							</div>
 
 							<div class="col-4">
-
 								<div class="form-group">
 									<label>Phone No</label>
 									<input type="text" class="form-control" value="{{ $user->phone }}" id="phone" name="phone">
 								</div>
 							</div>
 
+							<div class="col-4">
+								<div class="form-group">
+									<label>Your Hourly Rate</label>
+									<input type="text" class="form-control" value="" id="hourly_rate" name="hourly_rate">
+								</div>
+							</div>
+						</div>
+						{{-- About yourself --}}
+						<div class="row">
+							<div class="col-12">
+								<div class="form-group">
+									<label>Enter About Yourself</label>
+									<textarea name="about_yourself" class="about_yourself form-control" id="about_yourself"></textarea>
+								</div>
+							</div>
 						</div>
 						<!--  Language and time Block -->
 						<h5 class="font-weight-bold form-heading">Language and Time Block</h5>
@@ -164,7 +175,6 @@
 
 						<!-- Change your Password -->
 						<h5 class="font-weight-bold form-heading">Change Your Password</h5>
-
 
 						<form method="POST" action="{{ route('change.password') }}">
 							@csrf
@@ -252,8 +262,7 @@
 		/*Delete Image Function*/
 
 		function deleteImg(image){											
-			var url='{{ url("profile/deleteImage") }}';
-
+			var url='{{ url("cleaner/profile/deleteImage") }}';
 			$.ajax({
 				type: 'POST',
 				url: url,
@@ -281,9 +290,9 @@
 					/* Alert when Image is deleted */
 
 				},
-
+				
 				error: function (jqXHR, textStatus, errorThrown) 
-				{  
+				{
 					swal.fire({
 						title: "Something error",
 						text: "Check input fields!",
@@ -292,12 +301,9 @@
 						dangerMode: true,
 					})
 				}
-
 			})
 		}
 		/*Delete Image Function*/
-
-
 
 		$('#filepond-block').show()
 	})
@@ -313,7 +319,6 @@
 	});
 
 
-
 	/* Add Multiple Chek Items*/
 	setInterval(function(){
 		$(".remove-btn").on('click',function(){
@@ -321,19 +326,19 @@
 			// console.log(current);
 		});
 	},1000);
-
 	
 
 	$('#update-profile').click(function(event) {
 		event.preventDefault();
 		var name = $('#first-name').val();
 		var last_name = $('#last-name').val();
-		// var business_name = $('#business-name').val();
+		var hourly_rate = $('#hourly_rate').val();
 		var image = $('#image_0').val();
 		var email = $('#email').val();
 		var phone = $('#phone').val();
 		var language = $('#language').val();
 		var time_format = $('#time-format').val();
+		var about_yourself = $('#about_yourself').val();
 		var first_day = $('#first-day').val();
 		var old_password = $('#old-password').val();
 		var new_password = $('#new-password').val();
@@ -343,23 +348,22 @@
 		/* This Condition check new password match the confirm password*/
 		if (old_password && new_password && confirm_password ) {
 			var password = confirm_password;
-			updateProfile(name, last_name,image, email, phone, language, time_format, first_day, new_password, confirm_password,password );			
+			updateProfile(name, last_name,image, about_yourself, email, phone, language, time_format, first_day, new_password, confirm_password,password );			
 		}else{
 			var password;
-			updateProfile(name, last_name,image, email, phone, language, time_format, first_day, new_password=null, confirm_password = null, password=null );			
+			updateProfile(name, last_name,image, about_yourself, email, phone, language, time_format, first_day, new_password=null, confirm_password = null, password=null );			
 		}
-
 	});
 
 
 	/* Insert Property Data*/
-	function updateProfile(name, last_name,image, email, phone, language, time_format, first_day, password ){
+	function updateProfile(name, last_name,image,about_yourself, email, phone, language, time_format, first_day, password ){
 		$.ajax({
 			type: 'POST',
 			// url: '{{ action('cleaner\ProfileController@store') }}',
 			url: '{{ url("cleaner/profile") }}',
 			headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-			data:{name, last_name,image, email, phone, language, time_format, first_day, password},
+			data:{name, last_name,image,about_yourself, email, phone, language, time_format, first_day, password},
 			success:function(data){
 				if($.isEmptyObject(data.error)){
 

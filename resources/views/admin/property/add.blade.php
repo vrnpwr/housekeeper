@@ -103,6 +103,7 @@
 @endpush
 
 
+
 <!-- Content Header (Page header) -->
 <div class="content-header">
 	<div class="container-fluid">
@@ -197,7 +198,6 @@
 												<div class="col-3">
 													<button class="btn btn-primary mt-4 ml-2">Add Calender</button>
 												</div>
-
 											</div>
 										</div>
 
@@ -206,14 +206,15 @@
 											{{-- Select  --}}
 
 											<div class="select2-purple">
-												<select id="cleaners_id" class="select2" name="cleaner[]" multiple="multiple"
-													data-placeholder="Select Cleaners" data-dropdown-css-class="select2-purple"
-													style="width: 100%;">
-													@foreach($cleaners as $key=>$cleaner)
-													<option value="{{ $cleaner->id }}">{{ $cleaner->name }}</option>
-													@endforeach
-												</select>
-
+												<button class="btn btn-default" onclick="getLocation()">Show Cleaner</button>
+												<div id="show-cleaner"></div>
+												{{-- <select id="cleaners_id" class="select2" name="cleaner[]" multiple="multiple"
+									data-placeholder="Select Cleaners" data-dropdown-css-class="select2-purple"
+									style="width: 100%;">
+									@foreach($cleaners as $key=>$cleaner)
+									<option value="{{ $cleaner->id }}">{{ $cleaner->name }}</option>
+												@endforeach
+												</select> --}}
 											</div>
 										</div>
 
@@ -281,8 +282,28 @@
 @push('script')
 
 <script>
+	// Get location of Host and find Cleaner which are nearby from the location
+			var x = document.getElementById("show-cleaner");
+		function getLocation() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(showPosition);
+			} else { 
+				x.innerHTML = "Geolocation is not supported by this browser.";
+			}
+		}
+		function showPosition(position) {
+			$.ajax({
+				type: "post",
+				url: "/property/getlocation",	
+				headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+				data : {lat : position.coords.latitude , lan: position.coords.longitude },		
+				success: function (response) {
+					
+				}				
+			});			
+		}
+		
 	$(document).ready(function($) {
-
 		//Initialize Select2 Elements
 		$('.select2').select2();
 		

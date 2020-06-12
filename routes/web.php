@@ -65,7 +65,9 @@ Route::group(['middleware' => 'web'], function() {
 		Route::resource('/notification','cleaner\NotificationController');
 			// ######################### FilePond ############################
 			Route::get('/filepond/uploadImage','FilePondController@uploadImage');
-			Route::delete('/filepond/deleteImage','FilePondController@deleteImage');			
+			Route::delete('/filepond/deleteImage','FilePondController@deleteImage');	
+			// ###################### Reviews ################################
+			Route::resource('/reviews','cleaner\ReviewsController');
 
 	});
 
@@ -77,6 +79,8 @@ Route::group(['middleware' => 'web'], function() {
 			Route::Post('/property/update', 'PropertyController@update_property');
 			Route::delete('/property/{id}', 'PropertyController@destroy');
 			Route::Post('/property/update/checklist', 'PropertyController@update_checklist');
+			/* #################### Get Location #####################*/
+			Route::post('/property/getlocation' , 'PropertyController@showAddress');
 			/*###############Project###############*/
 			Route::resource('/project','ProjectController');
 			Route::get('/project/{id}/editproject','ProjectController@edit_project');

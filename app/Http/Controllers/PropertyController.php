@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\{Property,User,CheckList,CleanerJob};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use DB;
+use Carbon\Carbon;
 class PropertyController extends Controller
 {
     /**
@@ -53,9 +53,12 @@ class PropertyController extends Controller
         $validator = Validator::make($request->all(), [
             'property_name' => 'required',
             'property_address' => 'required',
-
+            'city'=> 'required',
+            'state'=> 'required',
+            'country'=> 'required',
+            'zipcode'=> 'required',
+            'country'=> 'required',           
         ]);
-
         if ($validator->passes()) {
             $data = new Property;
             $data->user_id = $request->input('user_id');
@@ -91,9 +94,6 @@ class PropertyController extends Controller
         }else{
             return response()->json(['error'=>$validator->errors()->all()]);
         }
-
-
-
     }
 
     /**
@@ -150,9 +150,12 @@ class PropertyController extends Controller
         $validator = Validator::make($request->all(), [
             'property_name' => 'required',
             'property_address' => 'required',
-            
+            'city'=> 'required',
+            'state'=> 'required',
+            'country'=> 'required',
+            'zipcode'=> 'required',
+            'country'=> 'required',           
         ]);
-
         if ($validator->passes()) {
             $data = Property::find($request->input('post_id'));
             $data->user_id = $request->input('user_id');
@@ -181,6 +184,53 @@ class PropertyController extends Controller
         }
 
 
+    }
+    // Show Address
+    public function showAddress(Request $request){
+    $geolocation = $request->lat.','.$request->lan;
+    $current_timestamp = Carbon::now()->timestamp;
+    $request = "https://maps.googleapis.com/maps/api/timezone/json?location=$geolocation&timestamp=$current_timestamp&key=AIzaSyCkSvueCGWz_a316NvJf7oDC6VD-MGwkOs"; 
+    $file_contents = file_get_contents($request);   
+    $json_decode = json_decode($file_contents);  
+    dd($json_decode);
+    if(isset($json_decode->results[0])) {
+        $response = array();
+        foreach($json_decode->results[0]->address_components as $addressComponet) {
+            if(in_array('political', $addressComponet->types)) {
+                    $response[] = $addressComponet->long_name; 
+            }
+        }    
+        if(isset($response[0])){ $first  =  $response[0];  } else { $first  = 'null'; }
+        if(isset($response[1])){ $second =  $response[1];  } else { $second = 'null'; } 
+        if(isset($response[2])){ $third  =  $response[2];  } else { $third  = 'null'; }
+        if(isset($response[3])){ $fourth =  $response[3];  } else { $fourth = 'null'; }
+        if(isset($response[4])){ $fifth  =  $response[4];  } else { $fifth  = 'null'; }
+    
+        if( $first != 'null' && $second != 'null' && $third != 'null' && $fourth != 'null' && $fifth != 'null' ) {
+            echo "<br/>Address:: ".$first;
+            echo "<br/>City:: ".$second;
+            echo "<br/>State:: ".$fourth;
+            echo "<br/>Country:: ".$fifth;
+        }
+        else if ( $first != 'null' && $second != 'null' && $third != 'null' && $fourth != 'null' && $fifth == 'null'  ) {
+            echo "<br/>Address:: ".$first;
+            echo "<br/>City:: ".$second;
+            echo "<br/>State:: ".$third;
+            echo "<br/>Country:: ".$fourth;
+        }
+        else if ( $first != 'null' && $second != 'null' && $third != 'null' && $fourth == 'null' && $fifth == 'null' ) {
+            echo "<br/>City:: ".$first;
+            echo "<br/>State:: ".$second;
+            echo "<br/>Country:: ".$third;
+        }
+        else if ( $first != 'null' && $second != 'null' && $third == 'null' && $fourth == 'null' && $fifth == 'null'  ) {
+            echo "<br/>State:: ".$first;
+            echo "<br/>Country:: ".$second;
+        }
+        else if ( $first != 'null' && $second == 'null' && $third == 'null' && $fourth == 'null' && $fifth == 'null'  ) {
+            echo "<br/>Country:: ".$first;
+        }
+      }
     }
 
 
