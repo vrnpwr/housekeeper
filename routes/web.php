@@ -68,9 +68,13 @@ Route::group(['middleware' => 'web'], function() {
 			Route::delete('/filepond/deleteImage','FilePondController@deleteImage');	
 			// ###################### Reviews ################################
 			Route::resource('/reviews','cleaner\ReviewsController');
-			
+			Route::resource('/information' ,'cleaner\cleanerInformationController');
+			Route::get('/identity' ,'cleaner\cleanerInformationController@identity');
+			Route::get('/reference' , 'cleaner\cleanerInformationController@reference');
+			Route::post('/reference/create' , 'cleaner\cleanerInformationController@reference_create');
 			// ##################### Customers ###############################
 			Route::resource('/customers','cleaner\customersController');
+			
 
 	});
 

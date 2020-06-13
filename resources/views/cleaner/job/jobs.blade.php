@@ -58,22 +58,27 @@
 <!-- Main content -->
 <section class="content">
   <div class="container-fluid">
+
     <!-- Small boxes (Stat box) -->
     <div class="row">
       <div class="col-12">
-        <div class="card card-primary">
-
-          <div class="card-body">
-
-
-            <div class="card" style="width: 18rem;">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
+        <div class="card card-primary p-5">
+          @if(!$formOne)
+          <!-- small box -->
+          <div class="d-flex">
+            <h3 class="d-inline mr-5">Complete Your Profile first</h3>
+            <a href="{{ url('cleaner/information') }}" class="small-box-footer btn btn-danger">Fill Form !</a>
           </div>
+          @elseif(!$formTwo)
+          <!-- small box -->
+          <div class="d-flex">
+            <h3 class="d-inline mr-5">Complete Your Profile first</h3>
+            <a href="{{ url('cleaner/identity') }}" class="btn btn-danger d-inline">Fill Form
+              2</a>
+          </div>
+          @else
+          <p>Your Profile Completed</p>
+          @endif
 
         </div>
       </div>

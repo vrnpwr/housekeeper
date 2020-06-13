@@ -24,37 +24,29 @@
 <section class="content">
   <div class="container-fluid">
     <!-- Small boxes (Stat box) -->
+    <!-- Small boxes (Stat box) -->
     <div class="row">
-      {{-- <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-info">
-          <div class="inner">
-            <h3>My jobs <small></small> </h3>
+      <div class="col-12">
+        <div class="card card-primary p-5">
+          @if(!$formOne)
+          <!-- small box -->
+          <div class="d-flex">
+            <h3 class="d-inline mr-5">Complete Your Profile first</h3>
+            <a href="{{ url('cleaner/information') }}" class="small-box-footer btn btn-danger">Fill Form !</a>
           </div>
-          <div class="icon">
-            <i class="ion ion-bag"></i>
+          @elseif(!$formTwo)
+          <!-- small box -->
+          <div class="d-flex">
+            <h3 class="d-inline mr-5">Complete Your Profile first</h3>
+            <a href="{{ url('cleaner/identity') }}" class="btn btn-danger d-inline">Fill Form
+              2</a>
           </div>
-          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-      </div> --}}
+          @else
+          <p>Your Profile Completed</p>
+          @endif
 
-      {{-- Check User submit it Important details if not then show message to complete Profile --}}
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-info">
-          <div class="inner">
-            <h3><small>Complete your profile</small> </h3>
-          </div>
-          <div class="icon">
-            <i class="ion ion-bag"></i>
-          </div>
-          <a href="" class="small-box-footer btn btn-default">Fill Form </a>
         </div>
       </div>
-
-
-
-
     </div>
     <!-- /.row -->
     <!-- Main row -->

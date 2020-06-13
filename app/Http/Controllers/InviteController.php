@@ -69,7 +69,7 @@ class InviteController extends Controller
                         ->withInput();
         }
         // Send email to cleaner
-        if($request->invitation_type == "email"){          
+        if($request->invitation_type == "email"){       
             // *\Mail::to($request->details)->send(new \App\Mail\Invites($details));
             // This function will help you to fetch all deatls about selected properties
             $details['property_details'] = $this->getPropertyDetails($request);

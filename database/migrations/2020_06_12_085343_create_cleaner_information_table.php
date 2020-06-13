@@ -15,22 +15,24 @@ class CreateCleanerInformationTable extends Migration
     {
         Schema::create('cleaner_information', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('wesite');
+            $table->string('website')->nullable();
             $table->string('date_of_birth');
             $table->string('describes');
+            $table->string('experience');
             $table->string('car_access');
             $table->string('felony');
             $table->string('travel');
             $table->string('vacation_rentals');
-            $table->string('address');
-            $table->string('city');
-            $table->string('state');
-            $table->string('country');
-            $table->string('pincode');
-            $table->string('indenty_first');
-            $table->string('indenty_back');
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('country')->nullable();
+            $table->string('pincode')->nullable();
+            $table->string('indenty_first')->nullable();
+            $table->string('indenty_back')->nullable();            
             $table->timestamps();
         });
     }

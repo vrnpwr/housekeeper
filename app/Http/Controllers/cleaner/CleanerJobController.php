@@ -4,7 +4,8 @@ namespace App\Http\Controllers\cleaner;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\CleanerInformation;
+use Auth;
 class CleanerJobController extends Controller
 {
     /**
@@ -14,7 +15,19 @@ class CleanerJobController extends Controller
      */
     public function index()
     {
-        return view('cleaner.job.jobs');
+        $formOne = CleanerInformation::where(['user_id' => Auth::user()->id])->exists();
+
+        $formTwo = CleanerInformation::where(['user_id' => Auth::user()->id])->first();
+        $formTwo = is_null($formTwo->indenty_back) ? false : true;
+
+        $profilePicture = User::where(['user_id' => Auth::user()->id])->select('image')->first();
+        $profilePicture = is_null(profilePicture) ? false : true;
+
+        $address = User::where(['user_id' => Auth::user()->id])->select('address1')->first();
+        $address = is_null(address) ? false : true;
+        
+        $refrence = Reference::where(['user_id' => Auth::user()->id])->exists();
+        return view('cleaner.job.jobs',compact('formOne','formTwo','profilePicture','address','refrence'));
     }
 
     /**

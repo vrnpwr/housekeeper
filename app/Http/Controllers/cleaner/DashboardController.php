@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Property;
 use App\Project;
 use App\CheckList;
+use App\CleanerInformation;
 
 class DashboardController extends Controller
 {
@@ -20,7 +21,12 @@ class DashboardController extends Controller
     {
         $user = Auth::user();        
         $title = 'Cleaner Dashboard';
-        return view('cleaner.index',compact('user','title'));
+        $formOne = CleanerInformation::where(['user_id' => Auth::user()->id])->exists();
+        $formTwo = CleanerInformation::where(['user_id' => Auth::user()->id])->first();
+        if($formTwo){
+            $formTwo = is_null($formTwo->indenty_back) ? false : true;
+        }        
+        return view('cleaner.index',compact('user','title','formOne','formTwo'));
     }
 
     /**
