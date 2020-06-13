@@ -28,6 +28,12 @@
     margin: 35px 7px;
     font-size: 18px;
   }
+
+  .points {
+    margin: 0px !important;
+    padding: 0px !important;
+    font-weight: 600;
+  }
 </style>
 
 
@@ -55,41 +61,35 @@
 <!-- /.content-header -->
 
 
-
 <!-- Main content -->
 <section class="content">
   <div class="container-fluid">
     <!-- Small boxes (Stat box) -->
     {{-- <div class="card"> --}}
-    <form action="/cleaner/identity/create" method="post">
-      {{ csrf_field() }}
-      <div class="row">
-        <div class="col-12">
-          <div class="card card-primary">
-            <div class="card-body">
-              {{-- Identification coloumn --}}
+    <div class="row">
+      <div class="col-12">
+        <div class="card card-primary">
+          <div class="card-body">
+            {{-- Identification coloumn --}}
+            <form action="/cleaner/profile_photo/create" method="post">
               <div class="row">
-                <div class="col-4">
-                  <h4>Identification</h4>
-                  <p>We need to verify your Identity to assure customer that You are who you say you are.
-                    Please upload a pitcure of your photo Id. Acceptable forms of photo Ids are a Valid driving licence
-                    or
-                    a
-                    valid passport.</p>
-                  <p><b>Your Identification documents will not be shared with any third</b></p>
+                <div class="col-8">
+                  <h4>Picture</h4>
+                  <p>This is the picture potential customer will see. Only picture that meet these rules will be
+                    allowed,
+                    your application will not be approved without valid picture.</p>
+                  <p class="points">1. No logo or text.</p>
+                  <p class="points">2. Face Centered.</p>
+                  <p class="points">3. Only One person.</p>
+                  <p class="points">4. Neck and up only.</p>
+                  <p class="points">5. Bright and clear.</p>
+                  <p class="points">6. Unclutter backgroud.</p>
                 </div>
                 {{-- Front --}}
+                {{ csrf_field() }}
                 <div class="col-4">
                   <div class="form-group mt-5" id="filepond-block">
-                    <label for="front_proof">Identity Front</label>
-                    <input type="file" name="image">
-                    <input type="hidden" id="image_0">
-                  </div>
-                </div>
-                {{-- Back --}}
-                <div class="col-4">
-                  <div class="form-group mt-5" id="filepond-block">
-                    <label for="back_proof">Identity Back</label>
+                    <label for="front_proof">Picture</label>
                     <input type="file" name="image">
                     <input type="hidden" id="image_0">
                   </div>
@@ -103,11 +103,12 @@
                 </div>
               </div>
 
-            </div>
+            </form>
+
           </div>
         </div>
       </div>
-    </form>
+    </div>
     {{-- </div> --}}
   </div>
 

@@ -69,7 +69,17 @@ Route::group(['middleware' => 'web'], function() {
 			// ###################### Reviews ################################
 			Route::resource('/reviews','cleaner\ReviewsController');
 			Route::resource('/information' ,'cleaner\cleanerInformationController');
+			
+			Route::get('/address' , 'cleaner\cleanerInformationController@address');
+			Route::post('/address/create' , 'cleaner\cleanerInformationController@address_create');
+
+			// Profile photo upload
+			Route::get('/profile_photo' , 'cleaner\cleanerInformationController@profile_photo');
+			Route::post('/profile_photo/create' , 'cleaner\cleanerInformationController@profile_photo_create');
+
 			Route::get('/identity' ,'cleaner\cleanerInformationController@identity');
+			Route::post('/identity/create' ,'cleaner\cleanerInformationController@identity_create');
+
 			Route::get('/reference' , 'cleaner\cleanerInformationController@reference');
 			Route::post('/reference/create' , 'cleaner\cleanerInformationController@reference_create');
 			// ##################### Customers ###############################
@@ -77,6 +87,8 @@ Route::group(['middleware' => 'web'], function() {
 			
 
 	});
+
+	// <a href="{{ url('cleaner/address') }}" class="btn btn-danger d-inline">Step 2</a>
 
 	// Host group routes
 	Route::group(['middleware' => ['host'] ], function () {

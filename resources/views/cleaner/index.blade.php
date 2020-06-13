@@ -32,14 +32,15 @@
           <!-- small box -->
           <div class="d-flex">
             <h3 class="d-inline mr-5">Complete Your Profile first</h3>
-            <a href="{{ url('cleaner/information') }}" class="small-box-footer btn btn-danger">Fill Form !</a>
+            <p><small class="d-inline mr-5 font-weight-bold">( Step one pending )</small></p>
+            <a href="{{ url('cleaner/information') }}" class="small-box-footer btn btn-danger">Step 1</a>
           </div>
           @elseif(!$formTwo)
           <!-- small box -->
           <div class="d-flex">
-            <h3 class="d-inline mr-5">Complete Your Profile first</h3>
-            <a href="{{ url('cleaner/identity') }}" class="btn btn-danger d-inline">Fill Form
-              2</a>
+            <h3 class="d-inline mr-5">Complete Your Profile first </h3>
+            <p><small class="d-inline mr-5 font-weight-bold">( Step two pending )</small></p>
+            <a href="{{ url('cleaner/address') }}" class="btn btn-danger d-inline">Step 2</a>
           </div>
           @else
           <p>Your Profile Completed</p>

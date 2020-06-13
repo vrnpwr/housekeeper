@@ -27,6 +27,25 @@ class cleanerInformationController extends Controller
         return view('cleaner.information.identity');
     }
 
+    public function identity_create(Request $request){
+        $validator = Validator::make($request->all(), [
+            'image' => 'required',            
+        ]);
+        // If validation failed        
+        if ($validator->fails()) {
+            dd($request->image);
+            return redirect('/cleaner/identity')->withErrors($validator)->withInput();
+        }
+
+        if( CleanerInformation::where(['user_id'=>Auth::user()->id])->exists() ){
+            $data = CleanerInformation::where(['user_id'=>Auth::user()->id])->first();
+            $data->identity_first = $request->image;
+            $data->identity_back = $request->image;
+            $data->save();
+            return redirect('cleaner/reference')->withSuccess('Information Saved Successfully!');
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -127,6 +146,59 @@ class cleanerInformationController extends Controller
         //
     }
 
+    // Public function
+    public function address(){
+        return view('cleaner.information.address');
+    }
+
+    // Public funtion 
+
+    public function address_create(Request $request){
+        $validator = Validator::make($request->all(), [
+            'address' => 'required|string|min:8',
+            'city' => 'required',
+            'state' => 'required',
+            'country' => 'required',
+            'pincode' => 'required',
+        ]);
+        // If validation failed 
+        if ($validator->fails()) {
+            return redirect('/cleaner/address')->withErrors($validator)->withInput();
+        }
+        if(CleanerInformation::where(['user_id' => Auth::user()->id])->exists()){
+            $data = CleanerInformation::where(['user_id' => Auth::user()->id])->first();
+            $data->address = $request->address;
+            $data->city = $request->city;
+            $data->state = $request->state;
+            $data->country = $request->country;
+            $data->pincode = $request->pincode;
+            $data->save();
+            return redirect('cleaner/profile_photo')->withSuccess('Address Saved Successfully!');
+        }
+    }
+    // Open cleaner profile page step three
+    public function profile_photo(){
+        return view('cleaner.information.profile_photo');
+    }
+    // Save image name
+    public function profile_photo_create(Request $request){
+        $validator = Validator::make($request->all(), [
+            'image' => 'required',            
+        ]);
+        // If validation failed 
+        if ($validator->fails()) {
+            return redirect('/cleaner/profile_photo')->withErrors($validator)->withInput();
+        }
+
+        if(User::where(['id' => Auth::user()->id])->exists()){
+            $data = User::where(['id' => Auth::user()->id])->first();
+            $data->image = $request->image;           
+            $data->save();
+            return redirect('cleaner/identity')->withSuccess('Address Saved Successfully!');
+        }
+
+
+    }
     // Custom function for Clener References this function only open the cleaner reference page
     public function reference()
     {
