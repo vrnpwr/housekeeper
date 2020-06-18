@@ -5,10 +5,50 @@ namespace App\Http\Controllers\api\cleaner;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use App\CleanerInformation;
 use DB;
 use Validator;
-class CleanerInformation extends Controller
+class CleanerInformationController extends Controller
 {
+    // has general
+    public function has_general(){
+        $data = CleanerInformation::where(['user_id'=>Auth::user()->id])->exists();
+        return response()->json(['data'=>$data , 'status'=>true,'commnent' => 'if data value has true then general information is saved else not saved.']);
+    }
+    // has address
+    public function has_address(){        
+        if(CleanerInformation::where(['user_id'=>Auth::user()->id])->exists()){
+            $data = CleanerInformation::where(['user_id'=>Auth::user()->id])->select('address')->first();
+            $data = is_null($data->address) ? false : true;
+        }
+        return response()->json(['data'=>$data , 'status'=>true,'commnent' => 'if data value has true then address information is saved else not saved.']);
+    }
+    // has address
+    public function has_profile_image(){        
+        if(user::where(['id'=>Auth::user()->id])->exists()){
+            $data = user::where(['id'=>Auth::user()->id])->select('image')->first();
+            $data = is_null($data->image) ? false : true;
+        }
+        return response()->json(['data'=>$data , 'status'=>true,'commnent' => 'if data value has true then Profile image information is saved else not saved.']);
+    }
+
+     // has Identy
+     public function has_identy(){        
+        if(CleanerInformation::where(['user_id'=>Auth::user()->id])->exists()){
+            $data = CleanerInformation::where(['user_id'=>Auth::user()->id])->select('identy_back')->first();
+            $data = is_null($data->identy_back) ? false : true;
+        }
+        return response()->json(['data'=>$data , 'status'=>true,'commnent' => 'if data value has true then identity information is saved else not saved.']);
+    }
+
+    // has Identy
+    public function has_references(){        
+        if(Reference::where(['user_id'=>Auth::user()->id])->exists()){
+            $data = true;
+        }            
+        return response()->json(['data'=>$data , 'status'=>true,'commnent' => 'if data value has true then Identy information is saved else not saved.']);
+    }
+
     // General Information
     public function general(Request $request){
         $validator = Validator::make($request->all(), [

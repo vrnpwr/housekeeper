@@ -48,9 +48,18 @@ Route::prefix('/user')->group( function() {
     // Route::get('/all', 'api\admin\user\LoginController@all')->middleware('auth:api');
 
     // Cleaner API Profile information for step complete process
-    Route::post('general_information' , 'api\cleaner\CleanerInformation@general')->middleware('auth:api');
-    Route::post('address_information' , 'api\cleaner\CleanerInformation@address')->middleware('auth:api');
-    Route::post('profile_image' , 'api\cleaner\CleanerInformation@profile_image')->middleware('auth:api');
-    Route::post('identy_information' , 'api\cleaner\CleanerInformation@identy')->middleware('auth:api');
-    Route::post('references' , 'api\cleaner\CleanerInformation@references')->middleware('auth:api');
+    Route::get('has_general' , 'api\cleaner\CleanerInformationController@has_general')->middleware('auth:api');
+    Route::post('general_information' , 'api\cleaner\CleanerInformationController@general')->middleware('auth:api');
+
+    Route::get('has_address' , 'api\cleaner\CleanerInformationController@has_address')->middleware('auth:api');
+    Route::post('address_information' , 'api\cleaner\CleanerInformationController@address')->middleware('auth:api');
+
+    Route::get('has_profile_image' , 'api\cleaner\CleanerInformationController@has_profile_image')->middleware('auth:api');
+    Route::post('profile_image' , 'api\cleaner\CleanerInformationController@profile_image')->middleware('auth:api');
+
+    Route::get('has_identy' , 'api\cleaner\CleanerInformationController@has_identy')->middleware('auth:api');
+    Route::post('identy_information' , 'api\cleaner\CleanerInformationController@identy')->middleware('auth:api');
+    
+    Route::get('has_references' , 'api\cleaner\CleanerInformationController@has_references')->middleware('auth:api');
+    Route::post('references' , 'api\cleaner\CleanerInformationController@references')->middleware('auth:api');
 });

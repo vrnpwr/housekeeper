@@ -78,6 +78,7 @@ FilePond.registerPlugin(
       PondManager.list.filter(x=>x.getFiles()!="").forEach((each,key)=> {
         let imageName = getImageSrc(each);
         imageName  = imageName ? imageName : "";
+        console.log("Key "+key +" value "+imageName);
         $('#image_'+key).val(imageName);
       });
 
