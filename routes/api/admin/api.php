@@ -46,4 +46,11 @@ Route::prefix('/user')->group( function() {
     Route::post('delete_property' , 'api\admin\PropertyController@delete_property')->middleware('auth:api');
     // view cleaner    
     // Route::get('/all', 'api\admin\user\LoginController@all')->middleware('auth:api');
+
+    // Cleaner API Profile information for step complete process
+    Route::post('general_information' , 'api\cleaner\CleanerInformation@general')->middleware('auth:api');
+    Route::post('address_information' , 'api\cleaner\CleanerInformation@address')->middleware('auth:api');
+    Route::post('profile_image' , 'api\cleaner\CleanerInformation@profile_image')->middleware('auth:api');
+    Route::post('identy_information' , 'api\cleaner\CleanerInformation@identy')->middleware('auth:api');
+    Route::post('references' , 'api\cleaner\CleanerInformation@references')->middleware('auth:api');
 });

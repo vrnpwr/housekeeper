@@ -28,6 +28,7 @@ class cleanerInformationController extends Controller
     }
 
     public function identity_create(Request $request){
+        dd($request);
         $validator = Validator::make($request->all(), [
             'image' => 'required',            
         ]);

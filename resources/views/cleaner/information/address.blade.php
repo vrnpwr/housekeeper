@@ -77,7 +77,7 @@
                     <div class="row">
                       <div class="col-12">
                         <label for="address">Street Address <span class="required">*</span></label>
-                        <input type="text" name="address" id="autocomplete"
+                        <input type="text" name="address" id="autocomplete" value="{{ $address->address }}"
                           placeholder="We are using google auto complete form" onFocus="geolocate()"
                           class="form-control address">
                       </div>
@@ -94,15 +94,15 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="city">City <span class="required">*</span></label>
-                          <input type="text" name="city" value="" id="locality" placeholder="City"
+                          <input type="text" name="city" value="{{ $address->city }}" id="locality" placeholder="City"
                             class="city form-control">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="state">State</label>
-                          <input type="text" name="state" placeholder="State" value="" id="administrative_area_level_1"
-                            class="state form-control" />
+                          <input type="text" name="state" placeholder="State" value="{{ $address->state }}"
+                            id="administrative_area_level_1" class="state form-control" />
                         </div>
                       </div>
                     </div>
@@ -111,15 +111,15 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="country">Country <span class="required">*</span></label>
-                          <input type="text" name="country" placeholder="Country" value="" id="country"
-                            class="country form-control " />
+                          <input type="text" name="country" placeholder="Country" value="{{ $address->country }}"
+                            id="country" class="country form-control " />
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="pincode">Zip Code</label>
-                          <input type="text" name="pincode" placeholder="pincode" id="postal_code"
-                            class="pincode form-control" />
+                          <input type="text" name="pincode" value="{{ $address->pincode }}" placeholder="pincode"
+                            id="postal_code" class="pincode form-control" />
                         </div>
                       </div>
                     </div>
@@ -131,7 +131,7 @@
 
                 <div class="row">
                   <div class="col-12">
-                    <button class="btn btn-success float-right" id="property-btn">Submit</button>
+                    <button class="btn btn-success float-right" id="property-btn">Next</button>
                   </div>
                 </div>
 

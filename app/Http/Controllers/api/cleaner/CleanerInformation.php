@@ -1,17 +1,34 @@
 <?php
 
-namespace App\Http\Controllers\cleaner;
+namespace App\Http\Controllers\api\cleaner;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\{Property,User};
-use App\Project;
-use App\CheckList;
-use App\CleanerInformation;
 
-class DashboardController extends Controller
+class CleanerInformation extends Controller
 {
+
+
+    // General Information
+    public function general(Request $request){
+
+    }
+    // Address Information
+    public function address(Request $request){
+
+    }
+    // profile Information
+    public function profile_image(Request $request){
+
+    }
+    // Identity Information
+    public function identy(Request $request){
+
+    }
+    // references
+    public function references(Request $request){
+        
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,29 +36,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();        
-        $title = 'Cleaner Dashboard';
-        $formOne = CleanerInformation::where(['user_id' => Auth::user()->id])->exists();
-        $cleanerInformation = CleanerInformation::where(['user_id' => Auth::user()->id])->first();
-        $formThree = User::where(['id'=> Auth::user()->id])->first();      
-        // Address
-        if($cleanerInformation){
-            $formTwo = is_null($cleanerInformation->address) ? false : true;
-        }
-        // Image
-        if($formThree){
-            $formThree = is_null($formThree->image) ? false : true;
-        }
-        // Identity
-        if($cleanerInformation){
-            $formFour = is_null($cleanerInformation->identy_first) ? false : true;
-        }
-
-        // $user = User::where(['id'=> Auth::user()->id])->first();
-        // if (is_null($user->image)) {
-        //     return view('cleaner.information.address', compact('address'));
-        // }
-        return view('cleaner.index',compact('user','title','formOne','formTwo','formThree','formFour'));
+        //
     }
 
     /**

@@ -15,8 +15,7 @@ class FilePondController extends Controller
 	public function uploadFile($data)
 	{
 		// Create variable for each element in array
-		extract($data);
-		// Upload
+		extract($data);		// Upload
 		
 		if (!empty($file)) {
 			$fileExt = $file->getClientOriginalExtension();
