@@ -90,7 +90,15 @@
             <a href="{{ url('cleaner/identity') }}" class="btn btn-danger d-inline">Step 4</a>
           </div>
           @else
-          <p>Your Profile Completed</p>
+          <ul class="list-group">
+            {{-- {{ dd($invitations_details["invitations"]) }} --}}
+            {{-- {{ dd($invitations_details["property_details"]) }} --}}
+            @foreach ($invitations_details["invitations"] as $key=>$item)
+            {{-- <li class="list-group-item">{{ $item }}</li> --}}
+            <li class="list-group-item"></li>
+            @endforeach
+          </ul>
+          {{-- <p>Your Profile Completed</p> --}}
           @endif
 
         </div>

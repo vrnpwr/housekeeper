@@ -19,4 +19,8 @@ class Invite extends Model
     public function property(){
         return hasOne('App\Property','propert_ids','id');
     }
+    
+    public function user(){
+        return hasOne('App\User','user_id','id');
+    }
 }

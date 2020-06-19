@@ -54,7 +54,7 @@ Route::group(['middleware' => 'web'], function() {
 		// Cleaner group routes
 		Route::group(['middleware' => ['cleaner'] , 'prefix' => 'cleaner'], function () {		
 		Route::resource('/dashboard' , 'cleaner\DashboardController');
-		Route::resource('/job' , 'cleaner\CleanerJobController');
+		Route::resource('/myjobs' , 'cleaner\CleanerJobController');
 
 		/*########################## PROFILE ########################*/			
 		Route::resource('/profile','cleaner\ProfileController');

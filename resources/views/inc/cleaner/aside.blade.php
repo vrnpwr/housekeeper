@@ -38,7 +38,7 @@
 
           {{-- Myjobs --}}
           <li class="nav-item has-treeview">
-            <a href="{{ url('cleaner/job') }}" class="nav-link">
+            <a href="{{ url('cleaner/myjobs') }}" class="nav-link">
               <i class="nav-icon fa fa-recycle" aria-hidden="true"></i>
               <p>
                 My Jobs
