@@ -83,9 +83,9 @@
             {{-- Form --}}
             <form action="/cleaner/reference/create" method="post">
               {{ csrf_field() }}
-              @if(!$hasReference)
+              {{-- @if(!$hasReference) --}}
               <div class="row">
-                <div class="col-3">
+                <div class="col-4">
                   <div class="form-group">
                     <label for="">Name</label><span class="required">*</span>
                     <input type="text" name="name" id="name"
@@ -95,7 +95,7 @@
                     @enderror
                   </div>
                 </div>
-                <div class="col-3">
+                <div class="col-4">
                   <div class="form-group">
                     <label for="">Email</label><span class="required">*</span>
                     <input type="text" name="email" id="email"
@@ -105,7 +105,7 @@
                     @enderror
                   </div>
                 </div>
-                <div class="col-3">
+                <div class="col-4">
                   <div class="form-group">
                     <label for="">Phone</label><span class="required">*</span>
                     <input type="number" name="phone" id="phone"
@@ -115,12 +115,45 @@
                     @enderror
                   </div>
                 </div>
-                {{-- <div class="col-3">
+                {{-- <div class="col-4">
                         <div class="form-group">
                           <button class="btn btn-primary mt-4 ml-5 add-references"><i class="fas fa-plus"> <span
                             class="ml-1">Add</span></i></button>
                           </div>
                         </div> --}}
+              </div>
+              {{-- Second Row --}}
+              <div class="row">
+                <div class="col-4">
+                  <div class="form-group">
+                    <label for="">Name</label>
+                    <input type="text" name="name1" id="name1"
+                      class="form-control{{ $errors->has('name') ? ' has-error' : ''}}" placeholder="Name">
+                    @error('name')
+                    <span class="text-sm text-danger error">{{ $message }}</span>
+                    @enderror
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label for="">Email</label>
+                    <input type="text" name="email1" id="email1"
+                      class="form-control{{ $errors->has('email') ? ' has-error' : ''}}" placeholder="Email">
+                    @error('email')
+                    <span class="text-sm text-danger error">{{ $message }}</span>
+                    @enderror
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label for="">Phone</label>
+                    <input type="number" name="phone1" id="phone1"
+                      class="form-control{{ $errors->has('phone') ? ' has-error' : ''}}" placeholder="Phone">
+                    @error('phone')
+                    <span class="text-sm text-danger error">{{ $message }}</span>
+                    @enderror
+                  </div>
+                </div>
               </div>
 
               {{-- <div class="row-container"></div> --}}
@@ -130,55 +163,10 @@
                   <input type="submit" class="btn btn-info float-right mt-5" value="Submit" />
                 </div>
               </div>
-              @else
-              <div class="row-container" style="display: none;">
-                <div class="row this-row">
-                  <div class="col-3">
-                    <div class="form-group">
-                      <label for="">Name</label><span class="required">*</span>
-                      <input type="text" name="name" id="name"
-                        class="form-control{{ $errors->has('name') ? ' has-error' : ''}}" placeholder="Name">
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="form-group">
-                      <label for="">Email</label><span class="required">*</span>
-                      <input type="text" name="email" id="email"
-                        class="form-control{{ $errors->has('email') ? ' has-error' : ''}}" placeholder="Email">
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="form-group">
-                      <label for="">Phone</label><span class="required">*</span>
-                      <input type="text" name="phone" id="phone"
-                        class="form-control{{ $errors->has('phone') ? ' has-error' : ''}}" placeholder="Phone">
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <input type="submit" class="btn btn-success mt-4" value="save" />
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-3">
-                  <div class="form-group">
-                    <button class="btn btn-primary mt-4 ml-5 add-references"><i class="fas fa-plus"> <span
-                          class="ml-1">Add More Reference</span></i></button>
-                  </div>
-                </div>
+              {{-- @else --}}
 
-                <div class="col-3">
-                  <div class="form-group">
-                    <button class="btn btn-success mt-4 ml-5 skip">Don't have
-                      more refrence</button>
-                  </div>
-                </div>
 
-                {{-- <div class="col-6 text-center ">
-                  <input type="submit" class="btn btn-success mt-3" value="save" />
-                </div> --}}
-              </div>
-              @endif
+              {{-- @endif --}}
             </form>
           </div>
         </div>

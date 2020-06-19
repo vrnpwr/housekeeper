@@ -226,9 +226,11 @@ class cleanerInformationController extends Controller
         $data->name = $request->name;
         $data->email = $request->email;
         $data->phone = $request->phone;
+        $data->name1 = $request->name1;
+        $data->email1 = $request->email1;
+        $data->phone1 = $request->phone1;
         $data->save();
-        return redirect('cleaner/reference')->withSuccess('Information Saved Successfully!');
-        
+        return redirect('cleaner/dashboard')->withSuccess('Information Saved Successfully!');        
     }
     public function reference_create_not_working(Request $request)
     {

@@ -36,7 +36,7 @@ class DashboardController extends Controller
         }
         // Identity
         if($cleanerInformation){
-            $formFour = is_null($cleanerInformation->identy_first) ? false : true;
+            $formFour = is_null($cleanerInformation->identity_front) ? false : true;
         }else{
             $formFour = null;
         }
