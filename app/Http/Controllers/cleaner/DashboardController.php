@@ -27,6 +27,8 @@ class DashboardController extends Controller
         // Address
         if($cleanerInformation){
             $formTwo = is_null($cleanerInformation->address) ? false : true;
+        }else{
+            $formTwo = null;
         }
         // Image
         if($formThree){
@@ -35,6 +37,8 @@ class DashboardController extends Controller
         // Identity
         if($cleanerInformation){
             $formFour = is_null($cleanerInformation->identy_first) ? false : true;
+        }else{
+            $formFour = null;
         }
 
         // $user = User::where(['id'=> Auth::user()->id])->first();

@@ -37,7 +37,7 @@
            with font-awesome or any other icon font library -->
           @if(Auth::user()->type == 'host' || Auth::user()->type == 'SuperAdmin')
           <li class="nav-item">
-            <a href="{{ url('/home') }}" class="nav-link">
+            <a href="{{ url('/dashboard') }}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard

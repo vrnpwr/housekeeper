@@ -1,10 +1,8 @@
 @extends('layouts.cleaner')
-
 @section('content')
-
-
 @push('styles')
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
+  integrity="sha256-rByPlHULObEjJ6XQxW/flG2r+22R5dKiAoef+aXWfik=" crossorigin="anonymous" />
 <style type="text/css">
   .add-property {
     float: right;
@@ -113,7 +111,7 @@
                 <div class="col-4">
                   <div class="form-group">
                     <label for="date_of_birth">Date of birth</label>
-                    <input type="text" name="date_of_birth" id="" class="form-control" placeholder="">
+                    <input type="text" name="date_of_birth" id="date_of_birth" class="form-control" placeholder="">
                     @error('date_of_birth')
                     <span class="text-sm text-danger error">{{ $message }}</span>
                     @enderror
@@ -226,7 +224,19 @@
 
 
 @push('script')
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-KM512VNnjElC30ehFwehXjx1YCHPiQkOPmqnrWtpccM=" crossorigin="anonymous"></script>
+<script>
+  $(document).ready(function () {
+  $('#date_of_birth').on('click' , function (){
+      $('#date_of_birth').datepicker({
+        yearRange: "1950:2004",
+        changeYear: true,
+        changeMonth:true
+      });
+    })
+ });
+</script>
 @endpush
 
 

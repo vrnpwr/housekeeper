@@ -19,7 +19,7 @@ class CreateCleanerInformationTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('website')->nullable();
-            $table->string('date_of_birth');
+            $table->date('date_of_birth');
             $table->string('describes');
             $table->string('experience');
             $table->string('car_access');
@@ -31,8 +31,8 @@ class CreateCleanerInformationTable extends Migration
             $table->string('state')->nullable();
             $table->string('country')->nullable();
             $table->string('pincode')->nullable();
-            $table->string('indenty_first')->nullable();
-            $table->string('indenty_back')->nullable();            
+            $table->string('identity_front')->nullable();
+            $table->string('identity_back')->nullable();            
             $table->timestamps();
         });
     }

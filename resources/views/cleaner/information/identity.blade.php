@@ -83,7 +83,7 @@
                   <div class="form-group mt-5" id="filepond-block">
                     <label for="front_proof">Identity Front</label>
                     <input type="file" name="image">
-                    <input type="hidden" id="image_0" name="identy_front">
+                    <input type="hidden" id="image_0" name="identity_front">
 
                   </div>
                 </div>
@@ -92,7 +92,7 @@
                   <div class="form-group mt-5" id="filepond-block">
                     <label for="back_proof">Identity Back</label>
                     <input type="file" name="image">
-                    <input type="hidden" id="image_1" name="identy_back">
+                    <input type="hidden" id="image_1" name="identity_back">
                   </div>
                 </div>
               </div>

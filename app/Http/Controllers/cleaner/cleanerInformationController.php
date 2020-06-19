@@ -8,6 +8,7 @@ use App\User;
 use App\{CleanerInformation, References};
 use Auth;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 
 class cleanerInformationController extends Controller
@@ -27,21 +28,19 @@ class cleanerInformationController extends Controller
         return view('cleaner.information.identity');
     }
 
-    public function identity_create(Request $request){
-        dd($request);
+    public function identity_create(Request $request){    
         $validator = Validator::make($request->all(), [
-            'image' => 'required',            
+            'identity_front' => 'required',
+            'identity_back' => 'required',            
         ]);
         // If validation failed        
         if ($validator->fails()) {
-            dd($request->image);
             return redirect('/cleaner/identity')->withErrors($validator)->withInput();
         }
-
         if( CleanerInformation::where(['user_id'=>Auth::user()->id])->exists() ){
             $data = CleanerInformation::where(['user_id'=>Auth::user()->id])->first();
-            $data->identity_first = $request->image;
-            $data->identity_back = $request->image;
+            $data->identity_front = $request->identity_front;
+            $data->identity_back = $request->identity_back;
             $data->save();
             return redirect('cleaner/reference')->withSuccess('Information Saved Successfully!');
         }
@@ -81,12 +80,14 @@ class cleanerInformationController extends Controller
             return redirect('/cleaner/dashboard')->withErrors($validator)->withInput();
         }
 
+        // dd($request->date_of_birth);
         if( !CleanerInformation::where(['user_id'=>Auth::user()->id])->exists() ){
             $data = new CleanerInformation;
             $data->user_id = Auth::user()->id;
             $data->first_name = $request->first_name;
-            $data->last_name = $request->last_name;            
-            $data->date_of_birth = $request->date_of_birth;
+            $data->last_name = $request->last_name;
+            $date=date_create($request->date_of_birth);
+            $data->date_of_birth = date_format($date,"Y/m/d");
             $data->website = $request->website;
             $data->describes = $request->describes;
             $data->experience = $request->experience;
@@ -95,7 +96,7 @@ class cleanerInformationController extends Controller
             $data->travel = $request->travel;
             $data->vacation_rentals = $request->vacation_rentals;
             $data->save();
-            return redirect('cleaner/information')->withSuccess('Information Saved Successfully!');
+            return redirect('cleaner/address')->withSuccess('Information Saved Successfully!');
         }else{
             return redirect('cleaner/information')->with('info','Something went Wrong!');
         }
@@ -149,7 +150,8 @@ class cleanerInformationController extends Controller
 
     // Public function
     public function address(){
-        return view('cleaner.information.address');
+        $address = CleanerInformation::where(['user_id' => Auth::user()->id])->first();
+        return view('cleaner.information.address',compact('address'));
     }
 
     // Public funtion 
