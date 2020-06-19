@@ -4,7 +4,7 @@ namespace App\Http\Controllers\cleaner;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\CleanerInformation;
+use App\{CleanerInformation,User};
 use Auth;
 class CleanerJobController extends Controller
 {
@@ -15,19 +15,28 @@ class CleanerJobController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();        
+        $title = 'Cleaner Dashboard';
         $formOne = CleanerInformation::where(['user_id' => Auth::user()->id])->exists();
-
-        $formTwo = CleanerInformation::where(['user_id' => Auth::user()->id])->first();
-        $formTwo = is_null($formTwo->indenty_back) ? false : true;
-
-        $profilePicture = User::where(['user_id' => Auth::user()->id])->select('image')->first();
-        $profilePicture = is_null(profilePicture) ? false : true;
-
-        $address = User::where(['user_id' => Auth::user()->id])->select('address1')->first();
-        $address = is_null(address) ? false : true;
-        
-        $refrence = Reference::where(['user_id' => Auth::user()->id])->exists();
-        return view('cleaner.job.jobs',compact('formOne','formTwo','profilePicture','address','refrence'));
+        $cleanerInformation = CleanerInformation::where(['user_id' => Auth::user()->id])->first();
+        $formThree = User::where(['id'=> Auth::user()->id])->first();      
+        // Address
+        if($cleanerInformation){
+            $formTwo = is_null($cleanerInformation->address) ? false : true;
+        }else{
+            $formTwo = null;
+        }
+        // Image
+        if($formThree){
+            $formThree = is_null($formThree->image) ? false : true;
+        }
+        // Identity
+        if($cleanerInformation){
+            $formFour = is_null($cleanerInformation->identity_front) ? false : true;
+        }else{
+            $formFour = null;
+        }
+        return view('cleaner.job.jobs',compact('user','title','formOne','formTwo','formThree','formFour'));
     }
 
     /**

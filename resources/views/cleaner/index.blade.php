@@ -27,7 +27,7 @@
     <!-- Small boxes (Stat box) -->
     <div class="row">
       <div class="col-12">
-        <div class="card card-primary p-5">
+        <div class="">
           @if(!$formOne)
           <!-- small box -->
           <div class="d-flex">
@@ -55,7 +55,49 @@
             <a href="{{ url('cleaner/identity') }}" class="btn btn-danger d-inline">Step 4</a>
           </div>
           @else
-          <p>Your Profile Completed</p>
+          {{-- <p>Your Profile Completed</p> --}}
+          <div class="row">
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                  <h3>My Jobs <small></small> </h3>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a href="{{ url('#') }}" class="small-box-footer">More info <i
+                    class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <!-- Checklist -->
+            <div class="col-lg-3 col-6">
+              <div class="small-box bg-success">
+                <div class="inner">
+                  <h3>Clients <small></small> </h3>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a href="{{ url('#') }}" class="small-box-footer">More info <i
+                    class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <!-- Property -->
+            <div class="col-lg-3 col-6">
+              <div class="small-box bg-warning">
+                <div class="inner">
+                  <h3>Ratings <small></small> </h3>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a href="{{ url('#') }}" class="small-box-footer">More info <i
+                    class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+
+          </div>
           @endif
 
         </div>
