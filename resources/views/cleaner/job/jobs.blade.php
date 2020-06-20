@@ -94,37 +94,38 @@
             <a href="{{ url('cleaner/identity') }}" class="btn btn-danger d-inline">Step 4</a>
           </div>
           @else
-          {{-- {{ dd($invitations_details["invitations"]) }} --}}
-          {{-- {{ dd($invitations_details["property_details"]) }} --}}
-          {{-- {{ dd($invitations_details["invitations"]) }} --}}
-          @foreach ($invitations_details["invitations_from"] as $key=>$item)
+          @foreach ($invitations_details["property_details"] as $key=>$item)
+          {{-- {{ dd($item->property_name) }} --}}
           {{-- <li class="list-group-item">{{ $item }}</li> --}}
-          <div class="row p-5 mb-1 box">
+          <div class="row p-1 mb-1 box">
             <div class="col-4">
               <p class="font-weight-bold d-inline-block">
-                {{ $invitations_details["property_details"][$key][0]->property_name }}
+                {{ $item->property_name }}
               </p>
               {{-- Property Details --}}
               <p class="d-inline-block">
-                {{ $invitations_details["property_details"][$key][0]->city }} ,
-                {{ $invitations_details["property_details"][$key][0]->state }} ,
-                {{ $invitations_details["property_details"][$key][0]->country }}
+                {{ $item->city }} ,
+                {{ $item->state }} ,
+                {{ $item->country }}
               </p>
               {{-- From --}}
-              <p class="float-float d-block"><small class="text-lead">{{ $item->email }}</small></p>
-            </div>
-            {{-- Images --}}
-            <div class="col-4">
+              <p class="float-float d-block">
+                <small class="text-lead">{{ $invitations_details['invitations_from'][0]->email }}</small>
+              </p>
+              <p class="float-float d-block">
+                <small class="text-lead">{{ $invitations_details['invitations_from'][0]->name }}</small>
+              </p>
+            </div> {{-- Images --}} <div class="col-4">
               @php
-              $image = $invitations_details["property_details"][$key][0]->property_image ?
-              $invitations_details["property_details"][$key][0]->property_image : 'placeholder/home-placeholder.jpg'
+              $image = $item->property_image ?
+              $item->property_image : 'placeholder/home-placeholder.jpg'
               @endphp
               <a href="{{ url('/images/'.$image) }}" data-lightbox="property_image" data-title="My caption">
                 <img src="{{ url('/images/'.$image) }}" width="100px" alt="property_image">
               </a>
             </div>
 
-            <div class="col-4">
+            <div class="col-4 pt-3">
               <div class="text-center d-inline-block">
                 <button class="btn btn-success cleaner_action" data-value="1">Accept</button>
                 <button class="btn btn-danger cleaner_action" data-value="0">reject</button>

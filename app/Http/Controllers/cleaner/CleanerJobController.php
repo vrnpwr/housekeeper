@@ -40,7 +40,7 @@ class CleanerJobController extends Controller
         $invitations_details = $this->invitations();
         $property_information = array();        
         foreach($invitations_details['property_details'] as $key=>$item){            
-            if(isset($item[$key])){                        
+            if(isset($item[$key])){              
             $property_information[$key]['property_name'] = $item[$key]->property_name;
             $property_information[$key]['property_address'] = $item[$key]->property_address;
             $property_information[$key]['city'] = $item[$key]->city;
@@ -57,8 +57,11 @@ class CleanerJobController extends Controller
             $invitations = Invite::where(['invitation_type' => 'email' , 'details'=>Auth::user()->email])->get();
             $property_details = [];
             foreach($invitations as $key=>$invitation){
-                $property_detail = $this->getPropertyDetails($invitation->property_ids);
-                array_push($property_details, $property_detail);
+                $data = json_decode($invitation->property_ids);
+                foreach($data as $key=>$value){
+                    $property_detail = $this->getPropertyDetails($value);
+                    array_push($property_details, $property_detail);
+                }
             }
             $from = [];
             foreach($invitations as $key=>$invite){
@@ -71,9 +74,9 @@ class CleanerJobController extends Controller
     }
     // *this function recieved propert_ids array and return property object
     public function getPropertyDetails($request){
-        $request = json_decode($request);        
-        $data = Property::whereIn('id',$request)
-        ->select('property_name','property_address','city','state','country','zipcode')->get();        
+        // $request = json_decode($request);        
+        $data = Property::where('id',$request)
+        ->select('property_name','property_address','city','state','country','zipcode')->first();        
         return $data;
     }
 
