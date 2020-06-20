@@ -38,10 +38,7 @@ class CleanerJobController extends Controller
         }
         // New invitation
         $invitations_details = $this->invitations();
-        $property_information = array();
-        echo "<pre>";
-        // print_r($invitations_details['property_details']);
-        // die();
+        $property_information = array();        
         foreach($invitations_details['property_details'] as $key=>$item){            
             if(isset($item[$key])){                        
             $property_information[$key]['property_name'] = $item[$key]->property_name;
@@ -49,8 +46,8 @@ class CleanerJobController extends Controller
             $property_information[$key]['city'] = $item[$key]->city;
             $property_information[$key]['state'] = $item[$key]->state;
             $property_information[$key]['country'] = $item[$key]->country;   
+            $property_information[$key]['property_image'] = $item[$key]->property_image;
             }
-            print_r($property_information);
         }
         return view('cleaner.job.jobs',compact('user','title','formOne','formTwo','formThree','formFour','invitations_details'));
     }
@@ -62,16 +59,19 @@ class CleanerJobController extends Controller
             foreach($invitations as $key=>$invitation){
                 $property_detail = $this->getPropertyDetails($invitation->property_ids);
                 array_push($property_details, $property_detail);
-            }           
-            $data = ['invitations' => $invitations , 'property_details' => $property_details];
+            }
+            $from = [];
+            foreach($invitations as $key=>$invite){
+                $each = User::find($invite->user_id)->select('email','name')->first();
+                array_push($from , $each);
+            }
+            $data = ['invitations_from' => $from , 'property_details' => $property_details];
             return $data;
         }
     }
     // *this function recieved propert_ids array and return property object
     public function getPropertyDetails($request){
-        $request = json_decode($request);
-        // dd($request);
-        // Property_ids have array so we use arrayin        
+        $request = json_decode($request);        
         $data = Property::whereIn('id',$request)
         ->select('property_name','property_address','city','state','country','zipcode')->get();        
         return $data;

@@ -52,7 +52,7 @@ Route::group(['middleware' => 'web'], function() {
 	});
 
 		// Cleaner group routes
-		Route::group(['middleware' => ['cleaner'] , 'prefix' => 'cleaner'], function () {		
+		Route::group(['middleware' => ['cleaner'] , 'prefix' => 'cleaner'], function () {
 		Route::resource('/dashboard' , 'cleaner\DashboardController');
 		Route::resource('/myjobs' , 'cleaner\CleanerJobController');
 
@@ -84,7 +84,8 @@ Route::group(['middleware' => 'web'], function() {
 			Route::post('/reference/create' , 'cleaner\cleanerInformationController@reference_create');
 			// ##################### Customers ###############################
 			Route::resource('/customers','cleaner\customersController');
-			
+			// Session testing
+			Route::get('/session' ,'cleaner\TestController@session');
 
 	});
 

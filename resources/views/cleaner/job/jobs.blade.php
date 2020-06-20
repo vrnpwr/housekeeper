@@ -4,7 +4,7 @@
 
 
 @push('styles')
-
+<link href="{{ asset('plugins/lightbox_2/dist/css/lightbox.css') }}" rel="stylesheet" />
 <style type="text/css">
   .add-property {
     float: right;
@@ -27,6 +27,10 @@
   .custom-control.custom-checkbox {
     margin: 35px 7px;
     font-size: 18px;
+  }
+
+  .box {
+    border: 1px solid gray;
   }
 </style>
 
@@ -90,14 +94,46 @@
             <a href="{{ url('cleaner/identity') }}" class="btn btn-danger d-inline">Step 4</a>
           </div>
           @else
-          <ul class="list-group">
-            {{-- {{ dd($invitations_details["invitations"]) }} --}}
-            {{-- {{ dd($invitations_details["property_details"]) }} --}}
-            @foreach ($invitations_details["invitations"] as $key=>$item)
-            {{-- <li class="list-group-item">{{ $item }}</li> --}}
-            <li class="list-group-item"></li>
-            @endforeach
-          </ul>
+          {{-- {{ dd($invitations_details["invitations"]) }} --}}
+          {{-- {{ dd($invitations_details["property_details"]) }} --}}
+          {{-- {{ dd($invitations_details["invitations"]) }} --}}
+          @foreach ($invitations_details["invitations_from"] as $key=>$item)
+          {{-- <li class="list-group-item">{{ $item }}</li> --}}
+          <div class="row p-5 mb-1 box">
+            <div class="col-4">
+              <p class="font-weight-bold d-inline-block">
+                {{ $invitations_details["property_details"][$key][0]->property_name }}
+              </p>
+              {{-- Property Details --}}
+              <p class="d-inline-block">
+                {{ $invitations_details["property_details"][$key][0]->city }} ,
+                {{ $invitations_details["property_details"][$key][0]->state }} ,
+                {{ $invitations_details["property_details"][$key][0]->country }}
+              </p>
+              {{-- From --}}
+              <p class="float-float d-block"><small class="text-lead">{{ $item->email }}</small></p>
+            </div>
+            {{-- Images --}}
+            <div class="col-4">
+              @php
+              $image = $invitations_details["property_details"][$key][0]->property_image ?
+              $invitations_details["property_details"][$key][0]->property_image : 'placeholder/home-placeholder.jpg'
+              @endphp
+              <a href="{{ url('/images/'.$image) }}" data-lightbox="property_image" data-title="My caption">
+                <img src="{{ url('/images/'.$image) }}" width="100px" alt="property_image">
+              </a>
+            </div>
+
+            <div class="col-4">
+              <div class="text-center d-inline-block">
+                <button class="btn btn-success cleaner_action" data-value="1">Accept</button>
+                <button class="btn btn-danger cleaner_action" data-value="0">reject</button>
+                <button class="btn btn-warning">Quote</button>
+              </div>
+            </div>
+
+          </div>
+          @endforeach
           {{-- <p>Your Profile Completed</p> --}}
           @endif
 
@@ -112,10 +148,25 @@
 <!-- /. content -->
 </div>
 <!-- /. content-wrapper -->
-
-
 @push('script')
+<script src="{{ asset('plugins/lightbox_2/dist/js/lightbox.js') }}"></script>
 <script>
+  $(document).ready(function () {
+  lightbox.option({
+      'resizeDuration': 1000,
+      'wrapAround': true
+  })  
+});
+
+$('.cleaner_action').on('click' , function() {
+  var value = $(this).attr('data-value');
+  if(value == 1){
+    swal.fire("Are you sure to connect with Host");
+  }else if(value == 0){
+    swal.fire("Are you sure to reject Host invitation" );
+  }
+})
+
   // add multiple select / deselect functionality For Notification
   $("#selectall_notification").click(function () {
     $('.case_notification').attr('checked', this.checked);
@@ -166,8 +217,7 @@
     $('.case_sms').attr('checked', this.checked);
   });
   
-  $(".case_sms").click(function(){
-    
+  $(".case_sms").click(function(){    
     if($(".case_sms").length == $(".case_sms:checked").length) {
       $("#selectall_sms").attr("checked", "checked");
     } else {
