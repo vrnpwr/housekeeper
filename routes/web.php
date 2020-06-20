@@ -88,6 +88,8 @@ Route::group(['middleware' => 'web'], function() {
 			Route::post('/reference/create' , 'cleaner\cleanerInformationController@reference_create');
 			// ##################### Customers ###############################
 			Route::resource('/customers','cleaner\customersController');
+			// Notification Manager ##############################
+			Route::resource('/fetchNotifications' , 'cleaner\NotificationManager');
 			Route::get('/session' ,'cleaner\TestController@session');
 			// Session testing
 

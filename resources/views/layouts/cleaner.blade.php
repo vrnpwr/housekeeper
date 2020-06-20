@@ -100,7 +100,22 @@
   <script>
     $('.bell-btn').on('click',function (){      
       $('.notification-center').toggle();
-    })
+    });
+
+    $(document).ready(function () {
+      $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+      $.ajax({
+        type: "get",
+        url: "{{ url('/cleaner/fetchNotifications') }}",        
+        success: function (response) {
+        console.log(response);   
+        }
+      });
+    });
   </script>
 </body>
 

@@ -4,7 +4,8 @@ namespace App\Http\Controllers\cleaner;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\PushNotification;
+use Auth;
 class NotificationManager extends Controller
 {
     /**
@@ -14,7 +15,10 @@ class NotificationManager extends Controller
      */
     public function index()
     {
-        //
+        if(PushNotification::where(['to'=> Auth::user()->email , 'read_at' => null])->exists()){
+            $notifications = PushNotification::where(['to'=>Auth::user()->email , 'read_at' => null])->get();
+            return response()->json($notifications);
+        }
     }
 
     /**
