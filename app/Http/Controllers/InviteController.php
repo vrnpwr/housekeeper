@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Invite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Property;
+use App\{Property,PushNotification};
 use Illuminate\Support\Facades\Validator;
 // use UxWeb\SweetAlert\SweetAlert;
 Use Alert;
@@ -93,6 +93,14 @@ class InviteController extends Controller
         $invite->invitation_message = $request->invitation_message;
         $invite->invitation_code = mt_rand(100000, 999999);
         $invite->save();
+        // Save data in push Notification
+        $pushnotification = new PushNotification;
+        $pushnotification->by = Auth::user()->email;
+        $pushnotification->to = $request->details;
+        $pushnotification->type = 'invitation';
+        $pushnotification->message = $request->invitation_message;
+        $pushnotification->route = '/cleaner/invites';
+        $pushnotification->save();
         return redirect('invite')->withSuccess('Invite Sent Successfully!');
     }else{
         // Email Already Exists        
