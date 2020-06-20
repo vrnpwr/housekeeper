@@ -63,6 +63,16 @@
               </p>
             </a>
           </li>
+          {{-- Invitations --}}
+          <li class="nav-item has-treeview">
+            <a href="{{ url('cleaner/invites') }}" class="nav-link">
+              <i class="nav-icon fas fa-user-plus" aria-hidden="true"></i>
+              {{-- <i class="nav-icon fas fa-star"></i> --}}
+              <p>
+                Invitations
+              </p>
+            </a>
+          </li>
           {{-- Curent Customers --}}
           <li class="nav-item has-treeview">
             <a href="{{ url('cleaner/customers') }}" class="nav-link">

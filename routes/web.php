@@ -50,13 +50,17 @@ Route::group(['middleware' => 'web'], function() {
 		Route::get('/filepond/uploadImage','FilePondController@uploadImage');
 		Route::delete('/filepond/deleteImage','FilePondController@deleteImage');			
 	});
-
-		// Cleaner group routes
-		Route::group(['middleware' => ['cleaner'] , 'prefix' => 'cleaner'], function () {
+	
+	// Cleaner group routes
+	Route::group(['middleware' => ['cleaner'] , 'prefix' => 'cleaner'], function () {
 		Route::resource('/dashboard' , 'cleaner\DashboardController');
 		Route::resource('/myjobs' , 'cleaner\CleanerJobController');
 
-		/*########################## PROFILE ########################*/			
+		Route::resource('/invites' , 'cleaner\CleanerInvitationController');
+		// Change invitation status
+		Route::post('/invite/change' , 'cleaner\CleanerJobController@change_invite_status');
+			
+			/*########################## PROFILE ########################*/			
 		Route::resource('/profile','cleaner\ProfileController');
 		Route::post('/profile/checkOldPassword','cleaner\ProfileController@checkOldPassword');
 		Route::post('/profile/deleteImage','cleaner\ProfileController@deleteImage');
@@ -84,8 +88,8 @@ Route::group(['middleware' => 'web'], function() {
 			Route::post('/reference/create' , 'cleaner\cleanerInformationController@reference_create');
 			// ##################### Customers ###############################
 			Route::resource('/customers','cleaner\customersController');
-			// Session testing
 			Route::get('/session' ,'cleaner\TestController@session');
+			// Session testing
 
 	});
 

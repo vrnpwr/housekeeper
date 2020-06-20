@@ -50,7 +50,7 @@
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item active">My Jobs</li>
+          <li class="breadcrumb-item active">Invitations</li>
         </ol>
       </div><!-- /.col -->
     </div><!-- /.row -->
@@ -94,7 +94,53 @@
             <a href="{{ url('cleaner/identity') }}" class="btn btn-danger d-inline">Step 4</a>
           </div>
           @else
+          @if (!is_null($invitations_details))
 
+          @foreach ($invitations_details["property_details"] as $key=>$item)
+          {{-- {{ dd($item->property_name) }} --}}
+          {{-- <li class="list-group-item">{{ $item }}</li> --}}
+          <div class="row p-1 mb-1 box">
+            <div class="col-4">
+              <p class="font-weight-bold d-inline-block">
+                {{ $item->property_name }}
+              </p>
+              {{-- Property Details --}}
+              <p class="d-inline-block">
+                {{ $item->city }} ,
+                {{ $item->state }} ,
+                {{ $item->country }}
+              </p>
+              {{-- From --}}
+              <p class="float-float d-block">
+                <small class="text-lead">{{ $invitations_details['invitations_from'][0]->email }}</small>
+              </p>
+              <p class="float-float d-block">
+                <small class="text-lead">{{ $invitations_details['invitations_from'][0]->name }}</small>
+              </p>
+            </div> {{-- Images --}} <div class="col-4">
+              @php
+              $image = $item->property_image ?
+              $item->property_image : 'placeholder/home-placeholder.jpg'
+              @endphp
+              <a href="{{ url('/images/'.$image) }}" data-lightbox="property_image" data-title="My caption">
+                <img src="{{ url('/images/'.$image) }}" width="100px" alt="property_image">
+              </a>
+            </div>
+
+            <div class="col-4 pt-3">
+              <div class="text-center d-inline-block">
+                <button class="btn btn-success cleaner_action" data-value="1"
+                  data-id={{ $invitations_details['invitation_id'][0] }}>Accept</button>
+                <button class="btn btn-danger cleaner_action" data-value="0">reject</button>
+                <button class="btn btn-warning">Quote</button>
+              </div>
+            </div>
+
+          </div>
+          @endforeach
+          @else
+          <p>No Invitation found</p>
+          @endif
           {{-- <p>Your Profile Completed</p> --}}
           @endif
 

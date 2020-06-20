@@ -4,11 +4,26 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>{{ config('app.name', 'Laravel') }}</title>
+  <style>
+    .notifications {
+      /* background: black; */
+      bottom: 57px;
+      top: 57px;
+      height: 608px;
+      display: block;
+      position: absolute;
+      right: 0px;
+      width: 20vw;
+    }
+
+    .list-group-item-success {
+      background-color: #757e77 !important;
+    }
+  </style>
   @include('inc.cleaner.header_files')
 
 </head>
@@ -26,14 +41,17 @@
         </li>
       </ul>
       <!-- Right navbar links -->
+
+
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-            <i class="fas fa-th-large"></i>
+          <a class="nav-link bell-btn" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+            <i class="fas fa-bell"></i>
           </a>
         </li>
-
       </ul>
+
+
     </nav>
     <!-- #################### Navbar ##################### -->
 
@@ -55,9 +73,21 @@
       </footer>
 
       <!-- Control Sidebar -->
-      <aside class="control-sidebar control-sidebar-dark">
+      <div class="notification-center notifications control-sidebar-dark" style="display: none;">
+        <div class="list-group">
+          @if (isset($notifications) && !is_null($notifications) )
+          @foreach($notifications as $key=>$notification)
+          <a href="#" class="list-group-item list-group-item-action list-group-item-success">{{ $notification }}</a>
+          @endforeach
+          @else
+          <a href="#" class="list-group-item list-group-item-action list-group-item-success">No notification
+            recieved</a>
+          @endif
+        </div>
+      </div>
+      {{-- <aside class="control-sidebar control-sidebar-dark">
         <!-- Control sidebar content goes here -->
-      </aside>
+      </aside> --}}
       <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
@@ -67,7 +97,11 @@
   <!-- ##################FOOTERFILES################## -->
   @include('inc.cleaner.footer_files')
   <!-- ##################FOOTERFILES################## -->
-
+  <script>
+    $('.bell-btn').on('click',function (){      
+      $('.notification-center').toggle();
+    })
+  </script>
 </body>
 
 </html>
