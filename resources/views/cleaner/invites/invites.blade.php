@@ -131,7 +131,8 @@
               <div class="text-center d-inline-block">
                 <button class="btn btn-success cleaner_action" data-value="1"
                   data-id={{ $invitations_details['invitation_id'][0] }}>Accept</button>
-                <button class="btn btn-danger cleaner_action" data-value="0">reject</button>
+                <button class="btn btn-danger cleaner_action" data-id={{ $invitations_details['invitation_id'][0] }}
+                  data-value="0">reject</button>
                 <button class="btn btn-warning">Quote</button>
               </div>
             </div>
@@ -168,6 +169,7 @@
 $('.cleaner_action').on('click' , function() {
   var value = $(this).attr('data-value');
   var id = $(this).attr('data-id');
+  console.log(value,id);
   var data ={};
   data.status = value;
   data.id = id;
@@ -194,10 +196,9 @@ $('.cleaner_action').on('click' , function() {
     data: data,    
     success: function (response) {
       console.log("success");
+      window.location.reload();
     },
-    conplete: function (response) {
-      console.log("Complete");
-    }
+    
   });
   }
 })    
@@ -212,11 +213,16 @@ $('.cleaner_action').on('click' , function() {
   confirmButtonText: 'Yes'
 }).then((result) => {
   if (result.value) {
-    Swal.fire(
-      'Rejected!',
-      'At this movment you are not connected with Host.',
-      'success'
-    )
+    $.ajax({
+    type: "post",
+    url: "{{ url('cleaner/invite/change') }}",
+    data: data,    
+    success: function (response) {
+      console.log("success");
+      window.location.reload();
+    },
+    
+  });
   }
 })
   }

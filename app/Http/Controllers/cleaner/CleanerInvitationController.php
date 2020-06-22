@@ -58,7 +58,7 @@ class CleanerInvitationController extends Controller
     // this function accept get request and return new invitation request
     private function invitations(){
         if(Invite::where(['invitation_type' => 'email' , 'details'=>Auth::user()->email , 'status'=>0])->exists()){
-            $invitations = Invite::where(['invitation_type' => 'email' , 'details'=>Auth::user()->email])->get();
+            $invitations = Invite::where(['invitation_type' => 'email' , 'details'=>Auth::user()->email,'status'=>0 , 'action'=>0])->get();
             $property_details = [];
             $invitation_id =[];
             foreach($invitations as $key=>$invitation){
@@ -94,31 +94,29 @@ class CleanerInvitationController extends Controller
             if($status == 1){
                 $data = Invite::where(['details' => Auth::user()->email ,'id' => $id ])->update(['status'=>1]);
                 $res =  ($data==1) ? true : false;
-                if(res){
+                if($res){
                     return redirect('/cleaner/invites')->withSuccess('Invite Sent Successfully!');
                 }
             }else if($status == 0){
-                $deleted_row = Invite::where('id', '=', $id)->delete();
+                $deleted_row = Invite::where(['details' => Auth::user()->email ,'id' => $id ])->update(['action'=>1]);
                 $res =  ($deleted_row == 1) ? true : false;
-                if(res){
+                if($res){
                     return redirect('/cleaner/invites')->withSuccess('Invite Sent Successfully!');
                 }
             }
         }else{
-            dd("Invitation not found else condition");
-            // dd("Else condition");
+            dd("Invitation not found else condition");            
         }
     }
 
     public function notificationReadAt(Request $request){    
-        $id = $request->id;   
+        $id = $request->id;
         $route = $request->route;   
         $current_date_time = Carbon::now()->toDateTimeString(); 
         $response = PushNotification::where(['id' => $id])->update(['read_at' => $current_date_time]);
         $res =  ($response == 1) ? true : false;
         if($res){
-            return true;
-            // return redirect()->withSuccess('Invite Sent Successfully!');
+            return true;            
         }
     }
 

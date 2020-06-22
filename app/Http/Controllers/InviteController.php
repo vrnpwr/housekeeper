@@ -101,10 +101,10 @@ class InviteController extends Controller
         $pushnotification->message = $request->invitation_message;
         $pushnotification->route = '/cleaner/invites';
         $pushnotification->save();
-        return redirect('invite')->withSuccess('Invite Sent Successfully!');
+        return redirect('/invite')->withSuccess('Invite Sent Successfully!');
     }else{
         // Email Already Exists        
-        return redirect('invite')->with('info','You alredy Connect to this Email Address!');
+        return redirect('/invite')->with('info','You alredy Connect to this Email Address!');
     }     
     }
 
