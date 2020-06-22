@@ -4,7 +4,8 @@ namespace App\Http\Controllers\cleaner;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\{CleanerInformation,User,Invite,Property};
+use App\{CleanerInformation,User,Invite,Property,PushNotification};
+use Carbon\Carbon;
 use Auth;
 
 class CleanerInvitationController extends Controller
@@ -92,16 +93,32 @@ class CleanerInvitationController extends Controller
         if(Invite::where([ 'details' => Auth::user()->email ,'id' => $id ])->exists()){            
             if($status == 1){
                 $data = Invite::where(['details' => Auth::user()->email ,'id' => $id ])->update(['status'=>1]);
-                return ($data==1) ? true : false;
-                return redirect('/cleaner/invites')->withSuccess('Invite Sent Successfully!');
+                $res =  ($data==1) ? true : false;
+                if(res){
+                    return redirect('/cleaner/invites')->withSuccess('Invite Sent Successfully!');
+                }
             }else if($status == 0){
                 $deleted_row = Invite::where('id', '=', $id)->delete();
-                return ($deleted_row == 1) ? true : false;
-                return redirect('/cleaner/invites')->withSuccess('Invite Sent Successfully!');
+                $res =  ($deleted_row == 1) ? true : false;
+                if(res){
+                    return redirect('/cleaner/invites')->withSuccess('Invite Sent Successfully!');
+                }
             }
         }else{
             dd("Invitation not found else condition");
             // dd("Else condition");
+        }
+    }
+
+    public function notificationReadAt(Request $request){    
+        $id = $request->id;   
+        $route = $request->route;   
+        $current_date_time = Carbon::now()->toDateTimeString(); 
+        $response = PushNotification::where(['id' => $id])->update(['read_at' => $current_date_time]);
+        $res =  ($response == 1) ? true : false;
+        if($res){
+            return true;
+            // return redirect()->withSuccess('Invite Sent Successfully!');
         }
     }
 

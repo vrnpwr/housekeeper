@@ -46,7 +46,9 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link bell-btn" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-            <i class="fas fa-bell"></i>
+            <i class="fas fa-bell">
+              <span class="notification-count"></span>
+            </i>
           </a>
         </li>
       </ul>
@@ -75,14 +77,7 @@
       <!-- Control Sidebar -->
       <div class="notification-center notifications control-sidebar-dark" style="display: none;">
         <div class="list-group">
-          @if (isset($notifications) && !is_null($notifications) )
-          @foreach($notifications as $key=>$notification)
-          <a href="#" class="list-group-item list-group-item-action list-group-item-success">{{ $notification }}</a>
-          @endforeach
-          @else
-          <a href="#" class="list-group-item list-group-item-action list-group-item-success">No notification
-            recieved</a>
-          @endif
+
         </div>
       </div>
       {{-- <aside class="control-sidebar control-sidebar-dark">
@@ -101,21 +96,46 @@
     $('.bell-btn').on('click',function (){      
       $('.notification-center').toggle();
     });
-
+    
     $(document).ready(function () {
       $.ajaxSetup({
-      headers: {
+        headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
+        }
+      });
       $.ajax({
         type: "get",
         url: "{{ url('/cleaner/fetchNotifications') }}",        
         success: function (response) {
-        console.log(response);   
+          if(response.length >= 1){   
+            $('.notification-count').html(response.length);
+            // clear previus data 
+            $('.notifications .list-group').html('');
+          response.forEach((each , index) =>{            
+            $('.notifications .list-group').append(`<a href="#" onclick="readAt(${each.id}, '${each.route}' )" class="list-group-item list-group-item-action list-group-item-success">${(each.type == 'invitation' ? 'You have recieved new invitation from ' : 'else condition' )}${each.by}</a>`);
+          })
+        }else{
+          $('.notifications .list-group').html(`<a href="#"  class="list-group-item list-group-item-action list-group-item-success">No notification </a>`);
+        }
+        }
+      });      
+    });
+    
+    function readAt(id , route){
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
       });
-    });
+      $.ajax({
+        type: "post",
+        url: "{{ url('/cleaner/notificationReadAt') }}",
+        data: {id: id , route: route },
+        success: function (response) {
+          window.location.href = route;
+        }
+      });
+    }
   </script>
 </body>
 

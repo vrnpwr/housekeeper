@@ -59,7 +59,8 @@ Route::group(['middleware' => 'web'], function() {
 		Route::resource('/invites' , 'cleaner\CleanerInvitationController');
 		// Change invitation status
 		Route::post('/invite/change' , 'cleaner\CleanerInvitationController@change_invite_status');
-			
+		// Notification readAt
+		Route::post('/notificationReadAt' , 'cleaner\CleanerInvitationController@notificationReadAt');
 			/*########################## PROFILE ########################*/			
 		Route::resource('/profile','cleaner\ProfileController');
 		Route::post('/profile/checkOldPassword','cleaner\ProfileController@checkOldPassword');
