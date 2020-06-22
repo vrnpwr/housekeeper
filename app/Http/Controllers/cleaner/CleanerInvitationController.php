@@ -93,12 +93,15 @@ class CleanerInvitationController extends Controller
             if($status == 1){
                 $data = Invite::where(['details' => Auth::user()->email ,'id' => $id ])->update(['status'=>1]);
                 return ($data==1) ? true : false;
+                return redirect('/cleaner/invites')->withSuccess('Invite Sent Successfully!');
             }else if($status == 0){
                 $deleted_row = Invite::where('id', '=', $id)->delete();
                 return ($deleted_row == 1) ? true : false;
+                return redirect('/cleaner/invites')->withSuccess('Invite Sent Successfully!');
             }
         }else{
-            dd("Else condition");
+            dd("Invitation not found else condition");
+            // dd("Else condition");
         }
     }
 
