@@ -350,23 +350,27 @@
 			var size = $('#size').val();
 			var property_description = $('#property_description').val();
 			var property_image = $('#image_0').val();
+			var property_image2 = $('input[name="image2"]').val();
+			var property_image3 = $('input[name="image3"]').val();
+			var property_image4 = $('input[name="image4"]').val();
+			var property_image5 = $('input[name="image5"]').val();
 			var checklist_id = $('#checklist_id').val();
 			var check_in = $('#check_in').val();
 			var cleaner_ids = $('#cleaners_id').val();
 			var check_out = $('#check_out').val();
 			
 			
-			insertProperty(user_id, property_name, property_address, unit, access_code, city, state, country, zipcode, currency, colorpicker_full, bedrooms, bathrooms, unit_of_measurement, size, property_description, property_image, checklist_id, check_in, check_out ,cleaner_ids);
+			insertProperty(user_id, property_name, property_address, unit, access_code, city, state, country, zipcode, currency, colorpicker_full, bedrooms, bathrooms, unit_of_measurement, size, property_description, property_image, property_image2, property_image3, property_image4, property_image5, checklist_id, check_in, check_out ,cleaner_ids);
 			
 		});
 		/* Insert Property Data*/
-		function insertProperty(user_id, property_name, property_address, unit, access_code, city, state, country, zipcode, currency, colorpicker_full, bedrooms, bathrooms, unit_of_measurement, size, property_description, property_image, checklist_id, check_in, check_out ,cleaner_ids){
+		function insertProperty(user_id, property_name, property_address, unit, access_code, city, state, country, zipcode, currency, colorpicker_full, bedrooms, bathrooms, unit_of_measurement, size, property_description, property_image, property_image2, property_image3, property_image4, property_image5, checklist_id, check_in, check_out ,cleaner_ids){
 			
 			$.ajax({
 				type: 'POST',
 				url: '{{ action('PropertyController@store') }}',
 				headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-				data:{user_id, property_name, property_address, unit, access_code, city, state, country, zipcode, currency, colorpicker_full, bedrooms, bathrooms, unit_of_measurement, size, property_description, property_image, checklist_id, check_in, check_out ,cleaner_ids},
+				data:{user_id, property_name, property_address, unit, access_code, city, state, country, zipcode, currency, colorpicker_full, bedrooms, bathrooms, unit_of_measurement, size, property_description, property_image , property_image2, property_image3, property_image4, property_image5, checklist_id, check_in, check_out ,cleaner_ids},
 				success:function(data){					
 					if($.isEmptyObject(data.error)){
 						Swal.fire({

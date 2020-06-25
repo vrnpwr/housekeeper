@@ -154,6 +154,31 @@
 					<input type="hidden" name="image1" id="image_0" value="">
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-3">
+					<label>Property Image</label>
+					<input type="file" name="image" multiple>
+					<input type="hidden" name="image2" id="image_1" value="">
+				</div>
+
+				<div class="col-3">
+					<label>Property Image</label>
+					<input type="file" name="image" multiple>
+					<input type="hidden" name="image3" id="image_2" value="">
+				</div>
+
+				<div class="col-3">
+					<label>Property Image</label>
+					<input type="file" name="image" multiple>
+					<input type="hidden" name="image4" id="image_3" value="">
+				</div>
+
+				<div class="col-3">
+					<label>Property Image</label>
+					<input type="file" name="image" multiple>
+					<input type="hidden" name="image5" id="image_4" value="">
+				</div>
+			</div>
 
 		</div>
 

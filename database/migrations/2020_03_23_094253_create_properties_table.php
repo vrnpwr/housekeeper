@@ -33,6 +33,10 @@ class CreatePropertiesTable extends Migration
             $table->string('size')->nullable();
             $table->longText('property_description')->nullable();
             $table->string('property_image')->nullable();
+            $table->string('property_image2')->nullable();
+            $table->string('property_image3')->nullable();
+            $table->string('property_image4')->nullable();
+            $table->string('property_image5')->nullable();
             $table->string('checklist_id')->nullable();
             $table->string('check_in')->nullable();
             $table->string('check_out')->nullable();

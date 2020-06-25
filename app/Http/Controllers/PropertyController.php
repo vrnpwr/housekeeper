@@ -78,6 +78,10 @@ class PropertyController extends Controller
             $data->size = $request->input('size');
             $data->property_description = $request->input('property_description');
             $data->property_image = $request->input('property_image');
+            $data->property_image2 = $request->input('property_image2');
+            $data->property_image3 = $request->input('property_image3');
+            $data->property_image4 = $request->input('property_image4');
+            $data->property_image5 = $request->input('property_image5');
             $data->checklist_id = json_encode($request->input('checklist_id'));
             $data->check_in = $request->input('check_in');
             $data->check_out = $request->input('check_out');
@@ -175,6 +179,10 @@ class PropertyController extends Controller
             $data->size = $request->input('size');
             $data->property_description = $request->input('property_description');
             $data->property_image = $request->input('property_image');
+            $data->property_image2 = $request->input('property_image2');
+            $data->property_image3 = $request->input('property_image3');
+            $data->property_image4 = $request->input('property_image4');
+            $data->property_image5 = $request->input('property_image5');
             $data->checklist_id = $request->input('checklist_id');
             $data->check_in = $request->input('check_in');
             $data->check_out = $request->input('check_out');
