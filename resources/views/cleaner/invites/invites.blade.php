@@ -199,7 +199,6 @@
 $('.cleaner_action').on('click' , function() {
   var value = $(this).attr('data-value');
   var id = $(this).attr('data-id');
-  console.log(value,id);
   var data ={};
   data.status = value;
   data.id = id;

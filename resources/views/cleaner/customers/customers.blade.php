@@ -145,7 +145,6 @@
 						$('div.flash-message').html(data);
 						window.location.reload();
 					})
-
 				},          
 				error: function (jqXHR, textStatus, errorThrown) 
 				{  

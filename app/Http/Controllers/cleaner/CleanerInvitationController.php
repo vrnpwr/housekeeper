@@ -120,6 +120,22 @@ class CleanerInvitationController extends Controller
         }
     }
 
+    // Remove Invitations
+    public function remove_invitation(Request $request){
+        // $id = $request->id;
+        // if(Invite::where([ 'details' => Auth::user()->email ,'id' => $id ])->exists()){
+        //     if($status == 1){
+        //         $data = Invite::where(['details' => Auth::user()->email ,'id' => $id ])->update(['status'=>1]);
+        //         $res =  ($data==1) ? true : false;
+        //         if($res){
+        //             return redirect('/cleaner/invites')->withSuccess('Invite Sent Successfully!');
+        //         }
+        //     }
+        // }else{
+        //     dd("Invitation not found else condition");            
+        // }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
