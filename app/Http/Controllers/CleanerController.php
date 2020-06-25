@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Cleaner;
-use App\Property;
+use App\{Property , Invite , Cleaner , User};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -15,6 +14,23 @@ class CleanerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function availabeCleaners(Request $request){
+    // Get Accepted request Cleaner
+    $cleaners = Invite::where(['user_id' => Auth::user()->id , 'status' => 1])->get();
+    foreach($cleaners as $key=>$cleaner){
+        if($cleaner->invitation_type == 'email'){
+            $cleaners[$key]->cleaner_id = User::where(['email'=>$cleaner->details])->select('id')->first()->id;
+        }
+    }
+    $invites = Invite::where(['user_id' => Auth::user()->id , 'status' => 1])->get(); 
+    foreach($invites as $key=>$value){
+        $ids = json_decode($value->property_ids);
+        $invites[$key]->property_id = $ids;
+    }
+    $properties = Property::all();
+    return view('admin.team.cleaner.view',compact('cleaners','invites','properties'));
+    }
+
     public function index()
     {
         //

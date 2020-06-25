@@ -146,7 +146,8 @@ Route::group(['middleware' => 'web'], function() {
 			
 			/* Cleaner */
 			Route::resource('/cleaner', 'CleanerController');
-			
+			// Available Cleaners
+			Route::get('/available_cleaners' , 'CleanerController@availabeCleaners');
 			/*################ TESTING ROUTES #################*/
 			
 			/*Password Reset */

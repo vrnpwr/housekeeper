@@ -129,7 +129,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('#') }}" class="nav-link">
+        <a href="{{ url('/available_cleaners') }}" class="nav-link">
           <i class="far fa-circle nav-icon"></i>
           <p>Cleaners</p>
         </a>

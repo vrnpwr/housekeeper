@@ -18,7 +18,7 @@
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6 mt-5">
-				<h1 class="m-0 text-dark"><i class="fas fa-home mr-3"></i>Invitations</h1>
+				<h1 class="m-0 text-dark"><i class="fas fa-home mr-3"></i>Pending Invitations</h1>
 			</div>
 			<div class="col-sm-6">
 				<ol class="breadcrumb float-sm-right">
@@ -59,6 +59,10 @@
 							</thead>
 							<tbody>
 								@foreach ($invites as $key=>$invite)
+								@php
+								$status = ($invite->action == 1 || $invite->status == 1) ? false : true;
+								@endphp
+								@if($status)
 								<tr>
 									<td>{{$invite->cleaner_name}}</td>
 									{{-- need to reflect properties details --}}
@@ -94,6 +98,7 @@
 										<p style="font-size: 0.5em; font-weight:600" class="d-inline">Cancel Invitation</p>
 									</td>
 								</tr>
+								@endif
 								@endforeach
 							</tbody>
 						</table>
