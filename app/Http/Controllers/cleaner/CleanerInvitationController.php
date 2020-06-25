@@ -81,7 +81,7 @@ class CleanerInvitationController extends Controller
     // *this function recieved propert_ids array and return property object
     public function getPropertyDetails($request){
         $data = Property::where('id',$request)
-        ->select('property_name','property_address','city','state','country','zipcode')->first();        
+        ->select('property_name','property_address','city','state','country','zipcode','property_image','property_image2','property_image3','property_image4','property_image5')->first();        
         return $data;
     }
 

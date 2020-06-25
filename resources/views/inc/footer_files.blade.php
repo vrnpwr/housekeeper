@@ -66,7 +66,7 @@ FilePond.registerPlugin(
 
     });
     
-    $('input[type="file"]').each((key,each)=>{
+    $('input[name="image"]').each((key,each)=>{
       let element = FilePond.create(each);
       PondManager.list.push(element);
     });

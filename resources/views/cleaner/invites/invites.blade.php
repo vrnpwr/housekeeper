@@ -100,7 +100,7 @@
           {{-- {{ dd($item->property_name) }} --}}
           {{-- <li class="list-group-item">{{ $item }}</li> --}}
           <div class="row p-1 mb-1 box">
-            <div class="col-4">
+            <div class="col-3">
               <p class="font-weight-bold d-inline-block">
                 {{ $item->property_name }}
               </p>
@@ -117,17 +117,47 @@
               <p class="float-float d-block">
                 <small class="text-lead">{{ $invitations_details['invitations_from'][0]->name }}</small>
               </p>
-            </div> {{-- Images --}} <div class="col-4">
+            </div> {{-- Images --}}
+            <div class="col-6">
               @php
               $image = $item->property_image ?
               $item->property_image : 'placeholder/home-placeholder.jpg'
               @endphp
-              <a href="{{ url('/images/'.$image) }}" data-lightbox="property_image" data-title="My caption">
-                <img src="{{ url('/images/'.$image) }}" width="100px" alt="property_image">
-              </a>
+              <div class="mt-3">
+                <a href="{{ url('/images/'.$image) }}" data-lightbox="property_image" data-title="My caption">
+                  <img src="{{ url('/images/'.$image) }}" width="80px" alt="property_image">
+                </a>
+                @if(!is_null($item->property_image2))
+                <a href="{{ url('/images/'.$item->property_image2) }}" data-lightbox="property_image"
+                  data-title="My caption">
+                  <img src="{{ url('/images/'.$item->property_image2) }}" width="80px" alt="property_image">
+                </a>
+                @endif
+
+                @if(!is_null($item->property_image3))
+                <a href="{{ url('/images/'.$item->property_image3) }}" data-lightbox="property_image"
+                  data-title="My caption">
+                  <img src="{{ url('/images/'.$item->property_image3) }}" width="80px" alt="property_image">
+                </a>
+                @endif
+
+                @if(!is_null($item->property_image4))
+                <a href="{{ url('/images/'.$item->property_image4) }}" data-lightbox="property_image"
+                  data-title="My caption">
+                  <img src="{{ url('/images/'.$item->property_image4) }}" width="80px" alt="property_image4">
+                </a>
+                @endif
+
+                @if(!is_null($item->property_image5))
+                <a href=" {{ url('/images/'.$item->property_image5) }}" data-lightbox="property_image"
+                  data-title="My caption">
+                  <img src="{{ url('/images/'.$item->property_image5) }}" width="80px" alt="property_image5">
+                </a>
+                @endif
+              </div>
             </div>
 
-            <div class="col-4 pt-3">
+            <div class=" col-3 pt-3">
               <div class="text-center d-inline-block">
                 <button class="btn btn-success cleaner_action" data-value="1"
                   data-id={{ $invitations_details['invitation_id'][0] }}>Accept</button>
