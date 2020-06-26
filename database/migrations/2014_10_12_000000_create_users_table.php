@@ -33,7 +33,7 @@ class CreateUsersTable extends Migration
             $table->string('region')->nullable();
             $table->string('city')->nullable();
             $table->string('zip_code')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

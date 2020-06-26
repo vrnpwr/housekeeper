@@ -45,7 +45,9 @@ Route::group(['middleware' => 'web'], function() {
 		
 	// Super admin group routes
 	Route::group(['middleware' => ['superadmin'] , 'prefix' => 'admin'], function () {		
-		Route::resource('/dashboard' , 'admin\DashboardController');		
+		Route::resource('/dashboard' , 'admin\DashboardController');
+		Route::get('/host/view' , 'admin\AdminInformationController@view_hosts');
+		Route::get('/cleaner/view' , 'admin\AdminInformationController@view_cleaners');
 		// ######################### FilePond ############################
 		Route::get('/filepond/uploadImage','FilePondController@uploadImage');
 		Route::delete('/filepond/deleteImage','FilePondController@deleteImage');			

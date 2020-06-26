@@ -5,9 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Property;
-use App\Project;
-use App\CheckList;
+use App\{Property,Project,CheckList,User};
 
 class DashboardController extends Controller
 {
@@ -18,12 +16,15 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
+        $inactiveCleaner =  User::where(['type'=>'cleaner','status'=>0])->count();
+        $activeCleaner =  User::where(['type'=>'cleaner','status'=>1])->count();
+        $cleaners = User::where(['type'=>'cleaner'])->count();
+        $hosts = User::where(['type' => 'host'])->count();
         $properiesCount = Property::count();
         $checklistCount = CheckList::count();
         $projectCount = Project::count();
         $title = 'Super Dashboard';
-        return view('admin.index',compact('user','title','properiesCount','checklistCount','projectCount'));
+        return view('superadmin.index',compact('title','properiesCount','checklistCount','projectCount','cleaners','hosts','inactiveCleaner','activeCleaner'));
     }
 
     /**

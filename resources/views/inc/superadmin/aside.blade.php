@@ -55,8 +55,28 @@
             </a>
           </li>
 
+          {{-- Hosts --}}
+          <li class="nav-item">
+            <a href="{{ url('/admin/host/view') }}" class="nav-link">
+              <i class="nav-icon fas fa-h-square"></i>
+              <p>
+                Hosts
+              </p>
+            </a>
+          </li>
+
+          {{-- Cleaners --}}
+          <li class="nav-item">
+            <a href="{{ url('/admin/cleaner/view') }}" class="nav-link">
+              <i class="nav-icon fas fa-broom"></i>
+              <p>
+                Cleaners
+              </p>
+            </a>
+          </li>
+
           <!--  ##############SCHEDULE TREE############## -->
-          <li class="nav-item has-treeview">
+          {{-- <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-clock"></i>
               <p>
@@ -68,75 +88,21 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{ url('/schedule') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Schedule</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ url('/project') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Project</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <!--  ##############SCHEDULE TREE############## -->
-
-          <!--  ##############CHECKLISTS TREE############## -->
-          {{-- <li class="nav-item has-treeview">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-edit"></i>
-            <p>
-              CheckLists
-              <i class="fas fa-angle-left right"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{ url('/mychecklists') }}" class="nav-link">
           <i class="far fa-circle nav-icon"></i>
-          <p>My CheckLists</p>
-  </a>
-  </li> --}}
-
-  {{--  <li class="nav-item">
-                <a href="{{ url('/popularchecklists') }}" class="nav-link">
-  <i class="far fa-circle nav-icon"></i>
-  <p>Popular CheckLists</p>
+          <p>Schedule</p>
   </a>
   </li>
-  --}}
-
-
-  {{-- </ul>
-      </li> --}}
+  <li class="nav-item">
+    <a href="{{ url('/project') }}" class="nav-link">
+      <i class="far fa-circle nav-icon"></i>
+      <p>Project</p>
+    </a>
+  </li>
+  </ul>
+  </li> --}}
+  <!--  ##############SCHEDULE TREE############## -->
   <!--  ############## CHECKLISTS TREE ############## -->
 
-  <!-- ################# My Teams ################# -->
-  <li class="nav-item has-treeview">
-    <a href="#" class="nav-link">
-      <i class="nav-icon fas fa-users"></i>
-      <p>
-        My Team
-        <i class="fas fa-angle-left right"></i>
-      </p>
-    </a>
-    <ul class="nav nav-treeview">
-      <li class="nav-item">
-        <a href="{{ url('/invite') }}" class="nav-link">
-          <i class="far fa-circle nav-icon"></i>
-          <p>Invites</p>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="{{ url('#') }}" class="nav-link">
-          <i class="far fa-circle nav-icon"></i>
-          <p>Cleaners</p>
-        </a>
-      </li>
-
-    </ul>
-  </li>
   <!-- ################# My Teams ################# -->
 
   <!--  ############## SETTING TREE ############## -->
