@@ -85,7 +85,7 @@
                   <div class="form-group">
                     <label for="last_name">Last Name</label>
                     <input type="text" name="last_name" id="last_name" value="{{ $names->last_name }}"
-                      class="form-control" placeholder="first Name">
+                      class="form-control{{ $errors->has('last_name') ? ' has-error' : ''}}" placeholder="first Name">
                     @error('last_name')
                     <span class="text-sm text-danger error">{{ $message }}</span>
                     @enderror
@@ -97,7 +97,8 @@
                 <div class="col-12">
                   <div class="form-group">
                     <label for="website">wesite</label>
-                    <input type="text" name="website" id="website" class="form-control"
+                    <input type="text" name="website" id="website"
+                      class="form-control{{ $errors->has('website') ? ' has-error' : ''}}"
                       placeholder="Website if you have any">
                     @error('website')
                     <span class="text-sm text-danger error">{{ $message }}</span>
@@ -111,7 +112,8 @@
                 <div class="col-4">
                   <div class="form-group">
                     <label for="date_of_birth">Date of birth</label>
-                    <input type="text" name="date_of_birth" id="date_of_birth" class="form-control" placeholder="">
+                    <input type="text" name="date_of_birth" id="date_of_birth"
+                      class="form-control{{ $errors->has('date_of_birth') ? ' has-error' : ''}}" placeholder="">
                     @error('date_of_birth')
                     <span class="text-sm text-danger error">{{ $message }}</span>
                     @enderror
@@ -121,7 +123,8 @@
                 <div class="col-5">
                   <div class="form-group">
                     <label for="">Which Describe you best</label>
-                    <select name="describes" id="describes" class="form-control">
+                    <select name="describes" id="describes"
+                      class="form-control{{ $errors->has('describes') ? ' has-error' : ''}}">
                       <option value="professional">I am a professional cleaner</option>
                       <option value="part_time">I am working part time as a cleaner</option>
                     </select>
@@ -135,7 +138,8 @@
                 <div class="col-3">
                   <div class="form-group">
                     <label for="experience">Years of experience</label>
-                    <input type="number" name="experience" class="form-control" placeholder="">
+                    <input type="number" name="experience"
+                      class="form-control{{ $errors->has('experience') ? ' has-error' : ''}}" placeholder="">
                     @error('experience')
                     <span class="text-sm text-danger error">{{ $message }}</span>
                     @enderror
@@ -148,7 +152,8 @@
                 <div class="col-6">
                   <div class="form-group">
                     <label for="car_access">Do you have access to a car</label>
-                    <select name="car_access" class="form-control" id="">
+                    <select name="car_access" class="form-control{{ $errors->has('car_access') ? ' has-error' : ''}}"
+                      id="">
                       <option value="no">No</option>
                       <option value="yes">Yes</option>
                     </select>
@@ -160,7 +165,8 @@
                 <div class="col-6">
                   <div class="form-group">
                     <label for="">Have you ever convicted of a felony ?</label>
-                    <select name="felony" id="felony" class="form-control">
+                    <select name="felony" id="felony"
+                      class="form-control{{ $errors->has('felony') ? ' has-error' : ''}}">
                       <option value="no">No</option>
                       <option value="yes">Yes</option>
                     </select>
@@ -176,8 +182,12 @@
                 <div class="col-6">
                   <div class="form-group">
                     <label for="">How far are you willing to Travel (in miles)?</label>
-                    <select name="travel" id="travel" class="form-control">
+                    <select name="travel" id="travel"
+                      class="form-control{{ $errors->has('travel') ? ' has-error' : ''}}">
+                      <option value="">-select one-</option>
                       <option value="5">Up to 5 miles</option>
+                      <option value="10">Up to 10 miles</option>
+                      <option value="15">Up to 15 miles</option>
                     </select>
                     @error('travel')
                     <span class="text-sm text-danger error">{{ $message }}</span>
@@ -189,7 +199,8 @@
                 <div class="col-6">
                   <div class="form-group">
                     <label for="vacation_rentals">Have you cleaned vacation rentals before?</label>
-                    <select name="vacation_rentals" id="vacation_rentals" class="form-control">
+                    <select name="vacation_rentals" id="vacation_rentals"
+                      class="form-control{{ $errors->has('vacation_rentals') ? ' has-error' : ''}}">
                       <option value="no">no</option>
                       <option value="yes">yes</option>
                     </select>

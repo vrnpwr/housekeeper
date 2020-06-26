@@ -77,9 +77,8 @@ class cleanerInformationController extends Controller
         ]);
         // If validation failed        
         if ($validator->fails()) {
-            return redirect('/cleaner/dashboard')->withErrors($validator)->withInput();
+            return redirect('/cleaner/information')->withErrors($validator)->withInput();
         }
-
         // dd($request->date_of_birth);
         if( !CleanerInformation::where(['user_id'=>Auth::user()->id])->exists() ){
             $data = new CleanerInformation;

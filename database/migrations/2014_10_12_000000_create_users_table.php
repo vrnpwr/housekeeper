@@ -26,15 +26,14 @@ class CreateUsersTable extends Migration
             $table->string('first_day')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('type')->nullable();
-            
-            $table->mediumText('about')->nullable();
-            
+            $table->string('type')->nullable();            
+            $table->mediumText('about')->nullable();            
             $table->string('address_line1')->nullable();
             $table->string('address_line2')->nullable();
             $table->string('region')->nullable();
             $table->string('city')->nullable();
             $table->string('zip_code')->nullable();
+            $table->string('status')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
