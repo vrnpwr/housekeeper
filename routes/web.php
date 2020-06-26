@@ -49,7 +49,14 @@ Route::group(['middleware' => 'web'], function() {
 		Route::get('/host/view' , 'admin\AdminInformationController@view_hosts');
 		Route::get('/cleaner/view' , 'admin\AdminInformationController@view_cleaners');
 		Route::get('/property/view' , 'admin\AdminInformationController@view_properties');
-		// ######################### FilePond ############################
+		// ######################### Setttings ##########################
+		//  Profile 
+		Route::resource('/profile','admin\ProfileController');
+		Route::post('/profile/checkOldPassword','admin\ProfileController@checkOldPassword');
+		Route::post('/profile/deleteImage','admin\ProfileController@deleteImage');
+		//  Setttings
+
+		//  FilePond 
 		Route::get('/filepond/uploadImage','FilePondController@uploadImage');
 		Route::delete('/filepond/deleteImage','FilePondController@deleteImage');			
 	});

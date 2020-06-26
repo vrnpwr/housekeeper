@@ -33,7 +33,7 @@ class AdminInformationController extends Controller
         }
     }
 
-    // This function show all available Properties which are available in our App
+    // This function show all available Properties which  in our App
     public function view_properties(){
         if(Property::exists()){
             $properties = Property::all();

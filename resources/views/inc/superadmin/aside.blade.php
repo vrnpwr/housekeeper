@@ -117,25 +117,25 @@
 
     <ul class="nav nav-treeview">
       <li class="nav-item">
-        <a href="{{ url('/profile') }}" class="nav-link">
+        <a href="{{ url('/admin/profile') }}" class="nav-link">
           <i class="far fa-circle nav-icon"></i>
           <p>Profile</p>
         </a>
       </li>
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a href="{{ url('/notification') }}" class="nav-link">
-          <i class="far fa-circle nav-icon"></i>
-          <p>Notification</p>
-        </a>
-      </li>
+      <i class="far fa-circle nav-icon"></i>
+      <p>Notification</p>
+      </a>
+  </li> --}}
 
-      <li class="nav-item">
+  {{-- <li class="nav-item">
         <a href="{{ url('/project-settings') }}" class="nav-link">
-          <i class="far fa-circle nav-icon"></i>
-          <p>Projects</p>
-        </a>
-      </li>
-    </ul>
+  <i class="far fa-circle nav-icon"></i>
+  <p>Projects</p>
+  </a>
+  </li> --}}
+  </ul>
 
   </li>
   <!--  ##############SETTING TREE############## -->
