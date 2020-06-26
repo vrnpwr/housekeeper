@@ -11,12 +11,12 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6 mt-5">
-        <h1 class="m-0 text-dark"><i class="fas fa-broom mr-3"></i>Available Cleaners</h1>
+        <h1 class="m-0 text-dark"><i class="fas fa-broom mr-3"></i>Cleaner Information</h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item active">Cleaners</li>
+          <li class="breadcrumb-item active">Cleaner information </li>
         </ol>
       </div><!-- /.col -->
     </div><!-- /.row -->
@@ -32,54 +32,62 @@
       <div class="col-12">
         <div class="card">
           <div class="card-header">
-
+            References and Identity information of <b>{{ $cleanerName}}</b>
           </div>
           <!-- /.card-header -->
           <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped">
+            {{-- References Table --}}
+            <table id="" class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th>Name</th>
+                  <th>Reference Name</th>
                   <th>Email</th>
-                  <th>Status</th>
-                  <th>Registered on</th>
-                  <th>Details</th>
-                  <th>Action</th>
+                  <th>Phone</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach ($cleaners as $key=>$cleaner)
                 <tr>
-                  <td>{{$cleaner->name .' '. $cleaner->last_name}}</td>
-                  <td>{{$cleaner->email}}</td>
-                  <td>{{$cleaner->status}}</td>
-                  <td>{{$cleaner->created_at->diffForHumans() }}</td>
-                  <td>
-                    @if ($cleaner->details == 'available')
-                    <a href="{{ url('/admin/cleaner/details/'.$cleaner->id) }}" data-id="{{ $cleaner->id }}">
-                      <button type="button" class="btn btn-default btn-sm mr-1"><i
-                          class="fas mr-1 fa-info"></i>Details</button>
-                    </a>
-                    @else
-                    <button type="button" class="btn btn-default btn-sm disabled mr-1"><i
-                        class="fas mr-1 fa-info"></i>Details</button>
-                    @endif
-                  </td>
-                  <td>
-                    {{-- Approve --}}
-                    <button
-                      class="btn btn-default btn-sm mr-1 @if($cleaner->status == 'not_approve') approve @endif @if($cleaner->status == 'approve') disabled  @endif"><i
-                        class="far mr-1 fa-thumbs-up fa-lg"></i>Approve</button>
-                    {{-- Disapprove --}}
-                    <button
-                      class="btn btn-default btn-sm mr-1 @if($cleaner->status == 'approve') disapprove @endif    @if($cleaner->status == 'not_approve') disabled  @endif"><i
-                        class="far mr-1 fa-thumbs-down fa-lg"></i>Disapprove</button>
-                  </td>
+                  <td>{{ $references->name }}</td>
+                  <td>{{ $references->email }}</td>
+                  <td>{{ $references->phone }}</td>
                 </tr>
-                @endforeach
+                @if(!is_null($references->name1))
+                <tr>
+                  <td>{{ $references->name1 }}</td>
+                  <td>{{ $references->email1 }}</td>
+                  <td>{{ $references->phone1 }}</td>
+                </tr>
+                @endif
               </tbody>
             </table>
+            {{-- Identity Proofs --}}
+            <div class="row mt-3">
+              <div class="col-3">
+                <div class="form-group">
+                  <label class="d-block">Identity Front</label>
+                  <img src="{{ url('images/'.$identityFront) }}" alt="" width="150">
+                </div>
+              </div>
 
+              <div class="col-3">
+                <div class="form-group">
+                  <label class="d-block">Identity Back</label>
+                  <img src="{{ url('images/'.$identityBack) }}" alt="" width="150">
+                </div>
+              </div>
+              <div class="col-3 mt-5">
+                <button type="button"
+                  class="btn btn-success @if($status == 'disapprove') approve @endif @if($status == 'approve') disabled  @endif"
+                  data-id="{{$id}}">Approve</button>
+              </div>
+
+              <div class="col-3 mt-5">
+                <button type="button"
+                  class="btn btn-danger @if($status == 'approve') disapprove @endif    @if($status == 'disapprove') disabled  @endif"
+                  data-id="{{$id}}">Disapprove</button>
+              </div>
+
+            </div>
           </div>
           <!-- /.card-body -->
         </div>
@@ -105,7 +113,8 @@
 <script>
   // Delete Function 
 	setInterval(function(){
-    $(".approve").on("click",function(e){
+// Remove Invitation
+$(".approve").on("click",function(e){
 	e.preventDefault();    
 	Swal.fire({
 		title: 'Are you sure?',

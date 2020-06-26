@@ -49,6 +49,11 @@ Route::group(['middleware' => 'web'], function() {
 		Route::get('/host/view' , 'admin\AdminInformationController@view_hosts');
 		Route::get('/cleaner/view' , 'admin\AdminInformationController@view_cleaners');
 		Route::get('/property/view' , 'admin\AdminInformationController@view_properties');
+		// ######################### Cleaner Details ####################
+		Route::get('/cleaner/details/{id}' , 'admin\CleanerDetailController@cleaner_details');
+		// Approve Cleaner 
+		Route::post('/approve_cleaner' , 'admin\ActionController@approve_cleaner');
+		Route::post('/disapprove_cleaner' , 'admin\ActionController@disapprove_cleaner');
 		// ######################### Setttings ##########################
 		//  Profile 
 		Route::resource('/profile','admin\ProfileController');

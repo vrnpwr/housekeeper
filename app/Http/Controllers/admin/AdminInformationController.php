@@ -4,7 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\{User,Property,Project};
+use App\{User,Property,Project,cleanerInformation};
 
 class AdminInformationController extends Controller
 {
@@ -27,7 +27,8 @@ class AdminInformationController extends Controller
         if(User::where(['type' => 'cleaner'])->exists()){
             $cleaners = User::where(['type' => 'cleaner'])->get();
             foreach($cleaners as $key=>$val){
-                $cleaners[$key]->status = ( User::where(['id'=> $val->id , 'status' => 1])->exists() ) ? 'approve' : 'not approve';
+                $cleaners[$key]->status = ( User::where(['id'=> $val->id , 'status' => 1])->exists() ) ? 'approve' : 'not_approve';
+                $cleaners[$key]->details = ( cleanerInformation::where(['user_id'=> $val->id])->exists() ) ? 'available' : 'not_available';
             }
             return view('superadmin.cleaner.view',compact('cleaners'));
         }
