@@ -33,6 +33,11 @@
         <div class="card">
           <div class="card-header">
             References and Identity information of <b>{{ $cleanerName}}</b>
+            @if($status == 'approve')
+            <p class="d-inline-block float-right text-success"><b>(This Profile is approved)</b></p>
+            @else
+            <p class="d-inline-block float-right text-danger"><b>(This Profile is not approved yet)</b></p>
+            @endif
           </div>
           <!-- /.card-header -->
           <div class="card-body">

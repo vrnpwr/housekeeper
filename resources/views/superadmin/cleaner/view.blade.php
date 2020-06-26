@@ -44,7 +44,7 @@
                   <th>Status</th>
                   <th>Registered on</th>
                   <th>Details</th>
-                  <th>Action</th>
+                  {{-- <th>Action</th> --}}
                 </tr>
               </thead>
               <tbody>
@@ -65,16 +65,14 @@
                         class="fas mr-1 fa-info"></i>Details</button>
                     @endif
                   </td>
-                  <td>
-                    {{-- Approve --}}
+                  {{-- <td>
                     <button
                       class="btn btn-default btn-sm mr-1 @if($cleaner->status == 'not_approve') approve @endif @if($cleaner->status == 'approve') disabled  @endif"><i
                         class="far mr-1 fa-thumbs-up fa-lg"></i>Approve</button>
-                    {{-- Disapprove --}}
                     <button
                       class="btn btn-default btn-sm mr-1 @if($cleaner->status == 'approve') disapprove @endif    @if($cleaner->status == 'not_approve') disabled  @endif"><i
                         class="far mr-1 fa-thumbs-down fa-lg"></i>Disapprove</button>
-                  </td>
+                  </td> --}}
                 </tr>
                 @endforeach
               </tbody>
