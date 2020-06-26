@@ -8,7 +8,7 @@
   @if($prefix == 'host' )
   <a href="{{ url('dashboard') }}" class="brand-link">
     @else
-    <a href="{{ url($prefix.'/dashboard') }}" class="brand-link">
+    <a href="{{ url('/admin/dashboard') }}" class="brand-link">
       @endif
       <img src="{{ asset('admin-lte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
         class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -37,7 +37,7 @@
            with font-awesome or any other icon font library -->
           @if(Auth::user()->type == 'host' || Auth::user()->type == 'SuperAdmin')
           <li class="nav-item">
-            <a href="{{ url('/home') }}" class="nav-link">
+            <a href="{{ url('admin/dashboard') }}" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -47,7 +47,7 @@
 
 
           <li class="nav-item">
-            <a href="{{ url('/property') }}" class="nav-link">
+            <a href="{{ url('/admin/property/view') }}" class="nav-link">
               <i class="nav-icon fas fa-hotel"></i>
               <p>
                 Properties

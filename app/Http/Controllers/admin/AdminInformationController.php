@@ -27,9 +27,17 @@ class AdminInformationController extends Controller
         if(User::where(['type' => 'cleaner'])->exists()){
             $cleaners = User::where(['type' => 'cleaner'])->get();
             foreach($cleaners as $key=>$val){
-                $cleaners[$key]->status = ( User::where(['id'=> $val->id , 'status' => 0])->exists() ) ? 'approve' : 'not approve';
+                $cleaners[$key]->status = ( User::where(['id'=> $val->id , 'status' => 1])->exists() ) ? 'approve' : 'not approve';
             }
             return view('superadmin.cleaner.view',compact('cleaners'));
+        }
+    }
+
+    // This function show all available Properties which are available in our App
+    public function view_properties(){
+        if(Property::exists()){
+            $properties = Property::all();      
+            return view('superadmin.property.view',compact('properties'));
         }
     }
 }

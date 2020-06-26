@@ -48,6 +48,7 @@ Route::group(['middleware' => 'web'], function() {
 		Route::resource('/dashboard' , 'admin\DashboardController');
 		Route::get('/host/view' , 'admin\AdminInformationController@view_hosts');
 		Route::get('/cleaner/view' , 'admin\AdminInformationController@view_cleaners');
+		Route::get('/property/view' , 'admin\AdminInformationController@view_properties');
 		// ######################### FilePond ############################
 		Route::get('/filepond/uploadImage','FilePondController@uploadImage');
 		Route::delete('/filepond/deleteImage','FilePondController@deleteImage');			
