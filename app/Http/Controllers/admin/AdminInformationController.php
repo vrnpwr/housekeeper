@@ -36,7 +36,11 @@ class AdminInformationController extends Controller
     // This function show all available Properties which are available in our App
     public function view_properties(){
         if(Property::exists()){
-            $properties = Property::all();      
+            $properties = Property::all();
+            foreach($properties as $key=>$property) {
+                $properties[$key]->owner = User::where(['id' => $property->user_id])->first()->name .' '. User::where(['id' => $property->user_id])->first()->last_name;
+                $properties[$key]->owner_email = User::where(['id' => $property->user_id])->first()->email;
+            }
             return view('superadmin.property.view',compact('properties'));
         }
     }

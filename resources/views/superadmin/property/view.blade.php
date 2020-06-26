@@ -1,18 +1,10 @@
 @extends('layouts.superadmin')
-
 @section('content')
-
-
 @push('styles')
-
+<link href="{{ asset('plugins/lightbox_2/dist/css/lightbox.css') }}" rel="stylesheet" />
 <style type="text/css">
-
 </style>
-
-
 @endpush
-
-
 <!-- Content Header (Page header) -->
 <div class="content-header">
   <div class="container-fluid">
@@ -47,18 +39,22 @@
             <table id="example1" class="table table-bordered table-striped">
               <thead>
                 <tr>
+                  <th>Owner Detail</th>
                   <th>Property Name</th>
                   <th style="width: 15%">Address</th>
                   <th>City</th>
                   <th>States</th>
                   <th>Images</th>
                   <th>Created At</th>
-                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
                 @foreach ($properties as $key=>$property)
                 <tr>
+                  <td>
+                    <span class="font-weight-bold">{{ $property->owner }}</span> <br>
+                    <span class="small">{{ $property->owner_email }}</span>
+                  </td>
                   <td>{{$property->property_name}}</td>
                   <td>{{$property->property_address}}</td>
                   <td>{{$property->city}}</td>
@@ -66,33 +62,37 @@
                   <td>
                     {{-- image one --}}
                     @if(!is_null($property->property_image))
-                    <img src="{{ url('images/'.$property->property_image) }}" alt="Property image one" width="30">
+                    <a href=" {{ url('/images/'.$property->property_image) }}" data-lightbox="property_image"
+                      data-title="property_{{$key+1}}">
+                      <img src="{{ url('images/'.$property->property_image) }}" alt="Property image one" width="30">
+                    </a>
                     @endif
                     @if(!is_null($property->property_image2))
-                    <img src="{{ url('images/'.$property->property_image2) }}" alt="Property image two" width="30">
+                    <a href=" {{ url('/images/'.$property->property_image2) }}" data-lightbox="property_image"
+                      data-title="property_{{$key+1}}">
+                      <img src="{{ url('images/'.$property->property_image2) }}" alt="Property image two" width="30">
+                    </a>
                     @endif
                     @if(!is_null($property->property_image3))
-                    <img src="{{ url('images/'.$property->property_image3) }}" alt="Property image three" width="30">
+                    <a href=" {{ url('/images/'.$property->property_image3) }}" data-lightbox="property_image"
+                      data-title="property_{{$key+1}}">
+                      <img src="{{ url('images/'.$property->property_image3) }}" alt="Property image three" width="30">
+                    </a>
                     @endif
                     @if(!is_null($property->property_image4))
-                    <img src="{{ url('images/'.$property->property_image4) }}" alt="Property image four" width="30">
+                    <a href=" {{ url('/images/'.$property->property_image4) }}" data-lightbox="property_image"
+                      data-title="property_{{$key+1}}">
+                      <img src="{{ url('images/'.$property->property_image4) }}" alt="Property image four" width="30">
+                    </a>
                     @endif
                     @if(!is_null($property->property_image5))
-                    <img src="{{ url('images/'.$property->property_image5) }}" alt="Property image five" width="30">
+                    <a href=" {{ url('/images/'.$property->property_image5) }}" data-lightbox="property_image"
+                      data-title="property_{{$key+1}}">
+                      <img src="{{ url('images/'.$property->property_image5) }}" alt="Property image five" width="30">
+                    </a>
                     @endif
                   </td>
                   <td>{{$property->created_at->diffForHumans() }}</td>
-                  <td>
-                    <a href="#" data-id="{{$property->id}}" class="btn btn-default resend">
-                      <i class="far fa-eye"></i>
-                    </a>
-                    <p style="font-size: 0.5em; font-weight:600" class="d-inline">View Properties</p>
-                    <!-- Delete -->
-                    <a href="#" class="btn btn-default delete mr-invite3" data-id="{{$property->id}}">
-                      <i class="far fa-eye"></i>
-                    </a>
-                    <p style="font-size: 0.5em; font-weight:600" class="d-inline">View Projects</p>
-                  </td>
                 </tr>
                 @endforeach
               </tbody>
@@ -120,116 +120,14 @@
 <!-- /.content-wrapper -->
 
 @push('script')
+<script src="{{ asset('plugins/lightbox_2/dist/js/lightbox.js') }}"></script>
 <script>
-  // Delete Function 
-	setInterval(function(){
-// Remove Invitation
-$(".delete").on("click",function(e){
-	e.preventDefault();    
-	Swal.fire({
-		title: 'Are you sure?',
-		text: "You won't be able to revert this!",
-		icon: 'warning',
-		showCancelButton: true,
-		confirmButtonColor: '#3085d6',
-		cancelButtonColor: '#d33',
-		confirmButtonText: 'Yes, Remove it!'
-	}).then((result) => {
-		if (result.value) {
-			var id = $(this).data("id");
-			console.log("post ID is "+ id);
-			var token = $("meta[name='csrf-token']").attr("content");
-			$.ajax(
-			{
-				url: "invite/"+id,
-				type: 'DELETE',
-				data: {
-					"id": id,
-					"_token": token,
-				},
-				success:function(data){
-					Swal.fire({
-						position: 'top-end',
-						icon: 'success',
-						title: 'Your work has been saved',
-						showConfirmButton: false,
-						timer: 1500
-					})
-					.then(() => {
-						$('div.flash-message').html(data);
-						// window.location.reload();
-					})
-
-				},          
-				error: function (jqXHR, textStatus, errorThrown) 
-				{  
-					swal.fire({
-						title: "Something error",
-						text: "Check input fields!",
-						icon: "warning",
-						buttons: true,
-						dangerMode: true,
-					})
-				}
-			});
-		}
-	})
-	
+  $(document).ready(function () {
+  lightbox.option({
+      'resizeDuration': 1000,
+      'wrapAround': true
+  })  
 });
-// Resent Code
-$(".resend").on("click" , function(e){
-	e.preventDefault();    
-	Swal.fire({
-		title: 'Are you sure?',
-		text: "Resent Invitation to Cleaner!",
-		icon: 'info',
-		showCancelButton: true,
-		confirmButtonColor: '#3085d6',
-		cancelButtonColor: '#d33',
-		confirmButtonText: 'Yes, Resent!'
-	}).then((result) => {
-		if (result.value) {
-			var id = $(this).data("id");
-			console.log("Resent Id is "+ id);
-			var token = $("meta[name='csrf-token']").attr("content");
-			$.ajax(
-			{
-				url: "invite/resent/"+id,
-				type: 'get',
-				data: {
-					"id": id,
-					"_token": token,
-				},
-				success:function(data){
-					Swal.fire({
-						position: 'top-end',
-						icon: 'success',
-						title: 'Invitation Successfully resent to Cleaner',
-						showConfirmButton: false,
-						timer: 1500
-					})
-					.then(() => {
-						$('div.flash-message').html(data);
-						// window.location.reload();
-					})
-
-				},          
-				error: function (jqXHR, textStatus, errorThrown) 
-				{  
-					swal.fire({
-						title: "Something error",
-						text: "Check input fields!",
-						icon: "warning",
-						buttons: true,
-						dangerMode: true,
-					})
-				}
-			});
-		}
-	})
-});
-
-},1000);
 </script>
 @endpush
 
