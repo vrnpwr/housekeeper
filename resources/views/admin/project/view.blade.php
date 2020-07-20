@@ -64,6 +64,7 @@
 
 
 								</ul>
+<<<<<<< Updated upstream
 							</div>
 							<div class="card-body">
 								<div class="tab-content" id="custom-tabs-three-tabContent">
@@ -124,6 +125,107 @@
 										<!-- /.card -->
 
 
+=======
+								<div class="resp-tabs-container hor_1">
+									<div>
+										<p>
+											<!--vertical Tabs-->
+											<div id="ChildVerticalTab_1">
+												<ul class="resp-tabs-list ver_1">
+													@if(isset($invites) && !is_null($invites))
+													@foreach ($invites as $key=>$invite)
+													<li><span class="pending_status">{{ ($invite->invite_status) ? 'Accepted' :'Pending'  }}
+														</span><span class="time_status"> {{ $invite->check_in }}</span>
+														<span class="code_tag"> {{ $invite->invitation_code }} <span class="pending_city">
+																{{ $invite->country }}</span></span>
+														{{-- <p class="unassigned_class"> Unassigned</p> --}}
+													</li>
+													@endforeach
+													@endif
+												</ul>
+												<div class="resp-tabs-container ver_1">
+													@if(isset($invites) && !is_null($invites))
+													@foreach ($invites as $key=>$invite)
+													<div class="view_pending_accepted">
+														<div class="schedule_projects_info">
+															<h6 class="project_codes">Project #{{ $invite->invitation_code }}</h6>
+															<h4 class="city_view_name">{{ ucfirst($invite->property_name) }}</h4>
+															<h6 class="project_codes">Cleaner: Unassigned</h6>
+															<h6 class="available_cleaner">Available to these cleaners</h6>
+															<div class="start_end_time">
+																<div class="row">
+																	<div class="col-lg-6">
+																		<div class="start_time_section">
+																			<h6 class="project_codes"> Start Time</h6>
+																			<h4 class="start_time">{{ $invite->checkin }}</h4>
+																			<p class="start_time_date"> Jul 18 (Sat)</p>
+																		</div>
+																	</div>
+																	<div class="col-lg-6">
+																		<div class="start_time_section">
+																			<h6 class="project_codes"> End Time</h6>
+																			<h4 class="start_time">{{ $invite->checkout }}</h4>
+																			<p class="start_time_date"> Jul 18 (Sat)</p>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div class="unpublish_area">
+																<div class="d-flex text-center">
+																	<div
+																		style="border-radius: 50%; width: 15px; height: 15px; background-color: rgb(255, 59, 48);">
+																	</div>
+																	<span class=""> Unpublished</span>
+																</div>
+															</div>
+															<div class="list_created">
+																<p class="last_updated"><i class="fa fa-refresh" aria-hidden="true"></i> Last update:
+																	<span> Project Created</span></p>
+																<p class="last_updated"> <i class="fa fa-map-marker" aria-hidden="true"></i>
+																	{{ $invite->country .' , '. $invite->state .' , '. $invite->city}}</p>
+																<p class="last_updated"> <i class="fa fa-list" aria-hidden="true"></i> Checklist:<span>
+																		New Checklist</span></p>
+																<p class="last_updated"> <i class="fa fa-sticky-note" aria-hidden="true"></i> Private
+																	notes:<span> Reservation URL </span> Guest phone ends: 5097</p>
+															</div>
+
+															{{-- Quotes Display--}}
+															<div class="list_created">
+																@if(isset($invite->quotes_array) && $invite->quote_status)
+																<label class="m-2">
+																	Quotes Recieved
+																</label>
+																@foreach ($invite->quotes_array as $key=>$quote)
+																<div class="last_updated"><i class="fa fa-refresh" aria-hidden="true"></i>
+																	<span>Name : </span>
+																	{{ $invite->cleaner_information[$key]['name'] }},
+																	<div class="d-inline text-center">
+																		<span>Offer Price : </span>{{ $quote->price }}
+																	</div>
+																	, <span>message : </span> {{ Str::limit($quote->message, 30) }}
+																	<a href="{{ url('/chatbox') }}">
+																		<button class="btn btn-info float-right btn-sm">
+																			<i class="far fa-envelope"></i>
+																		</button>
+																	</a>
+																</div>
+																@endforeach
+																@else
+																<label class="m-2">
+																	No Quotes Recieved yet...
+																</label>
+																@endif
+															</div>
+														</div>
+
+													</div>
+													@endforeach
+													@endif
+												</div>
+											</div>
+										</p>
+										<p style="color:#fff;">Tab 2 Container</p>
+>>>>>>> Stashed changes
 									</div>
 
 									<div class="tab-pane fade" id="accepted" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
